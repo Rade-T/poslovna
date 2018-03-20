@@ -25,6 +25,52 @@ public class Otpremnica {
 	@Column(nullable = false, precision = 15)
 	public float iznosZaPlacanje;
 	
+	public Otpremnica() {
+		
+	}
+
+	public int getBrojOtpremnice() {
+		return brojOtpremnice;
+	}
+
+	public void setBrojOtpremnice(int brojOtpremnice) {
+		this.brojOtpremnice = brojOtpremnice;
+	}
+
+	public Date getDatumOtpremnice() {
+		return datumOtpremnice;
+	}
+
+	public void setDatumOtpremnice(Date datumOtpremnice) {
+		this.datumOtpremnice = datumOtpremnice;
+	}
+
+	public float getOsnovica() {
+		return osnovica;
+	}
+
+	public void setOsnovica(float osnovica) {
+		this.osnovica = osnovica;
+	}
+
+	public float getUkupanPdv() {
+		return ukupanPdv;
+	}
+
+	public void setUkupanPdv(float ukupanPdv) {
+		this.ukupanPdv = ukupanPdv;
+	}
+
+	public float getIznosZaPlacanje() {
+		return iznosZaPlacanje;
+	}
+
+	public void setIznosZaPlacanje(float iznosZaPlacanje) {
+		this.iznosZaPlacanje = iznosZaPlacanje;
+	}
+	
+	
+	
 	/*
 	@ManyToOne
 	public PoslovniPartner poslovniPartner;
