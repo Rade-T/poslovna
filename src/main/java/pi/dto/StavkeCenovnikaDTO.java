@@ -1,23 +1,26 @@
-package pi.model;
+package pi.dto;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import pi.model.Cenovnik;
 
-public class StavkeCenovnika {
+public class StavkeCenovnikaDTO {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="stavke_id",unique=true,nullable=false)
 	public int Id;	
 	
-	@Column(nullable = false, precision = 10)
 	public float jedinicnaCena;
 	
-	@ManyToOne
 	public Cenovnik cenovnik;
+	
+	public StavkeCenovnikaDTO(){
+		
+	}
+	
+	public StavkeCenovnikaDTO(StavkeCenovnikaDTO dto) {
+		super();
+		this.Id = dto.getId();
+		this.jedinicnaCena = dto.getJedinicnaCena();
+		this.cenovnik = dto.getCenovnik();
+	}
+
 
 	public int getId() {
 		return Id;
@@ -42,11 +45,6 @@ public class StavkeCenovnika {
 	public void setCenovnik(Cenovnik cenovnik) {
 		this.cenovnik = cenovnik;
 	}
-	
-	/*
-	@ManyToOne
-	public RobaUsluga robaUsluga;*/
-	
 	
 	
 

@@ -26,7 +26,34 @@ public class Cenovnik {
 	@ManyToOne
 	public Preduzece preduzece;
 	
-	@OneToMany(mappedBy="cenovnik")
-	public List<StavkeCenovnika> stavkeCenovnika;
+
+	public int getId() {
+		return Id;
+	}
+
+	public void setId(int id) {
+		Id = id;
+	}
+
+	public Date getDatumPrimene() {
+		return datumPrimene;
+	}
+
+	public void setDatumPrimene(Date datumPrimene) {
+		this.datumPrimene = datumPrimene;
+	}
+
+	public Preduzece getPreduzece() {
+		return preduzece;
+	}
+
+	public void setPreduzece(Preduzece preduzece) {
+		this.preduzece = preduzece;
+	}
+	
+	/*@OneToMany(mappedBy="cenovnik")
+	public List<StavkeCenovnika> stavkeCenovnika;*/
+	
+	
 
 }
