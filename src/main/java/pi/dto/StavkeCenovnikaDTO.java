@@ -1,6 +1,7 @@
 package pi.dto;
 
 import pi.model.Cenovnik;
+import pi.model.StavkeCenovnika;
 
 public class StavkeCenovnikaDTO {
 	
@@ -14,7 +15,7 @@ public class StavkeCenovnikaDTO {
 		
 	}
 	
-	public StavkeCenovnikaDTO(StavkeCenovnikaDTO dto) {
+	public StavkeCenovnikaDTO(StavkeCenovnika dto) {
 		super();
 		this.Id = dto.getId();
 		this.jedinicnaCena = dto.getJedinicnaCena();
