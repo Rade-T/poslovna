@@ -26,6 +26,7 @@ public class Grupa {
 	//public List<RobaUsluga> robaUsluga;
 	//@ManyToOne
 	//public Porez porez;
+	//
 
 	public int getId() {
 		return id;
