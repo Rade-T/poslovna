@@ -14,7 +14,7 @@ public class Narudzbenica {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="narudzbenica_id", unique=true, nullable=false)
-	public int brojNarudzbenice;
+	public int id;
 	
 	@Column(unique=false)
 	public float kolicina;
@@ -27,16 +27,18 @@ public class Narudzbenica {
 	//@OneToMany(mappedBy="narudzbenica")
 	//public list <StavkaNarudzbenice> stavkeNarudzbenice;
 
-	public int getBrojNarudzbenice() {
-		return brojNarudzbenice;
-	}
-
-	public void setBrojNarudzbenice(int brojNarudzbenice) {
-		this.brojNarudzbenice = brojNarudzbenice;
-	}
+	
 
 	public float getKolicina() {
 		return kolicina;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public void setKolicina(float kolicina) {
