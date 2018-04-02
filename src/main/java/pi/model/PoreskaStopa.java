@@ -21,8 +21,8 @@ public class PoreskaStopa {
 	@ManyToOne
 	public IstorijaPoreza istorijaPoreza;
 	
-	/*@ManyToOne
-	public Porez porez;*/
+	@ManyToOne
+	public Porez porez;
 	
 
 	public int getId() {
@@ -48,6 +48,16 @@ public class PoreskaStopa {
 	public void setIstorijaPoreza(IstorijaPoreza istorijaPoreza) {
 		this.istorijaPoreza = istorijaPoreza;
 	}
+
+	public Porez getPorez() {
+		return porez;
+	}
+
+	public void setPorez(Porez porez) {
+		this.porez = porez;
+	}
+	
+	
 	
 	
 	

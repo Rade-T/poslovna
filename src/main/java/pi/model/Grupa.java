@@ -24,9 +24,9 @@ public class Grupa {
 	
 	//@OneToMany(mappedBy="grupa")
 	//public List<RobaUsluga> robaUsluga;
-	//@ManyToOne
-	//public Porez porez;
-	//
+	@ManyToOne
+	public Porez porez;
+	
 
 	public int getId() {
 		return id;
@@ -51,5 +51,15 @@ public class Grupa {
 	public void setPreduzece(Preduzece preduzece) {
 		this.preduzece = preduzece;
 	}
+
+	public Porez getPorez() {
+		return porez;
+	}
+
+	public void setPorez(Porez porez) {
+		this.porez = porez;
+	}
+	
+	
 	
 }
