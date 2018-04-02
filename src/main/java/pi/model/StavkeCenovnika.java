@@ -19,6 +19,9 @@ public class StavkeCenovnika {
 	@ManyToOne
 	public Cenovnik cenovnik;
 
+	@ManyToOne
+	public RobaUsluga robaUsluga;
+	
 	public int getId() {
 		return Id;
 	}
@@ -42,12 +45,12 @@ public class StavkeCenovnika {
 	public void setCenovnik(Cenovnik cenovnik) {
 		this.cenovnik = cenovnik;
 	}
-	
-	/*
-	@ManyToOne
-	public RobaUsluga robaUsluga;*/
-	
-	
-	
 
+	public RobaUsluga getRobaUsluga() {
+		return robaUsluga;
+	}
+
+	public void setRobaUsluga(RobaUsluga robaUsluga) {
+		this.robaUsluga = robaUsluga;
+	}
 }

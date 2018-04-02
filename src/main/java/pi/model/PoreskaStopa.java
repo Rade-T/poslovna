@@ -56,10 +56,4 @@ public class PoreskaStopa {
 	public void setPorez(Porez porez) {
 		this.porez = porez;
 	}
-	
-	
-	
-	
-	
-	
 }

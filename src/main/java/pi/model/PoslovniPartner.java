@@ -30,4 +30,60 @@ public class PoslovniPartner {
 	
 	@OneToMany(mappedBy="poslovniPartner")
 	public List<Narudzbenica> narudzbenica;
+
+	public String getNazivPartnera() {
+		return nazivPartnera;
+	}
+
+	public void setNazivPartnera(String nazivPartnera) {
+		this.nazivPartnera = nazivPartnera;
+	}
+
+	public String getAdresa() {
+		return adresa;
+	}
+
+	public void setAdresa(String adresa) {
+		this.adresa = adresa;
+	}
+
+	public String getVrstaPartnera() {
+		return vrstaPartnera;
+	}
+
+	public void setVrstaPartnera(String vrstaPartnera) {
+		this.vrstaPartnera = vrstaPartnera;
+	}
+
+	public List<IzlaznaFaktura> getIzlaznaFaktura() {
+		return izlaznaFaktura;
+	}
+
+	public void setIzlaznaFaktura(List<IzlaznaFaktura> izlaznaFaktura) {
+		this.izlaznaFaktura = izlaznaFaktura;
+	}
+
+	public Preduzece getPreduzece() {
+		return preduzece;
+	}
+
+	public void setPreduzece(Preduzece preduzece) {
+		this.preduzece = preduzece;
+	}
+
+	public List<Otpremnica> getOtpremnica() {
+		return otpremnica;
+	}
+
+	public void setOtpremnica(List<Otpremnica> otpremnica) {
+		this.otpremnica = otpremnica;
+	}
+
+	public List<Narudzbenica> getNarudzbenica() {
+		return narudzbenica;
+	}
+
+	public void setNarudzbenica(List<Narudzbenica> narudzbenica) {
+		this.narudzbenica = narudzbenica;
+	}
 }

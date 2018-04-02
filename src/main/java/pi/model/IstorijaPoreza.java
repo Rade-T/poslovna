@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import antlr.collections.List;
+import java.util.List;
 
 @Entity
 public class IstorijaPoreza {
@@ -26,8 +26,8 @@ public class IstorijaPoreza {
 	@ManyToOne
 	public Preduzece preduzece;
 	
-	//@OneToMany(mappedBy="istorijaPoreza")
-	//public List<PoreskaStopa> poreskaStopa;
+	@OneToMany(mappedBy="istorijaPoreza")
+	public List<PoreskaStopa> poreskaStopa;
 		
 
 	public int getId() {
@@ -52,6 +52,14 @@ public class IstorijaPoreza {
 
 	public void setPreduzece(Preduzece preduzece) {
 		this.preduzece = preduzece;
+	}
+
+	public List<PoreskaStopa> getPoreskaStopa() {
+		return poreskaStopa;
+	}
+
+	public void setPoreskaStopa(List<PoreskaStopa> poreskaStopa) {
+		this.poreskaStopa = poreskaStopa;
 	}
 	
 }

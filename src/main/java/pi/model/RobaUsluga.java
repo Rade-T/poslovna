@@ -30,4 +30,60 @@ public class RobaUsluga {
 	
 	@OneToMany(mappedBy="robaUsluga")
 	public List<StavkaNarudzbenice> stavkeNarudzbenice;
+
+	public String getNaziv() {
+		return naziv;
+	}
+
+	public void setNaziv(String naziv) {
+		this.naziv = naziv;
+	}
+
+	public String getJedinicaMere() {
+		return jedinicaMere;
+	}
+
+	public void setJedinicaMere(String jedinicaMere) {
+		this.jedinicaMere = jedinicaMere;
+	}
+
+	public List<StavkeFakture> getStavkeFakture() {
+		return stavkeFakture;
+	}
+
+	public void setStavkeFakture(List<StavkeFakture> stavkeFakture) {
+		this.stavkeFakture = stavkeFakture;
+	}
+
+	public List<StavkeCenovnika> getStavkeCenovnika() {
+		return stavkeCenovnika;
+	}
+
+	public void setStavkeCenovnika(List<StavkeCenovnika> stavkeCenovnika) {
+		this.stavkeCenovnika = stavkeCenovnika;
+	}
+
+	public Grupa getGrupa() {
+		return grupa;
+	}
+
+	public void setGrupa(Grupa grupa) {
+		this.grupa = grupa;
+	}
+
+	public List<StavkeOtpremnice> getStavkeOtpremnice() {
+		return stavkeOtpremnice;
+	}
+
+	public void setStavkeOtpremnice(List<StavkeOtpremnice> stavkeOtpremnice) {
+		this.stavkeOtpremnice = stavkeOtpremnice;
+	}
+
+	public List<StavkaNarudzbenice> getStavkeNarudzbenice() {
+		return stavkeNarudzbenice;
+	}
+
+	public void setStavkeNarudzbenice(List<StavkaNarudzbenice> stavkeNarudzbenice) {
+		this.stavkeNarudzbenice = stavkeNarudzbenice;
+	}
 }

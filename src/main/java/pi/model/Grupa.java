@@ -1,5 +1,7 @@
 package pi.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,23 +12,23 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Grupa {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="grupa_id", unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "grupa_id", unique = true, nullable = false)
 	public int id;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	public String naziv;
-	
+
 	@ManyToOne
 	public Preduzece preduzece;
+
+	@OneToMany(mappedBy = "grupa")
+	public List<RobaUsluga> robaUsluga;
 	
-	//@OneToMany(mappedBy="grupa")
-	//public List<RobaUsluga> robaUsluga;
 	@ManyToOne
 	public Porez porez;
-	
 
 	public int getId() {
 		return id;
@@ -59,7 +61,13 @@ public class Grupa {
 	public void setPorez(Porez porez) {
 		this.porez = porez;
 	}
-	
-	
-	
+
+	public List<RobaUsluga> getRobaUsluga() {
+		return robaUsluga;
+	}
+
+	public void setRobaUsluga(List<RobaUsluga> robaUsluga) {
+		this.robaUsluga = robaUsluga;
+	}
+
 }

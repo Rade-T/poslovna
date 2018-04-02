@@ -44,9 +44,4 @@ public class Racun {
 	public void setPreduzece(Preduzece preduzece) {
 		this.preduzece = preduzece;
 	}
-	
-	
-	
-	
-
 }

@@ -1,8 +1,11 @@
 package pi.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Preduzece {
@@ -28,6 +31,24 @@ public class Preduzece {
 	
 	@Column(nullable = false, length = 50)
 	public String email;
+	
+	@OneToMany(mappedBy="preduzece")
+	public List<PoslovniPartner> poslovniPartner;
+	
+	@OneToMany(mappedBy="preduzece")
+	public List<PoslovnaGodina> poslovnaGodina;
+	
+	@OneToMany(mappedBy="preduzece")
+	public List<Racun> racun;
+	
+	@OneToMany(mappedBy="preduzece")
+	public List<Cenovnik> cenovnik;
+	
+	@OneToMany(mappedBy="preduzece")
+	public List<Grupa> grupa;
+	
+	@OneToMany(mappedBy="preduzece")
+	public List<IstorijaPoreza> istorijaPoreza;
 
 	public int getPIB() {
 		return PIB;
@@ -88,23 +109,53 @@ public class Preduzece {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-//	@OneToMany(mappedBy="preduzece")
-//	public List<PoslovniPartner> poslovniPartner;
-//	
-//	@OneToMany(mappedBy="preduzece")
-//	public List<PoslovnaGodina> poslovnaGodina;
-//	
-//	@OneToMany(mappedBy="preduzece")
-//	public List<Racun> racun;
-//	
-//	@OneToMany(mappedBy="preduzece")
-//	public List<Cenovnik> cenovnik;
-//	
-//	@OneToMany(mappedBy="preduzece")
-//	public List<Grupa> grupa;
-//	
-//	@OneToMany(mappedBy="preduzece")
-//	public List<IstorijaPoreza> istorijaPoreza;
+
+	public List<PoslovniPartner> getPoslovniPartner() {
+		return poslovniPartner;
+	}
+
+	public void setPoslovniPartner(List<PoslovniPartner> poslovniPartner) {
+		this.poslovniPartner = poslovniPartner;
+	}
+
+	public List<PoslovnaGodina> getPoslovnaGodina() {
+		return poslovnaGodina;
+	}
+
+	public void setPoslovnaGodina(List<PoslovnaGodina> poslovnaGodina) {
+		this.poslovnaGodina = poslovnaGodina;
+	}
+
+	public List<Racun> getRacun() {
+		return racun;
+	}
+
+	public void setRacun(List<Racun> racun) {
+		this.racun = racun;
+	}
+
+	public List<Cenovnik> getCenovnik() {
+		return cenovnik;
+	}
+
+	public void setCenovnik(List<Cenovnik> cenovnik) {
+		this.cenovnik = cenovnik;
+	}
+
+	public List<Grupa> getGrupa() {
+		return grupa;
+	}
+
+	public void setGrupa(List<Grupa> grupa) {
+		this.grupa = grupa;
+	}
+
+	public List<IstorijaPoreza> getIstorijaPoreza() {
+		return istorijaPoreza;
+	}
+
+	public void setIstorijaPoreza(List<IstorijaPoreza> istorijaPoreza) {
+		this.istorijaPoreza = istorijaPoreza;
+	}
 	
 }
