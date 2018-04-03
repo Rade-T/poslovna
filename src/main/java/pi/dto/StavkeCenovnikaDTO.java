@@ -1,8 +1,10 @@
 package pi.dto;
 
+
 import pi.model.Cenovnik;
 import pi.model.StavkeCenovnika;
 
+ 
 public class StavkeCenovnikaDTO {
 	
 	public int Id;	
