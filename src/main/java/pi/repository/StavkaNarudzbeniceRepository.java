@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import pi.model.StavkaNarudzbenice;
 
-public interface StavkaNarudzbenicaRepository extends CrudRepository<StavkaNarudzbenice, Integer> {
+public interface StavkaNarudzbeniceRepository extends CrudRepository<StavkaNarudzbenice, Integer> {
 
 }
