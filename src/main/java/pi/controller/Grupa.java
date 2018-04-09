@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import pi.dto.GrupaDTO;
-import pi.repository.GrupaRepository;;
+import pi.repository.GrupaRepository;
+import pi.repository.PorezRepository;
+import pi.repository.PreduzeceRepository;;
 
 @RestController
 @RequestMapping(path="/grupa")
@@ -25,6 +27,12 @@ public class Grupa {
 	
 	@Autowired
 	private GrupaRepository grupaRepository;
+	
+	@Autowired
+	private PorezRepository PRepo;
+	
+	@Autowired
+	private PreduzeceRepository PRRepo;
 
 	@GetMapping
 	public @ResponseBody List<GrupaDTO> readAll(){
@@ -46,8 +54,8 @@ public class Grupa {
 	public @ResponseBody pi.model.Grupa create(@RequestBody GrupaDTO dto){
 		pi.model.Grupa g = new pi.model.Grupa();
 		g.setNaziv(dto.getNaziv());
-		g.setPorez(g.getPorez());
-		g.setPreduzece(g.getPreduzece());
+		g.setPorez(PRepo.findById(dto.getPorez()).get());
+		g.setPreduzece(PRRepo.findById(dto.getPreduzece()).get());
 		
 		return grupaRepository.save(g);
 	}
@@ -56,8 +64,8 @@ public class Grupa {
 	public @ResponseBody GrupaDTO update(@PathVariable(value="id")int id, @RequestBody GrupaDTO dto ){
 		pi.model.Grupa g = grupaRepository.findById(id).get();
 		g.setNaziv(dto.naziv);
-		g.setPorez(dto.porez);
-		g.setPreduzece(dto.preduzece);
+		g.setPorez(PRepo.findById(dto.getPorez()).get());
+		g.setPreduzece(PRRepo.findById(dto.getPreduzece()).get());
 		grupaRepository.save(g);
 		return new GrupaDTO(g);
 	}
@@ -68,8 +76,4 @@ public class Grupa {
 		grupaRepository.delete(g);
 		return new GrupaDTO(g);
 	}
-	
-	
-	
-	
 }
