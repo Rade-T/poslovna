@@ -3,6 +3,7 @@ package pi.dto;
 import java.util.Date;
 import java.util.List;
 
+import pi.model.IzlaznaFaktura;
 import pi.model.ObracunatiPorez;
 import pi.model.Otpremnica;
 import pi.model.PoslovnaGodina;
@@ -21,36 +22,42 @@ public class IzlaznaFakturaDTO {
 	public float iznosFaktureOsnovica;
 	public String uplataNaRacun;
 	public String pozivNaBroj;
-	public List<StavkeFakture> stavkeFakture;
-	public List<ObracunatiPorez> obracunatiPorez;
+	public List<Integer> stavkeFakture;
+	public List<Integer> obracunatiPorez;
 	public String statusFakture;
-	public PoslovniPartner poslovniPartner;
-	public PoslovnaGodina poslovnaGodina;
-	public Otpremnica otpremnica;
-	
-	public IzlaznaFakturaDTO(){
-		
+	public int poslovniPartner;
+	public int poslovnaGodina;
+	public int otpremnica;
+
+	public IzlaznaFakturaDTO() {
+
 	}
 
-	public IzlaznaFakturaDTO(IzlaznaFakturaDTO dto) {
+	public IzlaznaFakturaDTO(IzlaznaFaktura dto) {
 		super();
-		this.brojFakture = brojFakture;
-		this.datumFakture = datumFakture;
-		this.datumValute = datumValute;
-		this.datumObracuna = datumObracuna;
-		this.ukupnoRobe = ukupnoRobe;
-		this.ukupanRabat = ukupanRabat;
-		this.ukupanPorez = ukupanPorez;
-		this.iznosFakture = iznosFakture;
-		this.iznosFaktureOsnovica = iznosFaktureOsnovica;
-		this.uplataNaRacun = uplataNaRacun;
-		this.pozivNaBroj = pozivNaBroj;
-		this.stavkeFakture = stavkeFakture;
-		this.obracunatiPorez = obracunatiPorez;
-		this.statusFakture = statusFakture;
-		this.poslovniPartner = poslovniPartner;
-		this.poslovnaGodina = poslovnaGodina;
-		this.otpremnica = otpremnica;
+		this.brojFakture = dto.getBrojFakture();
+		this.datumFakture = dto.getDatumFakture();
+		this.datumValute = dto.getDatumValute();
+		this.datumObracuna = dto.getDatumObracuna();
+		this.ukupnoRobe = dto.getUkupnoRobe();
+		this.ukupanRabat = dto.getUkupanRabat();
+		this.ukupanPorez = dto.getUkupanPorez();
+		this.iznosFakture = dto.getIznosFakture();
+		this.iznosFaktureOsnovica = dto.getIznosFaktureOsnovica();
+		this.uplataNaRacun = dto.getUplataNaRacun();
+		this.pozivNaBroj = dto.getPozivNaBroj();
+
+		for (ObracunatiPorez obracunatiPorez : dto.getObracunatiPorez()) {
+			this.obracunatiPorez.add(obracunatiPorez.getId());
+		}
+		for (StavkeFakture stavke : dto.getStavkeFakture()) {
+			this.stavkeFakture.add(stavke.getId());
+		}
+
+		this.statusFakture = dto.getStatusFakture();
+		this.poslovniPartner = dto.getPoslovniPartner().getId();
+		this.poslovnaGodina = dto.getPoslovnaGodina().getId();
+		this.otpremnica = dto.getOtpremnica().getBrojOtpremnice();
 	}
 
 	public int getBrojFakture() {
@@ -141,19 +148,19 @@ public class IzlaznaFakturaDTO {
 		this.pozivNaBroj = pozivNaBroj;
 	}
 
-	public List<StavkeFakture> getStavkeFakture() {
+	public List<Integer> getStavkeFakture() {
 		return stavkeFakture;
 	}
 
-	public void setStavkeFakture(List<StavkeFakture> stavkeFakture) {
+	public void setStavkeFakture(List<Integer> stavkeFakture) {
 		this.stavkeFakture = stavkeFakture;
 	}
 
-	public List<ObracunatiPorez> getObracunatiPorez() {
+	public List<Integer> getObracunatiPorez() {
 		return obracunatiPorez;
 	}
 
-	public void setObracunatiPorez(List<ObracunatiPorez> obracunatiPorez) {
+	public void setObracunatiPorez(List<Integer> obracunatiPorez) {
 		this.obracunatiPorez = obracunatiPorez;
 	}
 
@@ -165,31 +172,28 @@ public class IzlaznaFakturaDTO {
 		this.statusFakture = statusFakture;
 	}
 
-	public PoslovniPartner getPoslovniPartner() {
+	public int getPoslovniPartner() {
 		return poslovniPartner;
 	}
 
-	public void setPoslovniPartner(PoslovniPartner poslovniPartner) {
+	public void setPoslovniPartner(int poslovniPartner) {
 		this.poslovniPartner = poslovniPartner;
 	}
 
-	public PoslovnaGodina getPoslovnaGodina() {
+	public int getPoslovnaGodina() {
 		return poslovnaGodina;
 	}
 
-	public void setPoslovnaGodina(PoslovnaGodina poslovnaGodina) {
+	public void setPoslovnaGodina(int poslovnaGodina) {
 		this.poslovnaGodina = poslovnaGodina;
 	}
 
-	public Otpremnica getOtpremnica() {
+	public int getOtpremnica() {
 		return otpremnica;
 	}
 
-	public void setOtpremnica(Otpremnica otpremnica) {
+	public void setOtpremnica(int otpremnica) {
 		this.otpremnica = otpremnica;
 	}
-	
-	
-	
 
 }

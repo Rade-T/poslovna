@@ -4,11 +4,19 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
 public class PoslovniPartner {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true, nullable = false)
+	public int id;
 
 	@Column(unique = false, nullable = false, length = 150)
 	public String nazivPartnera;
@@ -85,5 +93,13 @@ public class PoslovniPartner {
 
 	public void setNarudzbenica(List<Narudzbenica> narudzbenica) {
 		this.narudzbenica = narudzbenica;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

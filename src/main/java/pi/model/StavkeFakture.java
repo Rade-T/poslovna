@@ -2,10 +2,15 @@ package pi.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class StavkeFakture {
+	
+	@Id
+	@Column
+	private int id;
 	
 	@Column(nullable = true)
 	public float kolicina;
@@ -104,5 +109,13 @@ public class StavkeFakture {
 
 	public void setRobaUsluga(RobaUsluga robaUsluga) {
 		this.robaUsluga = robaUsluga;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

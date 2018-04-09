@@ -2,16 +2,21 @@ package pi.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class ObracunatiPorez {
+	
+	@Id
+	@Column
+	private int id;
 
 	@Column(nullable = false, precision = 5, scale = 2)
-	public float stopa;
+	private float stopa;
 
 	@Column(nullable = false, precision = 15, scale = 2)
-	public float iznos;
+	private float iznos;
 
 	@ManyToOne
 	public Porez porez;
@@ -49,5 +54,13 @@ public class ObracunatiPorez {
 
 	public void setIzlaznaFaktura(IzlaznaFaktura izlaznaFaktura) {
 		this.izlaznaFaktura = izlaznaFaktura;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }
