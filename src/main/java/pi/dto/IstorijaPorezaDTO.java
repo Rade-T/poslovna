@@ -1,16 +1,19 @@
 package pi.dto;
 
+import static org.mockito.Mockito.doNothing;
+
 import java.util.Date;
+import java.util.List;
 
 import pi.model.IstorijaPoreza;
-import pi.model.Preduzece;
+import pi.model.PoreskaStopa;
 
 public class IstorijaPorezaDTO {
 	
 	public int id;
 	public Date datumPrimene;
-	public Preduzece preduzece;
-	//public List<PoreskaStopa> poreskaStopa;
+	public int preduzece;
+	public List<Integer> poreskaStopa;
 	
 	public IstorijaPorezaDTO() {
 		super();
@@ -21,7 +24,10 @@ public class IstorijaPorezaDTO {
 		super();
 		this.id = dto.id;
 		this.datumPrimene = dto.datumPrimene;
-		this.preduzece = dto.preduzece;
+		this.preduzece = dto.preduzece.getPIB();
+		for (PoreskaStopa ps : dto.getPoreskaStopa()) {
+			this.poreskaStopa.add(ps.getId());
+		}
 	}
 
 	public int getId() {
@@ -40,11 +46,11 @@ public class IstorijaPorezaDTO {
 		this.datumPrimene = datumPrimene;
 	}
 
-	public Preduzece getPreduzece() {
+	public int getPreduzece() {
 		return preduzece;
 	}
 
-	public void setPreduzece(Preduzece preduzece) {
+	public void setPreduzece(int preduzece) {
 		this.preduzece = preduzece;
 	}
 	
