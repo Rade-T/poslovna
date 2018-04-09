@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import pi.dto.CenovnikDTO;
 import pi.dto.GrupaDTO;
-import pi.model.Cenovnik;
 import pi.repository.GrupaRepository;;
 
 @RestController
