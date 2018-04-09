@@ -26,7 +26,8 @@ public class Cenovnici {
 	private CenovnikRepository cenovnikRepository;
 	
 	@GetMapping
-	public @ResponseBody List<CenovnikDTO> readAll() {
+	public @ResponseBody List<CenovnikDTO
+	> readAll() {
 		List<Cenovnik> cenovnici = (List<Cenovnik>) cenovnikRepository.findAll();
 		List<CenovnikDTO> cenovniciDTO = new ArrayList<>();
 		for (Cenovnik Cenovnik : cenovnici) {

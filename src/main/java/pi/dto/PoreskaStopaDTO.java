@@ -54,6 +54,11 @@ public class PoreskaStopaDTO {
 	public void setPorez(Porez porez) {
 		this.porez = porez;
 	}
+
+	public static void add(PoreskaStopaDTO poreskaStopaDTO) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	
