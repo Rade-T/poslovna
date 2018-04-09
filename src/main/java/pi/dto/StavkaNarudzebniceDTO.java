@@ -2,6 +2,7 @@ package pi.dto;
 
 import pi.model.Narudzbenica;
 import pi.model.RobaUsluga;
+import pi.model.StavkaNarudzbenice;
 
 public class StavkaNarudzebniceDTO {
 	public float kolicina;
@@ -14,7 +15,7 @@ public class StavkaNarudzebniceDTO {
 		
 	}
 
-	public StavkaNarudzebniceDTO(StavkaNarudzebniceDTO dto) {
+	public StavkaNarudzebniceDTO(StavkaNarudzbenice dto) {
 		super();
 		this.kolicina = kolicina;
 		this.cenaPoJediniciMere = cenaPoJediniciMere;

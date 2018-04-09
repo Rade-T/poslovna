@@ -2,6 +2,7 @@ package pi.dto;
 
 import pi.model.IzlaznaFaktura;
 import pi.model.RobaUsluga;
+import pi.model.StavkeFakture;
 
 public class StavkeFaktureDTO {
 	public float kolicina;
@@ -18,7 +19,7 @@ public class StavkeFaktureDTO {
 		
 	}
 
-	public StavkeFaktureDTO(StavkeFaktureDTO dto) {
+	public StavkeFaktureDTO(StavkeFakture dto) {
 		super();
 		this.kolicina = kolicina;
 		this.cenaPoJediniciMere = cenaPoJediniciMere;
