@@ -17,12 +17,12 @@ import pi.dto.StavkeCenovnikaDTO;
 import pi.model.StavkeCenovnika;
 import pi.repository.StavkeCenovnikaRepository;
 
-@RequestMapping(path="/StavkeCenovnika")
+@RequestMapping(path = "/StavkeCenovnika")
 public class StavkeCenovnici {
-	
+
 	@Autowired
 	private StavkeCenovnikaRepository stavkecenovnikRepository;
-	
+
 	@GetMapping
 	public @ResponseBody List<StavkeCenovnikaDTO> readAll() {
 		List<StavkeCenovnika> cenovnici = (List<StavkeCenovnika>) stavkecenovnikRepository.findAll();
@@ -31,42 +31,42 @@ public class StavkeCenovnici {
 			cenovniciDTO.add(new StavkeCenovnikaDTO(stavke));
 		}
 		return cenovniciDTO;
-				
+
 	}
-	
+
 	@PostMapping
 	public @ResponseBody StavkeCenovnika create(@RequestBody StavkeCenovnikaDTO dto) {
 		StavkeCenovnika c = new StavkeCenovnika();
-		
+
 		c.setCenovnik(dto.getCenovnik());
 		c.setJedinicnaCena(dto.getJedinicnaCena());
 
-		return stavkecenovnikRepository.save(c);	
+		return stavkecenovnikRepository.save(c);
 
 	}
-	
+
 	@GetMapping("/{id}")
 	public @ResponseBody StavkeCenovnikaDTO readOne(@PathVariable(value = "id") Integer id) {
-	    StavkeCenovnika c = stavkecenovnikRepository.findById(id).get();
-	    return new StavkeCenovnikaDTO(c);
+		StavkeCenovnika c = stavkecenovnikRepository.findById(id).get();
+		return new StavkeCenovnikaDTO(c);
 	}
-	
+
 	@PutMapping("/{id}")
 	public @ResponseBody StavkeCenovnikaDTO update(@PathVariable(value = "id") Integer id,
-	                                        @RequestBody StavkeCenovnikaDTO dto) {
+			@RequestBody StavkeCenovnikaDTO dto) {
 
-		StavkeCenovnika c = stavkecenovnikRepository.findById(id).get();  
+		StavkeCenovnika c = stavkecenovnikRepository.findById(id).get();
 		c.setCenovnik(dto.getCenovnik());
 		c.setJedinicnaCena(dto.getJedinicnaCena());
-	    stavkecenovnikRepository.save(c);
-	    return new StavkeCenovnikaDTO(c);
+		stavkecenovnikRepository.save(c);
+		return new StavkeCenovnikaDTO(c);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public @ResponseBody StavkeCenovnikaDTO delete(@PathVariable(value = "id") Integer id) {
 		StavkeCenovnika c = stavkecenovnikRepository.findById(id).get();
-	    stavkecenovnikRepository.delete(c);
-	    return new StavkeCenovnikaDTO(c);
+		stavkecenovnikRepository.delete(c);
+		return new StavkeCenovnikaDTO(c);
 	}
 
 }
