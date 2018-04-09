@@ -1,29 +1,25 @@
 package pi.dto;
 
-
-import pi.model.Cenovnik;
 import pi.model.StavkeCenovnika;
 
- 
 public class StavkeCenovnikaDTO {
-	
-	public int Id;	
-	
+
+	public int Id;
+
 	public float jedinicnaCena;
-	
-	public Cenovnik cenovnik;
-	
-	public StavkeCenovnikaDTO(){
-		
+
+	public int cenovnik;
+
+	public StavkeCenovnikaDTO() {
+
 	}
-	
+
 	public StavkeCenovnikaDTO(StavkeCenovnika dto) {
 		super();
 		this.Id = dto.getId();
 		this.jedinicnaCena = dto.getJedinicnaCena();
-		this.cenovnik = dto.getCenovnik();
+		this.cenovnik = dto.getCenovnik().getId();
 	}
-
 
 	public int getId() {
 		return Id;
@@ -41,14 +37,12 @@ public class StavkeCenovnikaDTO {
 		this.jedinicnaCena = jedinicnaCena;
 	}
 
-	public Cenovnik getCenovnik() {
+	public int getCenovnik() {
 		return cenovnik;
 	}
 
-	public void setCenovnik(Cenovnik cenovnik) {
+	public void setCenovnik(int cenovnik) {
 		this.cenovnik = cenovnik;
 	}
-	
-	
 
 }

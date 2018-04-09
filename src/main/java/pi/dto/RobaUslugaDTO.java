@@ -1,35 +1,25 @@
 package pi.dto;
 
-import java.util.List;
-
-import pi.model.Grupa;
-import pi.model.StavkaNarudzbenice;
-import pi.model.StavkeCenovnika;
-import pi.model.StavkeFakture;
-import pi.model.StavkeOtpremnice;
+import pi.model.RobaUsluga;
 
 public class RobaUslugaDTO {
 	public String naziv;
 	public String jedinicaMere;
-	public List<StavkeFakture> stavkeFakture;
-	public List<StavkeCenovnika> stavkeCenovnika;
-	public Grupa grupa;
-	public List<StavkeOtpremnice> stavkeOtpremnice;
-	public List<StavkaNarudzbenice> stavkeNarudzbenice;
+//	public List<StavkeFakture> stavkeFakture;
+//	public List<StavkeCenovnika> stavkeCenovnika;
+	public int grupa;
+//	public List<StavkeOtpremnice> stavkeOtpremnice;
+//	public List<StavkaNarudzbenice> stavkeNarudzbenice;
 	
 	public RobaUslugaDTO(){
 		
 	}
 
-	public RobaUslugaDTO(RobaUslugaDTO dto) {
+	public RobaUslugaDTO(RobaUsluga dto) {
 		super();
-		this.naziv = naziv;
-		this.jedinicaMere = jedinicaMere;
-		this.stavkeFakture = stavkeFakture;
-		this.stavkeCenovnika = stavkeCenovnika;
-		this.grupa = grupa;
-		this.stavkeOtpremnice = stavkeOtpremnice;
-		this.stavkeNarudzbenice = stavkeNarudzbenice;
+		this.naziv = dto.getNaziv();
+		this.jedinicaMere = dto.getJedinicaMere();
+		this.grupa = dto.getGrupa().getId();
 	}
 
 	public String getNaziv() {
@@ -48,48 +38,12 @@ public class RobaUslugaDTO {
 		this.jedinicaMere = jedinicaMere;
 	}
 
-	public List<StavkeFakture> getStavkeFakture() {
-		return stavkeFakture;
-	}
-
-	public void setStavkeFakture(List<StavkeFakture> stavkeFakture) {
-		this.stavkeFakture = stavkeFakture;
-	}
-
-	public List<StavkeCenovnika> getStavkeCenovnika() {
-		return stavkeCenovnika;
-	}
-
-	public void setStavkeCenovnika(List<StavkeCenovnika> stavkeCenovnika) {
-		this.stavkeCenovnika = stavkeCenovnika;
-	}
-
-	public Grupa getGrupa() {
+	public int getGrupa() {
 		return grupa;
 	}
 
-	public void setGrupa(Grupa grupa) {
+	public void setGrupa(int grupa) {
 		this.grupa = grupa;
 	}
-
-	public List<StavkeOtpremnice> getStavkeOtpremnice() {
-		return stavkeOtpremnice;
-	}
-
-	public void setStavkeOtpremnice(List<StavkeOtpremnice> stavkeOtpremnice) {
-		this.stavkeOtpremnice = stavkeOtpremnice;
-	}
-
-	public List<StavkaNarudzbenice> getStavkeNarudzbenice() {
-		return stavkeNarudzbenice;
-	}
-
-	public void setStavkeNarudzbenice(List<StavkaNarudzbenice> stavkeNarudzbenice) {
-		this.stavkeNarudzbenice = stavkeNarudzbenice;
-	}
-	
-	
-	
-	
 
 }

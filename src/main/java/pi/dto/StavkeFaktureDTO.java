@@ -1,7 +1,5 @@
 package pi.dto;
 
-import pi.model.IzlaznaFaktura;
-import pi.model.RobaUsluga;
 import pi.model.StavkeFakture;
 
 public class StavkeFaktureDTO {
@@ -12,24 +10,24 @@ public class StavkeFaktureDTO {
 	public float pdvIznos;
 	public float ukupanIznos;
 	public float pdv;
-	public IzlaznaFaktura izlaznaFaktura;
-	public RobaUsluga robaUsluga;
-	
-	public StavkeFaktureDTO(){
-		
+	public int izlaznaFaktura;
+	public int robaUsluga;
+
+	public StavkeFaktureDTO() {
+
 	}
 
 	public StavkeFaktureDTO(StavkeFakture dto) {
 		super();
-		this.kolicina = kolicina;
-		this.cenaPoJediniciMere = cenaPoJediniciMere;
-		this.rabat = rabat;
-		this.osnovica = osnovica;
-		this.pdvIznos = pdvIznos;
-		this.ukupanIznos = ukupanIznos;
-		this.pdv = pdv;
-		this.izlaznaFaktura = izlaznaFaktura;
-		this.robaUsluga = robaUsluga;
+		this.kolicina = dto.getKolicina();
+		this.cenaPoJediniciMere = dto.getCenaPoJediniciMere();
+		this.rabat = dto.getRabat();
+		this.osnovica = dto.getOsnovica();
+		this.pdvIznos = dto.getPdvIznos();
+		this.ukupanIznos = dto.getUkupanIznos();
+		this.pdv = dto.getPdv();
+		this.izlaznaFaktura = dto.getIzlaznaFaktura().getBrojFakture();
+		this.robaUsluga = dto.getRobaUsluga().getId();
 	}
 
 	public float getKolicina() {
@@ -88,23 +86,20 @@ public class StavkeFaktureDTO {
 		this.pdv = pdv;
 	}
 
-	public IzlaznaFaktura getIzlaznaFaktura() {
+	public int getIzlaznaFaktura() {
 		return izlaznaFaktura;
 	}
 
-	public void setIzlaznaFaktura(IzlaznaFaktura izlaznaFaktura) {
+	public void setIzlaznaFaktura(int izlaznaFaktura) {
 		this.izlaznaFaktura = izlaznaFaktura;
 	}
 
-	public RobaUsluga getRobaUsluga() {
+	public int getRobaUsluga() {
 		return robaUsluga;
 	}
 
-	public void setRobaUsluga(RobaUsluga robaUsluga) {
+	public void setRobaUsluga(int robaUsluga) {
 		this.robaUsluga = robaUsluga;
 	}
-	
-	
-	
 
 }

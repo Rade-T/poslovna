@@ -1,16 +1,14 @@
 package pi.dto;
 
 import pi.model.Grupa;
-import pi.model.Porez;
-import pi.model.Preduzece;
 
 public class GrupaDTO {
 	
 	public int id;
 	public String naziv;
-	public Preduzece preduzece;
+	public int preduzece;
 	//public List<RobaUsluga> robaUsluga;
-	public Porez porez;
+	public int porez;
 	
 	public GrupaDTO() {
 		super();
@@ -18,10 +16,10 @@ public class GrupaDTO {
 
 	public GrupaDTO(Grupa dto) {
 		super();
-		this.id = dto.id;
-		this.naziv = dto.naziv;
-		this.preduzece = dto.preduzece;
-		this.porez = dto.porez;
+		this.id = dto.getId();
+		this.naziv = dto.getNaziv();
+		this.preduzece = dto.getPreduzece().getPIB();
+		this.porez = dto.getPorez().getId();
 	}
 
 	public int getId() {
@@ -40,23 +38,19 @@ public class GrupaDTO {
 		this.naziv = naziv;
 	}
 
-	public Preduzece getPreduzece() {
+	public int getPreduzece() {
 		return preduzece;
 	}
 
-	public void setPreduzece(Preduzece preduzece) {
+	public void setPreduzece(int preduzece) {
 		this.preduzece = preduzece;
 	}
 
-	public Porez getPorez() {
+	public int getPorez() {
 		return porez;
 	}
 
-	public void setPorez(Porez porez) {
+	public void setPorez(int porez) {
 		this.porez = porez;
 	}
-	
-	
-	
-	
 }

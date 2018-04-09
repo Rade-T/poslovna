@@ -3,7 +3,6 @@ package pi.dto;
 import java.util.Date;
 
 import pi.model.Cenovnik;
-import pi.model.Preduzece;
 
 public class CenovnikDTO {
 	
@@ -11,7 +10,7 @@ public class CenovnikDTO {
 	
 	public Date datumPrimene;	
 
-	public Preduzece preduzece;
+	public int preduzece;
 	
 	public CenovnikDTO(){
 		
@@ -21,7 +20,7 @@ public class CenovnikDTO {
 		super();
 		this.Id = dto.getId();
 		this.datumPrimene = dto.getDatumPrimene();
-		this.preduzece = dto.getPreduzece();
+		this.preduzece = dto.getPreduzece().getPIB();
 	}
 
 	public int getId() {
@@ -40,14 +39,12 @@ public class CenovnikDTO {
 		this.datumPrimene = datumPrimene;
 	}
 
-	public Preduzece getPreduzece() {
+	public int getPreduzece() {
 		return preduzece;
 	}
 
-	public void setPreduzece(Preduzece preduzece) {
+	public void setPreduzece(int preduzece) {
 		this.preduzece = preduzece;
 	}
-	
-	
 
 }

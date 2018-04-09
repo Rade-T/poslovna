@@ -1,7 +1,5 @@
 package pi.dto;
 
-import static org.mockito.Mockito.doNothing;
-
 import java.util.Date;
 import java.util.List;
 
@@ -53,11 +51,5 @@ public class IstorijaPorezaDTO {
 	public void setPreduzece(int preduzece) {
 		this.preduzece = preduzece;
 	}
-	
-	
-	
-	
-	
-	
 	
 }

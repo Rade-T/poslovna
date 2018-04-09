@@ -1,82 +1,65 @@
 package pi.dto;
 
-import pi.model.Otpremnica;
-import pi.model.RobaUsluga;
 import pi.model.StavkeOtpremnice;
 
 public class StavkeOtpremniceDTO {
 	public float kolicina;
 	public float cenaPoJediniciMere;
 	public float ukupnaCena;
-	public Otpremnica optremnica;
-	public RobaUsluga robaUsluga;
-	
-	
-	public StavkeOtpremniceDTO(){
-		
-	}
+	public int optremnica;
+	public int robaUsluga;
 
+	public StavkeOtpremniceDTO() {
+
+	}
 
 	public StavkeOtpremniceDTO(StavkeOtpremnice dto) {
 		super();
-		this.kolicina = kolicina;
-		this.cenaPoJediniciMere = cenaPoJediniciMere;
-		this.ukupnaCena = ukupnaCena;
-		this.optremnica = optremnica;
-		this.robaUsluga = robaUsluga;
+		this.kolicina = dto.getKolicina();
+		this.cenaPoJediniciMere = dto.getCenaPoJediniciMere();
+		this.ukupnaCena = dto.getUkupnaCena();
+		this.optremnica = dto.getOtpremnica().getBrojOtpremnice();
+		this.robaUsluga = dto.getRobaUsluga().getId();
 	}
-
 
 	public float getKolicina() {
 		return kolicina;
 	}
 
-
 	public void setKolicina(float kolicina) {
 		this.kolicina = kolicina;
 	}
-
 
 	public float getCenaPoJediniciMere() {
 		return cenaPoJediniciMere;
 	}
 
-
 	public void setCenaPoJediniciMere(float cenaPoJediniciMere) {
 		this.cenaPoJediniciMere = cenaPoJediniciMere;
 	}
-
 
 	public float getUkupnaCena() {
 		return ukupnaCena;
 	}
 
-
 	public void setUkupnaCena(float ukupnaCena) {
 		this.ukupnaCena = ukupnaCena;
 	}
 
-
-	public Otpremnica getOptremnica() {
+	public int getOptremnica() {
 		return optremnica;
 	}
 
-
-	public void setOptremnica(Otpremnica optremnica) {
+	public void setOptremnica(int optremnica) {
 		this.optremnica = optremnica;
 	}
 
-
-	public RobaUsluga getRobaUsluga() {
+	public int getRobaUsluga() {
 		return robaUsluga;
 	}
 
-
-	public void setRobaUsluga(RobaUsluga robaUsluga) {
+	public void setRobaUsluga(int robaUsluga) {
 		this.robaUsluga = robaUsluga;
 	}
-	
-	
-	
 
 }

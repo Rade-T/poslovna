@@ -1,15 +1,13 @@
 package pi.dto;
 
-import pi.model.IstorijaPoreza;
 import pi.model.PoreskaStopa;
-import pi.model.Porez;
 
 public class PoreskaStopaDTO {
 	
 	public int id;
 	public float iznosStope;
-	public IstorijaPoreza istorijaPoreza;
-	public Porez porez;
+	public int istorijaPoreza;
+	public int porez;
 	
 	public PoreskaStopaDTO() {
 		super();
@@ -17,10 +15,10 @@ public class PoreskaStopaDTO {
 
 	public PoreskaStopaDTO(PoreskaStopa dto) {
 		super();
-		this.id = dto.id;
-		this.iznosStope = dto.iznosStope;
-		this.istorijaPoreza = dto.istorijaPoreza;
-		this.porez = dto.porez;
+		this.id = dto.getId();
+		this.iznosStope = dto.getIznosStope();
+		this.istorijaPoreza = dto.getIstorijaPoreza().getId();
+		this.porez = dto.getPorez().getId();
 	}
 
 	public int getId() {
@@ -39,29 +37,19 @@ public class PoreskaStopaDTO {
 		this.iznosStope = iznosStope;
 	}
 
-	public IstorijaPoreza getIstorijaPoreza() {
+	public int getIstorijaPoreza() {
 		return istorijaPoreza;
 	}
 
-	public void setIstorijaPoreza(IstorijaPoreza istorijaPoreza) {
+	public void setIstorijaPoreza(int istorijaPoreza) {
 		this.istorijaPoreza = istorijaPoreza;
 	}
 
-	public Porez getPorez() {
+	public int getPorez() {
 		return porez;
 	}
 
-	public void setPorez(Porez porez) {
+	public void setPorez(int porez) {
 		this.porez = porez;
 	}
-
-	public static void add(PoreskaStopaDTO poreskaStopaDTO) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
-	
-	
-	
 }

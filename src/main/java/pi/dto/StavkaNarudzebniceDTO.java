@@ -1,15 +1,13 @@
 package pi.dto;
 
-import pi.model.Narudzbenica;
-import pi.model.RobaUsluga;
 import pi.model.StavkaNarudzbenice;
 
 public class StavkaNarudzebniceDTO {
 	public float kolicina;
 	public float cenaPoJediniciMere;
 	public float ukupnaCena;
-	public RobaUsluga robaUsluga;
-	public Narudzbenica narudzbenica;
+	public int robaUsluga;
+	public int narudzbenica;
 	
 	public StavkaNarudzebniceDTO(){
 		
@@ -17,11 +15,11 @@ public class StavkaNarudzebniceDTO {
 
 	public StavkaNarudzebniceDTO(StavkaNarudzbenice dto) {
 		super();
-		this.kolicina = kolicina;
-		this.cenaPoJediniciMere = cenaPoJediniciMere;
-		this.ukupnaCena = ukupnaCena;
-		this.robaUsluga = robaUsluga;
-		this.narudzbenica = narudzbenica;
+		this.kolicina = dto.getKolicina();
+		this.cenaPoJediniciMere = dto.getCenaPoJediniciMere();
+		this.ukupnaCena = dto.getUkupnaCena();
+		this.robaUsluga = dto.getRobaUsluga().getId();
+		this.narudzbenica = dto.getNarudzbenica().getId();
 	}
 
 	public float getKolicina() {
@@ -48,24 +46,20 @@ public class StavkaNarudzebniceDTO {
 		this.ukupnaCena = ukupnaCena;
 	}
 
-	public RobaUsluga getRobaUsluga() {
+	public int getRobaUsluga() {
 		return robaUsluga;
 	}
 
-	public void setRobaUsluga(RobaUsluga robaUsluga) {
+	public void setRobaUsluga(int robaUsluga) {
 		this.robaUsluga = robaUsluga;
 	}
 
-	public Narudzbenica getNarudzbenica() {
+	public int getNarudzbenica() {
 		return narudzbenica;
 	}
 
-	public void setNarudzbenica(Narudzbenica narudzbenica) {
+	public void setNarudzbenica(int narudzbenica) {
 		this.narudzbenica = narudzbenica;
 	}
-	
-	
-	
-	
 
 }

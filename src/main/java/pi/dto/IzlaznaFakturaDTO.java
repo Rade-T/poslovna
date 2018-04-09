@@ -5,9 +5,6 @@ import java.util.List;
 
 import pi.model.IzlaznaFaktura;
 import pi.model.ObracunatiPorez;
-import pi.model.Otpremnica;
-import pi.model.PoslovnaGodina;
-import pi.model.PoslovniPartner;
 import pi.model.StavkeFakture;
 
 public class IzlaznaFakturaDTO {
