@@ -1,5 +1,6 @@
 package pi.dto;
 
+import pi.model.Grupa;
 import pi.model.RobaUsluga;
 
 public class RobaUslugaDTO {
@@ -7,7 +8,7 @@ public class RobaUslugaDTO {
 	public String jedinicaMere;
 //	public List<StavkeFakture> stavkeFakture;
 //	public List<StavkeCenovnika> stavkeCenovnika;
-	public int grupa;
+	public Grupa grupa;
 //	public List<StavkeOtpremnice> stavkeOtpremnice;
 //	public List<StavkaNarudzbenice> stavkeNarudzbenice;
 	
@@ -19,7 +20,7 @@ public class RobaUslugaDTO {
 		super();
 		this.naziv = dto.getNaziv();
 		this.jedinicaMere = dto.getJedinicaMere();
-		this.grupa = dto.getGrupa().getId();
+		this.grupa = dto.getGrupa();
 	}
 
 	public String getNaziv() {
@@ -38,11 +39,11 @@ public class RobaUslugaDTO {
 		this.jedinicaMere = jedinicaMere;
 	}
 
-	public int getGrupa() {
+	public Grupa getGrupa() {
 		return grupa;
 	}
 
-	public void setGrupa(int grupa) {
+	public void setGrupa(Grupa grupa) {
 		this.grupa = grupa;
 	}
 

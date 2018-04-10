@@ -18,4 +18,30 @@ public class PorezDTO {
 		this.vazeci = dto.isVazeci();
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNazivPoreza() {
+		return nazivPoreza;
+	}
+
+	public void setNazivPoreza(String nazivPoreza) {
+		this.nazivPoreza = nazivPoreza;
+	}
+
+	public boolean isVazeci() {
+		return vazeci;
+	}
+
+	public void setVazeci(boolean vazeci) {
+		this.vazeci = vazeci;
+	}
+	
+	
+
 }
