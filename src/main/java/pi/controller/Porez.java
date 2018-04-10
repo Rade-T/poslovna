@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import pi.dto.PorezDTO;
-import pi.dto.RacunDTO;
-import pi.model.Racun;
 import pi.repository.PorezRepository;
 
 @RestController

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import pi.dto.StavkeCenovnikaDTO;
 import pi.model.StavkeCenovnika;
+import pi.repository.CenovnikRepository;
 import pi.repository.StavkeCenovnikaRepository;
 
 @RequestMapping(path = "/StavkeCenovnika")
@@ -22,6 +23,9 @@ public class StavkeCenovnici {
 
 	@Autowired
 	private StavkeCenovnikaRepository stavkecenovnikRepository;
+	
+	@Autowired
+	private CenovnikRepository CRepo;
 
 	@GetMapping
 	public @ResponseBody List<StavkeCenovnikaDTO> readAll() {
@@ -38,7 +42,7 @@ public class StavkeCenovnici {
 	public @ResponseBody StavkeCenovnika create(@RequestBody StavkeCenovnikaDTO dto) {
 		StavkeCenovnika c = new StavkeCenovnika();
 
-		c.setCenovnik(dto.getCenovnik());
+		c.setCenovnik( CRepo.findById(dto.getCenovnik()).get() );
 		c.setJedinicnaCena(dto.getJedinicnaCena());
 
 		return stavkecenovnikRepository.save(c);
@@ -56,7 +60,7 @@ public class StavkeCenovnici {
 			@RequestBody StavkeCenovnikaDTO dto) {
 
 		StavkeCenovnika c = stavkecenovnikRepository.findById(id).get();
-		c.setCenovnik(dto.getCenovnik());
+		c.setCenovnik( CRepo.findById(dto.getCenovnik()).get() );
 		c.setJedinicnaCena(dto.getJedinicnaCena());
 		stavkecenovnikRepository.save(c);
 		return new StavkeCenovnikaDTO(c);

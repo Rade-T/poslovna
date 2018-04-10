@@ -15,14 +15,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import pi.dto.StavkeOtpremniceDTO;
 import pi.model.StavkeOtpremnice;
+import pi.repository.OtpremnicaRepository;
+import pi.repository.RobaUslugaRepository;
 import pi.repository.StavkeOtpremniceRepository;
 
-@RequestMapping(path="/StavkeOtpremnice")
+@RequestMapping(path = "/StavkeOtpremnice")
 public class StavkeOtpremnica {
+
+	@Autowired
+	private StavkeOtpremniceRepository stavkeotpremniceRepository;
 	
 	@Autowired
-	private StavkeOtpremniceRepository  stavkeotpremniceRepository;
+	private OtpremnicaRepository ORepo;
 	
+	@Autowired
+	private RobaUslugaRepository RURepo;
+
 	@GetMapping
 	public @ResponseBody List<StavkeOtpremniceDTO> readAll() {
 		List<StavkeOtpremnice> otpremnice = (List<StavkeOtpremnice>) stavkeotpremniceRepository.findAll();
@@ -31,49 +39,48 @@ public class StavkeOtpremnica {
 			narudzbeniceDTO.add(new StavkeOtpremniceDTO(otpremnica));
 		}
 		return narudzbeniceDTO;
-				
+
 	}
-	
+
 	@PostMapping
 	public @ResponseBody StavkeOtpremnice create(@RequestBody StavkeOtpremniceDTO dto) {
 		StavkeOtpremnice o = new StavkeOtpremnice();
-		
+
 		o.setKolicina(dto.getKolicina());
 		o.setCenaPoJediniciMere(dto.getCenaPoJediniciMere());
-		o.setOtpremnica(dto.getOptremnica());
-		o.setRobaUsluga(dto.getRobaUsluga());
-		
+		o.setOtpremnica( ORepo.findById(dto.getOptremnica()).get() );
+		o.setRobaUsluga( RURepo.findById(dto.getRobaUsluga()).get() );
 
-		return stavkeotpremniceRepository.save(o);	
+		return stavkeotpremniceRepository.save(o);
 
 	}
-	
+
 	@GetMapping("/{id}")
 	public @ResponseBody StavkeOtpremniceDTO readOne(@PathVariable(value = "id") Integer id) {
 		StavkeOtpremnice o = stavkeotpremniceRepository.findById(id).get();
-	    return new StavkeOtpremniceDTO(o);
+		return new StavkeOtpremniceDTO(o);
 	}
-	
+
 	@PutMapping("/{id}")
 	public @ResponseBody StavkeOtpremniceDTO update(@PathVariable(value = "id") Integer id,
-	                                        @RequestBody StavkeOtpremniceDTO dto) {
+			@RequestBody StavkeOtpremniceDTO dto) {
 
-		StavkeOtpremnice o = stavkeotpremniceRepository.findById(id).get();  
-		
+		StavkeOtpremnice o = stavkeotpremniceRepository.findById(id).get();
+
 		o.setKolicina(dto.getKolicina());
 		o.setCenaPoJediniciMere(dto.getCenaPoJediniciMere());
-		o.setOtpremnica(dto.getOptremnica());
-		o.setRobaUsluga(dto.getRobaUsluga());
-		
-	    stavkeotpremniceRepository.save(o);
-	    return new StavkeOtpremniceDTO(o);
+		o.setOtpremnica( ORepo.findById(dto.getOptremnica()).get() );
+		o.setRobaUsluga( RURepo.findById(dto.getRobaUsluga()).get() );
+
+		stavkeotpremniceRepository.save(o);
+		return new StavkeOtpremniceDTO(o);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public @ResponseBody StavkeOtpremniceDTO delete(@PathVariable(value = "id") Integer id) {
 		StavkeOtpremnice o = stavkeotpremniceRepository.findById(id).get();
-	    stavkeotpremniceRepository.delete(o);
-	    return new StavkeOtpremniceDTO(o);
+		stavkeotpremniceRepository.delete(o);
+		return new StavkeOtpremniceDTO(o);
 	}
 
 }

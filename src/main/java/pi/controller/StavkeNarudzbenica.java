@@ -15,14 +15,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import pi.dto.StavkaNarudzebniceDTO;
 import pi.model.StavkaNarudzbenice;
+import pi.repository.NarudzbenicaRepository;
+import pi.repository.RobaUslugaRepository;
 import pi.repository.StavkaNarudzbeniceRepository;
 
-@RequestMapping(path="/stavkeNarudzbenica")
+@RequestMapping(path = "/stavkeNarudzbenica")
 public class StavkeNarudzbenica {
-	
+
 	@Autowired
 	private StavkaNarudzbeniceRepository stavkenarudzbenicaRepository;
 	
+	@Autowired
+	private RobaUslugaRepository RURepo;
+	
+	@Autowired
+	private NarudzbenicaRepository NRepo;
+
 	@GetMapping
 	public @ResponseBody List<StavkaNarudzebniceDTO> readAll() {
 		List<StavkaNarudzbenice> narudzbenice = (List<StavkaNarudzbenice>) stavkenarudzbenicaRepository.findAll();
@@ -31,51 +39,50 @@ public class StavkeNarudzbenica {
 			narudzbeniceDTO.add(new StavkaNarudzebniceDTO(narudzbenica));
 		}
 		return narudzbeniceDTO;
-				
+
 	}
-	
+
 	@PostMapping
 	public @ResponseBody StavkaNarudzbenice create(@RequestBody StavkaNarudzebniceDTO dto) {
 		StavkaNarudzbenice n = new StavkaNarudzbenice();
-		
+
 		n.setKolicina(dto.getKolicina());
 		n.setCenaPoJediniciMere(dto.getCenaPoJediniciMere());
 		n.setUkupnaCena(dto.getUkupnaCena());
-		n.setRobaUsluga(dto.getRobaUsluga());
-		n.setNarudzbenica(dto.getNarudzbenica());
-		
+		n.setRobaUsluga( RURepo.findById(dto.getRobaUsluga()).get() );
+		n.setNarudzbenica( NRepo.findById(dto.getNarudzbenica()).get() );
 
-		return stavkenarudzbenicaRepository.save(n);	
+		return stavkenarudzbenicaRepository.save(n);
 
 	}
-	
+
 	@GetMapping("/{id}")
 	public @ResponseBody StavkaNarudzebniceDTO readOne(@PathVariable(value = "id") Integer id) {
 		StavkaNarudzbenice n = stavkenarudzbenicaRepository.findById(id).get();
-	    return new StavkaNarudzebniceDTO(n);
+		return new StavkaNarudzebniceDTO(n);
 	}
-	
+
 	@PutMapping("/{id}")
 	public @ResponseBody StavkaNarudzebniceDTO update(@PathVariable(value = "id") Integer id,
-	                                        @RequestBody StavkaNarudzebniceDTO dto) {
+			@RequestBody StavkaNarudzebniceDTO dto) {
 
-		StavkaNarudzbenice n = stavkenarudzbenicaRepository.findById(id).get();  
-		
+		StavkaNarudzbenice n = stavkenarudzbenicaRepository.findById(id).get();
+
 		n.setKolicina(dto.getKolicina());
 		n.setCenaPoJediniciMere(dto.getCenaPoJediniciMere());
 		n.setUkupnaCena(dto.getUkupnaCena());
-		n.setRobaUsluga(dto.getRobaUsluga());
-		n.setNarudzbenica(dto.getNarudzbenica());
-		
-	    stavkenarudzbenicaRepository.save(n);
-	    return new StavkaNarudzebniceDTO(n);
+		n.setRobaUsluga( RURepo.findById(dto.getRobaUsluga()).get() );
+		n.setNarudzbenica( NRepo.findById(dto.getNarudzbenica()).get() );
+
+		stavkenarudzbenicaRepository.save(n);
+		return new StavkaNarudzebniceDTO(n);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public @ResponseBody StavkaNarudzebniceDTO delete(@PathVariable(value = "id") Integer id) {
 		StavkaNarudzbenice n = stavkenarudzbenicaRepository.findById(id).get();
-	    stavkenarudzbenicaRepository.delete(n);
-	    return new StavkaNarudzebniceDTO(n);
+		stavkenarudzbenicaRepository.delete(n);
+		return new StavkaNarudzebniceDTO(n);
 	}
 
 }

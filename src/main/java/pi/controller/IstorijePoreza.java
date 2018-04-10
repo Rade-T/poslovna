@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import pi.dto.IstorijaPorezaDTO;
 import pi.model.IstorijaPoreza;
 import pi.repository.IstorijaPorezaRepository;
-import pi.repository.PoreskaStopaRepository;
 import pi.repository.PreduzeceRepository;
 
 @RestController
