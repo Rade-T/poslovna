@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pi.dto.PoslovniPartnerDTO;
 import pi.repository.PoslovniPartnerRepository;
+import pi.repository.PreduzeceRepository;
 
 @RestController
 @RequestMapping(path = "/PoslovniPartner")
@@ -24,12 +25,15 @@ public class PoslovniPartner {
 	@Autowired
 	private PoslovniPartnerRepository poslovniPartnerRepository;
 	
+	@Autowired
+	private PreduzeceRepository PRepo;
+	
 	@GetMapping
 	public @ResponseBody List<PoslovniPartnerDTO> readAll(){
-		List<pi.model.PoslovniPartner> poslovniPartner = (List<PoslovniPartner>) poslovniPartnerRepository.findAll();
+		List<pi.model.PoslovniPartner> poslovniPartneri = (List<pi.model.PoslovniPartner>) poslovniPartnerRepository.findAll();
 		List<PoslovniPartnerDTO> poslovniPartnerDTO = new ArrayList<>();
-		for (pi.model.PoslovniPartner poslovniPartner2 : poslovniPartner2){
-			poslovniPartnerDTO.add(new PoslovniPartnerDTO(poslovniPartner2));
+		for (pi.model.PoslovniPartner poslovniPartner : poslovniPartneri){
+			poslovniPartnerDTO.add(new PoslovniPartnerDTO(poslovniPartner));
 		}
 		return poslovniPartnerDTO;
 	}
@@ -39,7 +43,7 @@ public class PoslovniPartner {
 		pi.model.PoslovniPartner pp = new pi.model.PoslovniPartner();
 		pp.setAdresa(dto.getAdresa());
 		pp.setNazivPartnera(dto.getNazivPartnera());
-		pp.setPreduzece(dto.getPreduzece());
+		pp.setPreduzece( PRepo.findById(dto.getPreduzece()).get() );
 		pp.setVrstaPartnera(dto.getVrstaPartnera());
 		return poslovniPartnerRepository.save(pp);
 	}
@@ -55,7 +59,7 @@ public class PoslovniPartner {
 		pi.model.PoslovniPartner pp = poslovniPartnerRepository.findById(id).get();
 		pp.setAdresa(dto.getAdresa());
 		pp.setNazivPartnera(dto.getNazivPartnera());
-		pp.setPreduzece(dto.getPreduzece());
+		pp.setPreduzece( PRepo.findById(dto.getPreduzece()).get() );
 		pp.setVrstaPartnera(dto.getVrstaPartnera());
 		poslovniPartnerRepository.save(pp);
 		return new PoslovniPartnerDTO(pp);
