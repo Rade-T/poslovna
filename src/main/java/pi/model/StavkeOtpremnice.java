@@ -2,10 +2,18 @@ package pi.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class StavkeOtpremnice {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true,nullable=false)
+	public int id;
 	
 	@Column(nullable = false)
 	public float kolicina;
@@ -60,6 +68,14 @@ public class StavkeOtpremnice {
 
 	public void setRobaUsluga(RobaUsluga robaUsluga) {
 		this.robaUsluga = robaUsluga;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }

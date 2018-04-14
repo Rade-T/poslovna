@@ -45,7 +45,11 @@ public class Cenovnici {
 		Cenovnik c = new Cenovnik();
 
 		c.setDatumPrimene(dto.getDatumPrimene());
-		c.setPreduzece(PRepo.findById(dto.getPreduzece()).get());
+		try {
+			c.setPreduzece(PRepo.findById(dto.getPreduzece()).get());
+		} catch (Exception e) {
+			c.setPreduzece(null);
+		}
 
 		return cenovnikRepository.save(c);
 
