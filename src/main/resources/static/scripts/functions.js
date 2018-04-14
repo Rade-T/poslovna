@@ -1,18 +1,18 @@
-function highlightRow(row) {
-	// ne reagujemo na klik na header tabele, samo obicne redove
-	// this sadrzi red na koji se kliknulo
-	if (!$(row).hasClass("header")) {
-		// klasa highlighted postavlja pozadinu na plavu
-		// njenim dodavanjem ili uklanjanjem oznacavamo da neki red
-		// dobija, odnosno gubi selekciju
-		// uklanjamo sa trenutno selektovanog
-		$(".highlighted").removeClass("highlighted");
-		// dodajemo na novi selektovani
-		$(row).addClass("highlighted");
-		// pozivamo sinhronizaciju, prosledjujemo dati red
-		sync($(row));
-	}
-}
+//function highlightRow(row) {
+//	// ne reagujemo na klik na header tabele, samo obicne redove
+//	// this sadrzi red na koji se kliknulo
+//	if (!$(row).hasClass("header")) {
+//		// klasa highlighted postavlja pozadinu na plavu
+//		// njenim dodavanjem ili uklanjanjem oznacavamo da neki red
+//		// dobija, odnosno gubi selekciju
+//		// uklanjamo sa trenutno selektovanog
+//		$(".highlighted").removeClass("highlighted");
+//		// dodajemo na novi selektovani
+//		$(row).addClass("highlighted");
+//		// pozivamo sinhronizaciju, prosledjujemo dati red
+//		sync($(row));
+//	}
+//}
 
 function goFirst() {
 	// indeksi pocinju od 1
@@ -71,11 +71,11 @@ function goPrevious() {
 	sync(item);
 }
 
-function sync(item) {
-	oznaka = item.find(".code").html()
-	naziv = item.find(".name").html()
-	id = item.find(".idCell").html()
-	$("#oznaka").val(oznaka);
-	$("#naziv").val(naziv);
-	$("#id").val(id);
-}
+//function sync(item) {
+//	oznaka = item.find(".code").html()
+//	naziv = item.find(".name").html()
+//	id = item.find(".idCell").html()
+//	$("#oznaka").val(oznaka);
+//	$("#naziv").val(naziv);
+//	$("#id").val(id);
+//}

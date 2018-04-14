@@ -1,0 +1,162 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="scripts/jquery-3.2.1.min.js"></script>
+<script src="scripts/tether.min.js"></script>
+<script src="scripts/bootstrap.min.js"></script>
+<script src="scripts/functions.js"></script>
+<script src="js/preduzeca.js"></script>
+<link rel="stylesheet" type="text/css" href="stylesheets/design.css">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+</head>
+
+<body>
+	<ul>
+
+		<li><a href="@{Cenovnici.show(" filter")}" id="search"><img
+				src="images/search.gif" /></a></li>
+		<li><a href="#" id="refresh"><img src="images/refresh.gif" /></a></li>
+		<li><a href="#" id="pickup"><img src="images/zoom-pickup.gif" /></a></li>
+		<li><a href="#" id="help"><img src="images/help.gif" /></a></li>
+		<li><a id="first"><img src="images/first.gif" /></a></li>
+		<li><a id="prev"><img src="images/prev.gif" /></a></li>
+		<li><a id="next"><img src="images/next.gif" /></a></li>
+		<li><a id="last"><img src="images/last.gif" /></a></li>
+		<li><a href="#inputModal" data-toggle="modal"
+			data-target="#inputModal"><img src="images/add.gif" /></a></li>
+		<li><a href="@{Cenovnici.show(" remove")}" id="remove"><img
+				src="images/remove.gif" /></a></li>
+		<li><a href="#" id="nextform"><img src="images/nextform.gif" /></a></li>
+		<li><a href="@{Cenovnici.show(" copy")}" id="copy"><img />Kopiraj
+				preduzece</a></li>
+		<li><a href="@{Application.index}" id="nextform">Pocetna</a></li>
+	</ul>
+
+	<h1>Preduzeca</h1>
+
+	<table id="dataTable" class="table">
+
+		<tr class="header">
+			<th>PIB</th>
+			<th>Naziv</th>
+			<th>Adresa</th>
+			<th>Maticni Broj</th>
+			<th>Sifra Delatnosti</th>
+			<th>Telefon</th>
+			<th>Email</th>
+		</tr>
+	</table>
+
+	<!-- #{set 'action'} -->
+	<!-- 	#{if mode == 'add'} -->
+	<!-- 		@{Preduzeca.add()} -->
+	<!-- 	#{/if} -->
+
+	<!-- 	#{elseif mode == 'edit'} -->
+	<!-- 		@{Preduzeca.edit()} -->
+	<!-- 	#{/elseif} -->
+
+	<!-- 	#{elseif mode == 'remove'} -->
+	<!-- 		@{Preduzeca.delete()} -->
+	<!-- 	#{/elseif} -->
+
+	<!-- 	#{else} -->
+	<!-- 		@{Preduzeca.filter()} -->
+	<!-- 	#{/else} -->
+	<!-- #{/set} -->
+
+	<div class="panel">
+		<p style="color: red;">Greska!</p>
+		<p>
+		<form id="editForm">
+			<input type="hidden" name="id" id="id" />
+			<p>
+				<label for="PIB">PIB</label> <input type="text" name="PIB" id="PIB" />
+				<span class="error"></span>
+			</p>
+
+			<p>
+				<label for="naziv">Naziv</label> <input type="text" name="naziv"
+					id="naziv" /> <span class="error"></span>
+			</p>
+			<p>
+				<label for="adresa">Adresa</label> <input type="text" name="adresa"
+					id="adresa" /> <span class="error"></span>
+			</p>
+			<p>
+				<label for="maticniBroj">Maticni Broj</label> <input type="text"
+					name="maticniBroj" id="maticniBroj" /> <span class="error"></span>
+			</p>
+			<p>
+				<label for="sifraDelatnosti">Sifra Delatnosti</label> <input
+					type="text" name="sifraDelatnosti" id="sifraDelatnosti" /> <span
+					class="error"></span>
+			</p>
+			<p>
+				<label for="telefon">Telefon</label> <input type="text"
+					name="telefon" id="telefon" /> <span class="error"></span>
+			</p>
+			<p>
+				<label for="email">Email</label> <input type="text" name="email"
+					id="email" /> <span class="error"></span>
+			</p>
+
+			<div id="formActions">
+				<input id="potvrda" type="button" value="Potvrda" style="margin-left: 6em">
+				<a id="rollback" href="#" style="margin-left: 6em">Rollback</a>
+			</div>
+		</form>
+	</div>
+
+	<div class="modal" id="inputModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Novo Preduzece</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form id="inputForm">
+					<div class="modal-body">
+						<input type="hidden" name="id" id="id" />
+						<p>
+							<label for="PIB">PIB</label> <input type="text" name="PIB"
+								id="PIB" />
+						</p>
+						<p>
+							<label for="naziv">Naziv</label> <input type="text" name="naziv"
+								id="naziv" />
+						</p>
+						<p>
+							<label for="adresa">Adresa</label> <input type="text"
+								name="adresa" id="adresa" />
+						</p>
+						<p>
+							<label for="maticniBroj">Maticni broj</label> <input type="text"
+								name="maticniBroj" id="maticniBroj" />
+						</p>
+						<p>
+							<label for=sifraDelatnosti>Sifra delatnosti</label> <input
+								type="text" name="sifraDelatnosti" id="sifraDelatnosti" />
+						</p>
+						<p>
+							<label for="telefon">Telefon</label> <input type="text"
+								name="telefon" id="telefon" />
+						</p>
+						<p>
+							<label for="email">Email</label> <input type="text" name="email"
+								id="email" />
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Zatvori</button>
+						<button type="button" class="btn btn-primary" id="add">Potvrda</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
