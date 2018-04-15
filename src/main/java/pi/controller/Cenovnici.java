@@ -33,25 +33,22 @@ public class Cenovnici {
 	public @ResponseBody List<CenovnikDTO> readAll() {
 		List<Cenovnik> cenovnici = (List<Cenovnik>) cenovnikRepository.findAll();
 		List<CenovnikDTO> cenovniciDTO = new ArrayList<>();
-		for (Cenovnik Cenovnik : cenovnici) {
-			cenovniciDTO.add(new CenovnikDTO(Cenovnik));
+		for (Cenovnik cenovnik : cenovnici) {
+			cenovniciDTO.add(new CenovnikDTO(cenovnik));
 		}
 		return cenovniciDTO;
 
 	}
 
 	@PostMapping
-	public @ResponseBody Cenovnik create(@RequestBody CenovnikDTO dto) {
+	public @ResponseBody CenovnikDTO create(@RequestBody CenovnikDTO dto) {
 		Cenovnik c = new Cenovnik();
 
 		c.setDatumPrimene(dto.getDatumPrimene());
-		try {
-			c.setPreduzece(PRepo.findById(dto.getPreduzece()).get());
-		} catch (Exception e) {
-			c.setPreduzece(null);
-		}
+		c.setPreduzece(PRepo.findById(dto.getPreduzece()).get());
 
-		return cenovnikRepository.save(c);
+		cenovnikRepository.save(c);
+		return new CenovnikDTO(c);
 
 	}
 
