@@ -13,7 +13,7 @@
 <body>
 	<ul>
 
-		<li><a href="@{Cenovnici.show(" filter")}" id="search"><img
+		<li><a href="#" id="search"><img
 				src="images/search.gif" /></a></li>
 		<li><a href="#" id="refresh"><img src="images/refresh.gif" /></a></li>
 		<li><a href="#" id="pickup"><img src="images/zoom-pickup.gif" /></a></li>
@@ -24,12 +24,12 @@
 		<li><a id="last"><img src="images/last.gif" /></a></li>
 		<li><a href="#inputModal" data-toggle="modal"
 			data-target="#inputModal"><img src="images/add.gif" /></a></li>
-		<li><a href="@{Cenovnici.show(" remove")}" id="remove"><img
+		<li><a href="#" id="remove"><img
 				src="images/remove.gif" /></a></li>
 		<li><a href="#" id="nextform"><img src="images/nextform.gif" /></a></li>
-		<li><a href="@{Cenovnici.show(" copy")}" id="copy"><img />Kopiraj
+		<li><a href="#" id="copy"><img />Kopiraj
 				preduzece</a></li>
-		<li><a href="@{Application.index}" id="nextform">Pocetna</a></li>
+		<li><a href="#" id="nextform">Pocetna</a></li>
 	</ul>
 
 	<h1>Preduzeca</h1>
@@ -47,26 +47,7 @@
 		</tr>
 	</table>
 
-	<!-- #{set 'action'} -->
-	<!-- 	#{if mode == 'add'} -->
-	<!-- 		@{Preduzeca.add()} -->
-	<!-- 	#{/if} -->
-
-	<!-- 	#{elseif mode == 'edit'} -->
-	<!-- 		@{Preduzeca.edit()} -->
-	<!-- 	#{/elseif} -->
-
-	<!-- 	#{elseif mode == 'remove'} -->
-	<!-- 		@{Preduzeca.delete()} -->
-	<!-- 	#{/elseif} -->
-
-	<!-- 	#{else} -->
-	<!-- 		@{Preduzeca.filter()} -->
-	<!-- 	#{/else} -->
-	<!-- #{/set} -->
-
 	<div class="panel">
-		<p style="color: red;">Greska!</p>
 		<p>
 		<form id="editForm">
 			<input type="hidden" name="id" id="id" />

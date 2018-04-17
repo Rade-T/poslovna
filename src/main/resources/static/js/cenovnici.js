@@ -51,8 +51,8 @@ function sync(item) {
 	id = item.find(".id").html()
 	preduzece = item.find(".preduzece").html()
 	$("#datumPrimene").val(datumPrimene);
-	$("#id").val(id);
-	$("#preduzeceOption").val(preduzece);
+	$("#cenovnikId").val(id);
+	$("#preduzece").val(preduzece);
 }
 
 $(document).on("click", "tr", function(event) {
@@ -114,10 +114,21 @@ $(document).ready(function() {
 						+ "</td>"
 						+ "<td><a class=\"remove\" href='/Cenovnici/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
-						+ +"<td class=\"idCell\">"
+						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 						+ data[i].id + "</td>"
-						"</tr>"
 						$("#dataTable").append(newRow)
+					}
+				});
+	
+	$.ajax({
+		url : "http://localhost:8080/Preduzeca/"})
+		.then(
+				function(data) {
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].PIB + '">'
+						+ data[i].naziv + '</option>';
+						$("#preduzece").append(newOption);
 					}
 				});
 	
@@ -172,4 +183,35 @@ $(document).ready(function() {
 			$('#inputModal').modal('toggle');
 			console.log("end");
 	 });
+	
+	$("#potvrda").on("click", function(event){
+		event.preventDefault();
+		console.log("Kliknuta potvrda");
+		var formData = JSON.stringify({
+			id : $("#editForm [name='cenovnikId']").val(),
+            datumPrimene : $("#editForm [name='datumPrimene']").val(),
+            preduzece :$("#editForm [name='preduzece']").val()
+        });
+		console.log(formData);
+		$.ajax({
+			url: "http://localhost:8080/Cenovnici/" + $("#editForm [name='cenovnikId']").val(),
+			type: "PUT",
+			data: formData,
+			// saljemo json i ocekujemo json nazad
+			contentType: "application/json",
+			datatype: 'json',
+			success: function(data) {
+				$(".highlighted").find(".datumPrimene")[0].innerHTML = data.datumPrimene;
+				$(".highlighted").find(".preduzece")[0].innerHTML = data.preduzece;
+			  },
+			error: function() {
+				console.log("Nije updateovao!")
+			}
+			});
+	});
+	
+	$("#rollback").click(function(event){
+		event.preventDefault();
+		sync($(".highlighted"));
+	});
 });
