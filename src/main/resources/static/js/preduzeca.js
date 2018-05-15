@@ -134,7 +134,12 @@ $(document).ready(function() {
 			contentType: "application/json",
 			datatype: 'json',
 			success: function(data) {
-				console.log("Updateovao!")
+				$(".highlighted").find(".naziv")[0].innerHTML = data.naziv;
+				$(".highlighted").find(".adresa")[0].innerHTML = data.adresa;
+				$(".highlighted").find(".maticniBroj")[0].innerHTML = data.maticniBroj;
+				$(".highlighted").find(".sifraDelatnosti")[0].innerHTML = data.sifraDelatnosti;
+				$(".highlighted").find(".telefon")[0].innerHTML = data.telefon;
+				$(".highlighted").find(".email")[0].innerHTML = data.email;
 			  },
 			error: function() {
 				console.log("Nije updateovao!")
