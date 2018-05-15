@@ -1,0 +1,86 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="scripts/jquery-3.2.1.min.js"></script>
+	<script src="scripts/tether.min.js"></script>
+	<script src="scripts/bootstrap.min.js"></script>
+	<script src="scripts/functions.js"></script>
+	<link rel="stylesheet" type="text/css" href="stylesheets/design.css">
+	<link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+	
+	<script type="text/javascript">
+	$(document).ready(function() {
+		
+	});
+	
+	</script>
+</head>
+<body>
+	<ul>
+		<li><a href="" id="search"><img
+				src="images/search.gif" /></a></li>
+		<!-- Pitati za href gde je id = search. -->
+		<li><a href="#" id="refresh"><img src="images/refresh.gif" /></a></li>
+		<li><a href="#" id="pickup"><img src="images/zoom-pickup.gif" /></a></li>
+		<li><a href="#" id="help"><img src="images/help.gif" /></a></li>
+		<li><a id="first"><img src="images/first.gif" /></a></li>
+		<li><a id="prev"><img src="images/prev.gif" /></a></li>
+		<li><a id="next"><img src="images/next.gif" /></a></li>
+		<li><a id="last"><img src="images/last.gif" /></a></li>
+		<li><a id="addInputModal" href="#inputModal" data-toggle="modal"
+			data-target="#inputModal" data-preduzeca=""><img src="images/add.gif" /></a></li>
+		<li><a href="" id="remove"><img
+				src="images/remove.gif" /></a></li>
+		<!-- Pitati za href gde je id = remove. -->		
+		<li><a href="#" id="nextform"><img src="images/nextform.gif" /></a></li>
+		<li><a href="" id="copy"><img />Kopiraj
+				cenovnik</a></li>
+		<!-- Pitati za href gde je id = copy. -->
+		<li><a href="" id="nextform">Pocetna strana</a></li>
+		<!-- Pitati za href gde je id = nextform. -->
+	</ul>
+	
+	<div class="container-fluid">
+		<h1>Racun</h1>
+		<table id="dataTable">
+			<tr class="header">
+				<th>Banka</th>
+				<th>Preduzece</th>
+			</tr>
+		</table>
+	</div>
+	
+	<!-- Modal za novi racun -->
+	<div class="modal" id="inputModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Novi Racun</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<form id="inputForm">
+						<div class="modal-body">
+							<input type="hidden" name="id" id="id" />
+							<p>
+								<label>Banka</label>
+								<input type="text" name="banka" id="banka">
+							</p>
+							<p>
+								<label>Preduzece</label>
+								<select id="preduzece" name="preduzece"></select>
+							</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Zatvori</button>
+							<button type="button" class="btn btn-primary" id="add">Potvrda</button>
+						</div>
+					</form>
+				</div>
+			</div>
+	</div>
+</body>
+</html>
