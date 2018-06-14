@@ -1,0 +1,226 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="scripts/jquery-3.2.1.min.js"></script>
+<script src="scripts/tether.min.js"></script>
+<script src="scripts/bootstrap.min.js"></script>
+<script src="scripts/functions.js"></script>
+<script src="js/cenovnici.js"></script>
+<link rel="stylesheet" type="text/css" href="stylesheets/design.css">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+<!-- <link rel="shortcut icon" type="image/png" href="images/favicon.png}"> -->
+</head>
+
+<body>
+	<ul>
+		<li><a href="#" id="search"><img
+				src="images/search.gif" /></a></li>
+		<li><a href="#" id="refresh"><img src="images/refresh.gif" /></a></li>
+		<li><a href="#" id="pickup"><img src="images/zoom-pickup.gif" /></a></li>
+		<li><a href="#" id="help"><img src="images/help.gif" /></a></li>
+		<li><a id="first"><img src="images/first.gif" /></a></li>
+		<li><a id="prev"><img src="images/prev.gif" /></a></li>
+		<li><a id="next"><img src="images/next.gif" /></a></li>
+		<li><a id="last"><img src="images/last.gif" /></a></li>
+		<li><a id="addInputModal" href="#inputModal" data-toggle="modal"
+			data-target="#inputModal" data-preduzeca=""><img src="images/add.gif" /></a></li>
+		<li><a href="#" id="remove"><img
+				src="images/remove.gif" /></a></li>
+		<li><a href="#" id="nextform"><img src="images/nextform.gif" /></a></li>
+		<li><a href="#" id="copy"><img />Kopiraj
+				cenovnik</a></li>
+		<li><a href="/index.html" id="nextform">Pocetna strana</a></li>
+
+	</ul>
+
+	<div class="container-fluid">
+		<h1>Izlazna faktura</h1>
+
+		<table id="dataTable">
+			<tr class="header">
+				<th>Datum fakture</th>
+				<th>Datum valute</th>
+				<th>Datum obracuna</th>
+				<th>Ukupno robe</th>
+				<th>Ukupna rabat</th>
+				<th>Ukupan porez</th>
+				<th>Iznos fakture</th>
+				<th>Iznos fakture osnovica</th>
+				<th>Uplata na racun</th>
+				<th>Poziv na broj</th>
+				<th>Status fakture</th>
+				<th>Poslovni partner</th>
+				<th>Poslovna godina</th>
+				<th>Otpremnica</th>
+				
+			</tr>
+		</table>
+
+		<div class="panel">
+			<p>
+			<form id="editForm">
+				<input type="hidden" name="izlaznaFakturaId" id="izlaznaFakturaId" />
+				<p>
+					<label for="datumFakture">Datum fakture</label> <input type="text"
+						name="datumFakture" id="datumFakture" />
+				</p>
+				<p>
+					<label for="datumValute">Datum valute</label> <input type="text"
+						name="datumValute" id="datumValute" />
+				</p>
+				<p>
+					<label for="datumObracuna">Datum obracuna</label> <input type="text"
+						name="datumObracuna" id="datumObracuna" />
+				</p>
+				<p>
+					<label for="ukupnoRobe">Ukupno robe</label> <input type="text"
+						name="ukupnoRobe" id="ukupnoRobe" />
+				</p>
+				<p>
+					<label for="ukupanRabat">Ukupno rabat</label> <input type="text"
+						name="ukupanRabat" id="ukupanRabat" />
+				</p>
+				<p>
+					<label for="ukupanPorez">Ukupan porez</label> <input type="text"
+						name="ukupanPorez" id="ukupanPorez" />
+				</p>
+				<p>
+					<label for="iznosFakture">Iznos fakture</label> <input type="text"
+						name="iznosFakture" id="iznosFakture" />
+				</p>
+				<p>
+					<label for="iznosFaktureOsnovica">Iznos fakture osnovica</label> <input type="text"
+						name="iznosFaktureOsnovica" id="iznosFaktureOsnovica" />
+				</p>
+				<p>
+					<label for="uplataNaRacun">Uplata na racun</label> <input type="text"
+						name="uplataNaRacun" id="uplataNaRacun" />
+				</p>
+				<p>
+					<label for="pozivNaBroj">Poziv na broj</label> <input type="text"
+						name="pozivNaBroj" id="pozivNaBroj" />
+				</p>
+				<p>
+					<label for="statusFakture">Status fakture</label> <input type="text"
+						name="statusFakture" id="statusFakture" />
+				</p>
+				<p>
+					<label for="poslovniPartner">Poslovni partner</label>
+					<select id="poslovniPartner" name="poslovniPartner">
+								</select>
+				</p>
+				<p>
+					<label for="poslovnaGodina">Poslovna godina</label>
+					<select id="poslovnaGodina" name="poslovnaGodina">
+								</select>
+				</p>
+				<p>
+					<label for="otpremnica">Otpremnica</label>
+					<select id="otpremnica" name="otpremnica">
+								</select>
+				</p>
+				
+<!-- 				<p> -->
+<!-- 					<label id="procenatL" for="procenat">Procenat</label> <input -->
+<!-- 						type="number" name="${field.name}" id="procenat" /> -->
+<!-- 				<p> -->
+<!-- 					<input type="checkbox" name="povecanje" id="povecanje"/> -->
+<!-- 					Povecanje -->
+<!-- 				</p> -->
+<!-- 				<p> -->
+<!-- 					<input type="checkbox" name="smanjenje" id="smanjenje"/> -->
+<!-- 					Smanjenje -->
+<!-- 				</p> -->
+
+				<div id="formActions">
+					<input id="potvrda" type="button" value="Potvrda" style="margin-left: 6em" /> <a
+						id="rollback" href="#" style="margin-left: 1em">Rollback</a>
+				</div>
+			</form>
+<!-- 			</p> -->
+		</div>
+		<div class="modal" id="inputModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Nova izlazna faktura</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<form id="inputForm">
+						<div class="modal-body">
+							<input type="hidden" name="id" id="id" />
+							<p>
+					<label for="datumFakture">Datum fakture</label> <input type="text"
+						name="datumFakture" id="datumFakture" />
+				</p>
+				<p>
+					<label for="datumValute">Datum valute</label> <input type="text"
+						name="datumValute" id="datumValute" />
+				</p>
+				<p>
+					<label for="datumObracuna">Datum obracuna</label> <input type="text"
+						name="datumObracuna" id="datumObracuna" />
+				</p>
+				<p>
+					<label for="ukupnoRobe">Ukupno robe</label> <input type="text"
+						name="ukupnoRobe" id="ukupnoRobe" />
+				</p>
+				<p>
+					<label for="ukupanRabat">Ukupno rabat</label> <input type="text"
+						name="ukupanRabat" id="ukupanRabat" />
+				</p>
+				<p>
+					<label for="ukupanPorez">Ukupan porez</label> <input type="text"
+						name="ukupanPorez" id="ukupanPorez" />
+				</p>
+				<p>
+					<label for="iznosFakture">Iznos fakture</label> <input type="text"
+						name="iznosFakture" id="iznosFakture" />
+				</p>
+				<p>
+					<label for="iznosFaktureOsnovica">Iznos fakture osnovica</label> <input type="text"
+						name="iznosFaktureOsnovica" id="iznosFaktureOsnovica" />
+				</p>
+				<p>
+					<label for="uplataNaRacun">Uplata na racun</label> <input type="text"
+						name="uplataNaRacun" id="uplataNaRacun" />
+				</p>
+				<p>
+					<label for="pozivNaBroj">Poziv na broj</label> <input type="text"
+						name="pozivNaBroj" id="pozivNaBroj" />
+				</p>
+				<p>
+					<label for="statusFakture">Status fakture</label> <input type="text"
+						name="statusFakture" id="statusFakture" />
+				</p>
+				<p>
+					<label for="poslovniPartner">Poslovni partner</label>
+					<select id="poslovniPartner" name="poslovniPartner">
+								</select>
+				</p>
+				<p>
+					<label for="poslovnaGodina">Poslovna godina</label>
+					<select id="poslovnaGodina" name="poslovnaGodina">
+								</select>
+				</p>
+				<p>
+					<label for="otpremnica">Otpremnica</label>
+					<select id="otpremnica" name="otpremnica">
+								</select>
+				</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Zatvori</button>
+							<button type="button" class="btn btn-primary" id="add">Potvrda</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
