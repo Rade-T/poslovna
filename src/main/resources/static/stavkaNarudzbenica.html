@@ -1,0 +1,145 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="scripts/jquery-3.2.1.min.js"></script>
+<script src="scripts/tether.min.js"></script>
+<script src="scripts/bootstrap.min.js"></script>
+<script src="scripts/functions.js"></script>
+<script src="js/cenovnici.js"></script>
+<link rel="stylesheet" type="text/css" href="stylesheets/design.css">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+<!-- <link rel="shortcut icon" type="image/png" href="images/favicon.png}"> -->
+</head>
+
+<body>
+	<ul>
+		<li><a href="#" id="search"><img
+				src="images/search.gif" /></a></li>
+		<li><a href="#" id="refresh"><img src="images/refresh.gif" /></a></li>
+		<li><a href="#" id="pickup"><img src="images/zoom-pickup.gif" /></a></li>
+		<li><a href="#" id="help"><img src="images/help.gif" /></a></li>
+		<li><a id="first"><img src="images/first.gif" /></a></li>
+		<li><a id="prev"><img src="images/prev.gif" /></a></li>
+		<li><a id="next"><img src="images/next.gif" /></a></li>
+		<li><a id="last"><img src="images/last.gif" /></a></li>
+		<li><a id="addInputModal" href="#inputModal" data-toggle="modal"
+			data-target="#inputModal" data-preduzeca=""><img src="images/add.gif" /></a></li>
+		<li><a href="#" id="remove"><img
+				src="images/remove.gif" /></a></li>
+		<li><a href="#" id="nextform"><img src="images/nextform.gif" /></a></li>
+		<li><a href="#" id="copy"><img />Kopiraj
+				cenovnik</a></li>
+		<li><a href="/index.html" id="nextform">Pocetna strana</a></li>
+
+	</ul>
+
+	<div class="container-fluid">
+		<h1>Stavka narudzbenica</h1>
+
+		<table id="dataTable">
+			<tr class="header">
+				<th>Kolicina</th>
+				<th>Cena po jedinici mere</th>
+				<th>Ukupna cena</th>
+				<th>Roba usluga</th>
+				<th>Narudzbenica</th>
+			</tr>
+		</table>
+
+		<div class="panel">
+			<p>
+			<form id="editForm">
+				<input type="hidden" name="cenovnikId" id="cenovnikId" />
+				<p>
+					<label for="kolicina">Kolicina</label> <input type="text"
+						name="kolicina" id="kolicina" />
+				</p>
+				<p>
+					<label for="cenaPoJediniciMere">Cena Po Jedinici Mere</label> <input type="text"
+						name="cenaPoJediniciMere" id="cenaPoJediniciMere" />
+				</p>
+				<p>
+					<label for="ukupnaCena">Ukupna Cena</label> <input type="text"
+						name="ukupnaCena" id="ukupnaCena" />
+				</p>
+				<p>
+					<label for="robaUsluga">Roba Usluga</label>
+					<select name="robaUsluga" id="robaUsluga"></select>
+<!-- 					<button type="button" class="btn btn-info btn-sm" -->
+<!-- 						data-toggle="modal" data-target="#porezModal">...</button> -->
+				</p>
+				<p>
+					<label for="narudzbenica">Narudzbenica</label>
+					<select name="narudzbenica" id="narudzbenica"></select>
+<!-- 					<button type="button" class="btn btn-info btn-sm" -->
+<!-- 						data-toggle="modal" data-target="#porezModal">...</button> -->
+				</p>
+<!-- 				<p> -->
+<!-- 					<label id="procenatL" for="procenat">Procenat</label> <input -->
+<!-- 						type="number" name="${field.name}" id="procenat" /> -->
+<!-- 				<p> -->
+<!-- 					<input type="checkbox" name="povecanje" id="povecanje"/> -->
+<!-- 					Povecanje -->
+<!-- 				</p> -->
+<!-- 				<p> -->
+<!-- 					<input type="checkbox" name="smanjenje" id="smanjenje"/> -->
+<!-- 					Smanjenje -->
+<!-- 				</p> -->
+
+				<div id="formActions">
+					<input id="potvrda" type="button" value="Potvrda" style="margin-left: 6em" /> <a
+						id="rollback" href="#" style="margin-left: 1em">Rollback</a>
+				</div>
+			</form>
+<!-- 			</p> -->
+		</div>
+		<div class="modal" id="inputModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Nova Stavka Narudzbenica</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<form id="inputForm">
+						<div class="modal-body">
+							<input type="hidden" name="id" id="id" />
+							<p>
+								<label for="kolicina">Kolicina</label> <input type="date"
+									name="kolicina" id="kolicina" />
+							</p>
+							<p>
+								<label for="cenaPoJediniciMere">Cena po jedinici mere</label> <input type="date"
+									name="cenaPoJediniciMere" id="cenaPoJediniciMere" />
+							</p>
+							<p>
+								<label for="ukupnaCena">Ukupna cena</label> <input type="date"
+									name="ukupnaCena" id="ukupnaCena" />
+							</p>
+							<p>
+								<label for="robaUsluga">Roba Usluga</label>
+<!-- 								<input type="text" name="robaUsluga" id="robaUsluga" /> -->
+								<select id="robaUslugaSelect" name="robaUslugaSelect">
+								</select>
+							</p>
+							<p>
+								<label for="narudzbenica">Narudzbenica</label>
+<!-- 								<input type="text" name="narudzbenica" id="narudzbenica" /> -->
+								<select id="narudzbenicaSelect" name="narudzbenicaSelect">
+								</select>
+							</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Zatvori</button>
+							<button type="button" class="btn btn-primary" id="add">Potvrda</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
