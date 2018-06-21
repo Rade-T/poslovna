@@ -61,7 +61,7 @@ public class Porez {
 		return new PorezDTO(p);
 	}
 	
-	@DeleteMapping("/(id)")
+	@DeleteMapping("/{id}")
 	public @ResponseBody PorezDTO delete(@PathVariable(value="id")Integer id){
 		pi.model.Porez p = porezRepository.findById(id).get();
 		porezRepository.delete(p);

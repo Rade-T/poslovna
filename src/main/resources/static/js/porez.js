@@ -15,12 +15,13 @@ function highlightRow(row) {
 }
 
 function sync(item) {
-	nazivPoreza = item.find(".nazivPoreza").html()
-	id = item.find(".id").html()
-	vazeci = item.find(".vazeci").html()
+	nazivPoreza = item.find(".nazivPoreza").html();
+	id = item.find(".id").html();
+	vazeci = item.find(".vazeci").html();
+	console.log("Checkbox je: " + vazeci);
+	$("#porezId").val(id);
 	$("#nazivPoreza").val(nazivPoreza);
-	$("#vazeci").val(vazeci);
-
+	$("#vazeci").prop('checked', vazeci);
 }
 
 $(document).on("click", "tr", function(event) {
@@ -74,8 +75,8 @@ $(document).ready(function() {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
-						+ "<td class=\"nazivPorez\">"
-						+ data[i].nazivPorez
+						+ "<td class=\"nazivPoreza\">"
+						+ data[i].nazivPoreza
 						+ "</td>"
 						+ "<td class=\"vazeci\">"
 						+ data[i].vazeci
@@ -85,21 +86,9 @@ $(document).ready(function() {
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 						+ data[i].id + "</td>"
 						$("#dataTable").append(newRow)
+						console.log(data);
 					}
 				});
-	
-	/*$.ajax({
-		url : "http://localhost:8080/Porez/"})
-		.then(
-				function(data) {
-					console.log("Uspeo")
-					for (i = 0; i < data.length; i++) {
-						var newOption = '<option value="' + data[i].PIB + '">'
-						+ data[i].naziv + '</option>';
-						$("#preduzece").append(newOption);
-					}
-				});
-	*/
 	
 	
 	$("#add").click(function(){
@@ -107,7 +96,7 @@ $(document).ready(function() {
 			console.log("start");
 			formData = JSON.stringify({
 	            nazivPoreza : $("#inputForm [name='nazivPoreza']").val(),
-	            vazeci :$("#inputForm [name='vazeci']").isSelected(),
+	            vazeci :$("#inputForm [name='vazeci']").is(":checked"),
 	        });
 			console.log(formData);
 			$.ajax({
@@ -141,13 +130,13 @@ $(document).ready(function() {
 		event.preventDefault();
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
-			id : $("#editForm [name='cenovnikId']").val(),
+			id : $("#editForm [name='porezId']").val(),
             nazivPoreza : $("#editForm [name='nazivPoreza']").val(),
-            vazeci :$("#editForm [name='vazeci']").isSelected(),
+            vazeci :$("#editForm [name='vazeci']").is(":checked"),
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/Porez/" + $("#editForm [name='id']").val(),
+			url: "http://localhost:8080/Porez/" + $("#editForm [name='porezId']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad
@@ -155,7 +144,7 @@ $(document).ready(function() {
 			datatype: 'json',
 			success: function(data) {
 				$(".highlighted").find(".nazivPoreza")[0].innerHTML = data.nazivPoreza;
-				$(".highlighted").find(".vazeci")[0].isSelected()= data.vazeci;
+				$(".highlighted").find(".vazeci")[0].innerHTML = data.vazeci;
 			  },
 			error: function() {
 				console.log("Nije updateovao!")

@@ -5,7 +5,7 @@
 <script src="scripts/tether.min.js"></script>
 <script src="scripts/bootstrap.min.js"></script>
 <script src="scripts/functions.js"></script>
-<script src="js/cenovnici.js"></script>
+<script src="js/porez.js"></script>
 <link rel="stylesheet" type="text/css" href="stylesheets/design.css">
 <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
 <!-- <link rel="shortcut icon" type="image/png" href="images/favicon.png}"> -->
@@ -40,6 +40,7 @@
 			<tr class="header">
 				<th>Naziv poreza</th>
 				<th>Vazeci</th>
+				<th>
 			</tr>
 		</table>
 
@@ -52,7 +53,7 @@
 						name="nazivPoreza" id="nazivPoreza" />
 				</p>
 				<p>
-					<label for="vazeci">Vazeci</label> <input type="text"
+					<label for="vazeci">Vazeci</label> <input type="checkbox"
 						name="vazeci" id="vazeci" />
 				</p>
 <!-- 				<p> -->
@@ -88,11 +89,11 @@
 						<div class="modal-body">
 							<input type="hidden" name="id" id="id" />
 							<p>
-								<label for="nazivPoreza">Naziv poreza</label> <input type="date"
+								<label for="nazivPoreza">Naziv poreza</label> <input type="text"
 									name="nazivPoreza" id="nazivPoreza" />
 							</p>
 							<p>
-								<label for="vazeci">Vazeci</label> <input type="date"
+								<label for="vazeci">Vazeci</label> <input type="checkbox"
 									name="vazeci" id="vazeci" />
 							</p>
 						</div>
