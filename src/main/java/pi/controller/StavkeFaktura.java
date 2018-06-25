@@ -19,7 +19,7 @@ import pi.repository.IzlaznaFaktoraRepository;
 import pi.repository.RobaUslugaRepository;
 import pi.repository.StavkeFaktureRepository;
 
-@RequestMapping(path = "/stavkeFakutra")
+@RequestMapping(path = "/stavkeFaktura")
 public class StavkeFaktura {
 
 	@Autowired
