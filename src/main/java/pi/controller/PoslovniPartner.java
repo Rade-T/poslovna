@@ -48,15 +48,16 @@ public class PoslovniPartner {
 		return poslovniPartnerRepository.save(pp);
 	}
 	
-	@GetMapping("{/id}")
+	@GetMapping("/{id}")
 	public @ResponseBody PoslovniPartnerDTO readOne(@PathVariable(value = "id")Integer id){
 		pi.model.PoslovniPartner pp = poslovniPartnerRepository.findById(id).get();
 		return new PoslovniPartnerDTO(pp);
 	}
 	
-	@PutMapping
+	@PutMapping("/{id}")
 	public @ResponseBody PoslovniPartnerDTO update(@PathVariable(value = "id")Integer id, @RequestBody PoslovniPartnerDTO dto){
 		pi.model.PoslovniPartner pp = poslovniPartnerRepository.findById(id).get();
+		System.out.println(pp.getId());
 		pp.setAdresa(dto.getAdresa());
 		pp.setNazivPartnera(dto.getNazivPartnera());
 		pp.setPreduzece( PRepo.findById(dto.getPreduzece()).get() );
@@ -65,8 +66,8 @@ public class PoslovniPartner {
 		return new PoslovniPartnerDTO(pp);
 	}
 	
-	@DeleteMapping("{/id}")
-	public @ResponseBody PoslovniPartnerDTO delete (@PathVariable(value = "id")Integer id){
+	@DeleteMapping("/{id}")
+	public @ResponseBody PoslovniPartnerDTO delete(@PathVariable(value = "id") Integer id){
 		pi.model.PoslovniPartner pp = poslovniPartnerRepository.findById(id).get();
 		poslovniPartnerRepository.delete(pp);
 		return new PoslovniPartnerDTO(pp);

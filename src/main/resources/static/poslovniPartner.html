@@ -5,7 +5,7 @@
 <script src="scripts/tether.min.js"></script>
 <script src="scripts/bootstrap.min.js"></script>
 <script src="scripts/functions.js"></script>
-<script src="js/cenovnici.js"></script>
+<script src="js/poslovniPartner.js"></script>
 <link rel="stylesheet" type="text/css" href="stylesheets/design.css">
 <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
 <!-- <link rel="shortcut icon" type="image/png" href="images/favicon.png}"> -->
@@ -48,7 +48,7 @@
 		<div class="panel">
 			<p>
 			<form id="editForm">
-				<input type="hidden" name="poslovniPartnerId" id="cenovnikId" />
+				<input type="hidden" name="id" id="id" />
 				<p>
 					<label for="nazivPartnera">Naziv partnera</label> <input type="text"
 						name="nazivPartnera" id="nazivPartnera" />
@@ -98,17 +98,17 @@
 					</div>
 					<form id="inputForm">
 						<div class="modal-body">
-							<input type="hidden" name="poslovniPartnerId" id="poslovniPartnerId" />
+							<input type="hidden" name="id" id="id" />
 							<p>
-								<label for="nazivPartnera">naziv Partnera</label> <input type="date"
+								<label for="nazivPartnera">naziv Partnera</label> <input type="text"
 									name="nazivPartnera" id="nazivPartnera" />
 							</p>
 							<p>
-								<label for="adresa">Adresa</label> <input type="date"
+								<label for="adresa">Adresa</label> <input type="text"
 									name="adresa" id="adresa" />
 							</p>
 							<p>
-								<label for="vrstaPartnera">Vrsta Partnera</label> <input type="date"
+								<label for="vrstaPartnera">Vrsta Partnera</label> <input type="text"
 									name="vrstaPartnera" id="vrstaPartnera" />
 							</p>
 							<p>

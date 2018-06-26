@@ -3,6 +3,7 @@ package pi.dto;
 import pi.model.PoslovniPartner;
 
 public class PoslovniPartnerDTO {
+	public int id;
 	public String nazivPartnera;
 	public String adresa;
 	public String vrstaPartnera;
@@ -17,10 +18,19 @@ public class PoslovniPartnerDTO {
 
 	public PoslovniPartnerDTO(PoslovniPartner dto) {
 		super();
+		this.id = dto.getId();
 		this.nazivPartnera = dto.getNazivPartnera();
 		this.adresa = dto.getAdresa();
 		this.vrstaPartnera = dto.getVrstaPartnera();
 		this.preduzece = dto.getPreduzece().getPIB();
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNazivPartnera() {

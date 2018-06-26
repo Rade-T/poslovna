@@ -16,19 +16,18 @@ function highlightRow(row) {
 
 function sync(item) {
 	nazivPartnera = item.find(".nazivPartnera").html();
-	id = item.find(".poslovniPartnerId").html();
+	id = item.find(".id").html();
 	adresa = item.find(".adresa").html();
 	vrstaPartnera = item.find(".vrstaPartnera").html();
 	preduzece = item.find(".preduzece").html();
 	
-	
+	console.log(id);
 	
 	$("#id").val(id);
 	$("#nazivPartnera").val(nazivPartnera);
 	$("#adresa").val(adresa);
 	$("#vrstaPartnera").val(vrstaPartnera);
 	$("#preduzece").val(preduzece);
-
 }
 
 $(document).on("click", "tr", function(event) {
@@ -50,7 +49,7 @@ $(document).on("click", ".remove", function(event){
         }
 	});
 });
-/*
+
 $(document).ready(function() {
 	$("#porezPickup").click(function() {
 		id = $(".highlighted").find(".id").html();
@@ -76,19 +75,25 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/Porez/"})
+		url : "http://localhost:8080/PoslovniPartner/"})
 		.then(
 				function(data) {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
-						+ "<td class=\"nazivPoreza\">"
-						+ data[i].nazivPoreza
+						+ "<td class=\"nazivPartnera\">"
+						+ data[i].nazivPartnera
 						+ "</td>"
-						+ "<td class=\"vazeci\">"
-						+ data[i].vazeci
+						+ "<td class=\"adresa\">"
+						+ data[i].adresa
 						+ "</td>"
-						+ "<td><a class=\"remove\" href='/Porez/" + data[i].id + "'>"
+						+ "<td class=\"vrstaPartnera\">"
+						+ data[i].vrstaPartnera
+						+ "</td>"
+						+ "<td class=\"preduzece\">"
+						+ data[i].preduzece
+						+ "</td>"
+						+ "<td><a class=\"remove\" href='/PoslovniPartner/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 						+ data[i].id + "</td>"
@@ -96,7 +101,35 @@ $(document).ready(function() {
 						console.log(data);
 					}
 				});
-	*/
+	
+	$.ajax({
+		url : "http://localhost:8080/Preduzeca/"})
+		.then(
+				function(data) {
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].PIB + '">'
+						+ data[i].naziv + '</option>';
+						$("#preduzece").append(newOption);
+					}
+				});
+	
+	$('#inputModal').on('shown.bs.modal', function (e) {
+		$.ajax({
+			url: "http://localhost:8080/Preduzeca"})
+			.then(
+				function(data) {
+					console.log("Ucitavanje preduzeca");
+					console.log(data);
+					for (i = 0; i < data.length; i++) {
+						console.log(i);
+						var newOption = '<option value="' + data[i].PIB + '">'
+						+ data[i].naziv + '</option>';
+						console.log(data[i]);
+						$(e.currentTarget).find('select[name="preduzeceSelect"]').append(newOption);
+					}
+			});
+	});
 	
 	$("#add").click(function(){
 		// pripremamo JSON koji cemo poslati
@@ -106,8 +139,6 @@ $(document).ready(function() {
 				adresa : $("#inputForm [name='adresa']").val(),
 				vrstaPartnera : $("#inputForm [name='vrstaPartnera']").val(),
 				preduzece : $("#inputForm [name='preduzece']").val(),
-
-	           
 	        });
 			console.log(formData);
 			$.ajax({
@@ -142,6 +173,7 @@ $(document).ready(function() {
 		event.preventDefault();
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
+			id : $("#editForm [name='id']").val(),
 			nazivPartnera : $("#editForm [name='nazivPartnera']").val(),
 			adresa : $("#editForm [name='adresa']").val(),
 			vrstaPartnera : $("#editForm [name='vrstaPartnera']").val(),
@@ -149,7 +181,7 @@ $(document).ready(function() {
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/PoslovniPartner/" + $("#editForm [name='poslovniPartnerId']").val(),
+			url: "http://localhost:8080/PoslovniPartner/" + $("#editForm [name='id']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad
@@ -161,8 +193,9 @@ $(document).ready(function() {
 				$(".highlighted").find(".vrstaPartnera")[0].innerHTML = data.vrstaPartnera;
 				$(".highlighted").find(".preduzece")[0].innerHTML = data.preduzece;
 			  },
-			error: function() {
-				console.log("Nije updateovao!")
+			error: function(err) {
+				console.log("Nije updateovao!");
+				console.log(err);
 			}
 			});
 	});
