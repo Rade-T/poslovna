@@ -75,9 +75,6 @@ $(document).ready(function() {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
-						+ "<td class=\"id\">"
-						+ data[i].id
-						+ "</td>"
 						+ "<td class=\"banka\">"
 						+ data[i].banka
 						+ "</td>"
@@ -92,41 +89,39 @@ $(document).ready(function() {
 						$("#dataTable").append(newRow)
 					}
 				});
-/*ovo ne znam	
+	
 	$.ajax({
-		url : "http://localhost:8080/Racuni/"})
+		url : "http://localhost:8080/Preduzeca/"})
 		.then(
 				function(data) {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newOption = '<option value="' + data[i].PIB + '">'
-						+ data[i].banka + '</option>';
+						+ data[i].naziv + '</option>';
 						$("#preduzece").append(newOption);
 					}
 				});
 	
 	$('#inputModal').on('shown.bs.modal', function (e) {
 		$.ajax({
-			url: "http://localhost:8080/Racuni"})
+			url: "http://localhost:8080/Preduzeca"})
 			.then(
 				function(data) {
-					console.log("Ucitavanje racuna");
+					console.log("Ucitavanje preduzeca");
 					console.log(data);
 					for (i = 0; i < data.length; i++) {
 						console.log(i);
 						var newOption = '<option value="' + data[i].PIB + '">'
-						+ data[i].banka + '</option>';
+						+ data[i].naziv + '</option>';
 						console.log(data[i]);
-						$(e.currentTarget).find('select[name="racuniSelect"]').append(newOption);
+						$(e.currentTarget).find('select[name="preduzece"]').append(newOption);
 					}
 			});
 	});
-*/	
 	$("#add").click(function(){
 		// pripremamo JSON koji cemo poslati
 			console.log("start");
 			formData = JSON.stringify({
-	            id : $("#inputForm [name='id']").val(),
 	            banka : $("#inputForm [name='banka']").val(),
 	            preduzece : $("#inputForm [name='preduzece']").val(),
 	        });
@@ -181,8 +176,8 @@ $(document).ready(function() {
 			datatype: 'json',
 			success: function(data) {
 				$(".highlighted").find(".id")[0].innerHTML = data.id;
-				$(".highlighted").find(".stopa")[0].innerHTML = data.banka;
-				$(".highlighted").find(".iznos")[0].innerHTML = data.preduzece;
+				$(".highlighted").find(".banka")[0].innerHTML = data.banka;
+				$(".highlighted").find(".preduzece")[0].innerHTML = data.preduzece;
 				
 			  },
 			error: function() {

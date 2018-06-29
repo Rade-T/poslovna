@@ -6,7 +6,7 @@ import pi.model.Racun;
 public class RacunDTO {
 	public int id;
 	public String banka;
-	public Preduzece preduzece;
+	public int preduzece;
 
 	public RacunDTO() {
 
@@ -16,7 +16,7 @@ public class RacunDTO {
 		super();
 		this.id = dto.getId();
 		this.banka = dto.getBanka();
-		this.preduzece = dto.getPreduzece();
+		this.preduzece = dto.getPreduzece().getPIB();
 	}
 
 	public int getId() {
@@ -35,11 +35,11 @@ public class RacunDTO {
 		this.banka = banka;
 	}
 
-	public Preduzece getPreduzece() {
+	public int getPreduzece() {
 		return preduzece;
 	}
 
-	public void setPreduzece(Preduzece preduzece) {
+	public void setPreduzece(int preduzece) {
 		this.preduzece = preduzece;
 	}
 

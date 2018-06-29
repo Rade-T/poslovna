@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pi.dto.RacunDTO;
 import pi.model.Racun;
+import pi.repository.PreduzeceRepository;
 import pi.repository.RacunRepository;
 
 @RestController
@@ -24,6 +25,9 @@ public class Racuni {
 	
 	@Autowired
 	private RacunRepository racunRepository;
+	
+	@Autowired
+	private PreduzeceRepository PRepo;
 	
 	
 	@GetMapping
@@ -47,7 +51,7 @@ public class Racuni {
 	public @ResponseBody Racun create(@RequestBody RacunDTO dto){
 		Racun r = new Racun();
 		r.setBanka(dto.getBanka());
-		r.setPreduzece(dto.preduzece);
+		r.setPreduzece(PRepo.findById(dto.getPreduzece()).get());
 		
 		return racunRepository.save(r);
 	}
@@ -56,7 +60,7 @@ public class Racuni {
 	public @ResponseBody RacunDTO update(@PathVariable(value="id") Integer id, @RequestBody RacunDTO dto){
 		Racun r = racunRepository.findById(id).get();
 		r.setBanka(dto.getBanka());
-		r.setPreduzece(dto.getPreduzece());
+		r.setPreduzece(PRepo.findById(dto.getPreduzece()).get());
 		racunRepository.save(r);
 		
 		return new RacunDTO(r);

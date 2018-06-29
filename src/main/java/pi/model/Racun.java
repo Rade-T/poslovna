@@ -12,7 +12,7 @@ public class Racun {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="poreskaStopa_id", unique=true, nullable=false)
+	@Column(name="racuni_id", unique=true, nullable=false)
 	public int id; 
 	
 	@Column(nullable = false, length = 30)
