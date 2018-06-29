@@ -79,7 +79,7 @@ $(document).ready(function() {
 						+ data[i].banka
 						+ "</td>"
 						+ "<td class=\"preduzece\">"
-						+ data[i].preduzece
+						+ data[i].preduzece_pib
 						+ "</td>"
 						
 						+ "<td><a class=\"remove\" href='/Racuni/" + data[i].id + "'>"
@@ -123,7 +123,7 @@ $(document).ready(function() {
 			console.log("start");
 			formData = JSON.stringify({
 	            banka : $("#inputForm [name='banka']").val(),
-	            preduzece : $("#inputForm [name='preduzece']").val(),
+	            preduzece_pib : $("#inputForm [name='preduzece']").val(),
 	        });
 			console.log(formData);
 			$.ajax({
@@ -163,7 +163,7 @@ $(document).ready(function() {
 		var formData = JSON.stringify({
 			id : $("#editForm [name='id']").val(),
 	        banka : $("#editForm [name='banka']").val(),
-	        preduzece : $("#editForm [name='preduzece']").val(), 
+	        preduzece_pib : $("#editForm [name='preduzece']").val(), 
             
         });
 		console.log(formData);
@@ -177,7 +177,7 @@ $(document).ready(function() {
 			success: function(data) {
 				$(".highlighted").find(".id")[0].innerHTML = data.id;
 				$(".highlighted").find(".banka")[0].innerHTML = data.banka;
-				$(".highlighted").find(".preduzece")[0].innerHTML = data.preduzece;
+				$(".highlighted").find(".preduzece")[0].innerHTML = data.preduzece_pib;
 				
 			  },
 			error: function() {

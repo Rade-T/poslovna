@@ -1,22 +1,21 @@
 package pi.dto;
 
-import pi.model.Preduzece;
 import pi.model.Racun;
 
 public class RacunDTO {
 	public int id;
 	public String banka;
-	public int preduzece;
+	public int preduzece_pib;
 
 	public RacunDTO() {
-
+		super();
 	}
 
 	public RacunDTO(Racun dto) {
 		super();
 		this.id = dto.getId();
 		this.banka = dto.getBanka();
-		this.preduzece = dto.getPreduzece().getPIB();
+		this.preduzece_pib = dto.getPreduzece().getPIB();
 	}
 
 	public int getId() {
@@ -35,12 +34,12 @@ public class RacunDTO {
 		this.banka = banka;
 	}
 
-	public int getPreduzece() {
-		return preduzece;
+	public int getPreduzece_pib() {
+		return preduzece_pib;
 	}
 
-	public void setPreduzece(int preduzece) {
-		this.preduzece = preduzece;
+	public void setPreduzece_pib(int preduzece) {
+		this.preduzece_pib = preduzece;
 	}
 
 }

@@ -29,7 +29,6 @@ public class Racuni {
 	@Autowired
 	private PreduzeceRepository PRepo;
 	
-	
 	@GetMapping
 	public @ResponseBody List<RacunDTO> readAll(){
 		List<Racun> racuni = (List<Racun>) racunRepository.findAll();
@@ -48,19 +47,19 @@ public class Racuni {
 	}
 	
 	@PostMapping
-	public @ResponseBody Racun create(@RequestBody RacunDTO dto){
+	public @ResponseBody RacunDTO create(@RequestBody RacunDTO dto){
 		Racun r = new Racun();
 		r.setBanka(dto.getBanka());
-		r.setPreduzece(PRepo.findById(dto.getPreduzece()).get());
+		r.setPreduzece(PRepo.findById(dto.getPreduzece_pib()).get());
 		
-		return racunRepository.save(r);
+		return new RacunDTO(racunRepository.save(r));
 	}
 	
 	@PutMapping("/{id}")
 	public @ResponseBody RacunDTO update(@PathVariable(value="id") Integer id, @RequestBody RacunDTO dto){
 		Racun r = racunRepository.findById(id).get();
 		r.setBanka(dto.getBanka());
-		r.setPreduzece(PRepo.findById(dto.getPreduzece()).get());
+		r.setPreduzece(PRepo.findById(dto.getPreduzece_pib()).get());
 		racunRepository.save(r);
 		
 		return new RacunDTO(r);
