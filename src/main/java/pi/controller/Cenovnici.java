@@ -60,7 +60,6 @@ public class Cenovnici {
 
 	@PutMapping("/{id}")
 	public @ResponseBody CenovnikDTO update(@PathVariable(value = "id") Integer id, @RequestBody CenovnikDTO dto) {
-
 		Cenovnik c = cenovnikRepository.findById(id).get();
 		c.setDatumPrimene(dto.getDatumPrimene());
 		c.setPreduzece(PRepo.findById(dto.getPreduzece()).get());

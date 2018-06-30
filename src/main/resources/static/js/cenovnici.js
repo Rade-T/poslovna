@@ -47,11 +47,11 @@ function highlightRow(row) {
 }
 
 function sync(item) {
-	datumPrimene = item.find(".datumPrimene").html()
-	id = item.find(".id").html()
-	preduzece = item.find(".preduzece").html()
+	datumPrimene = item.find(".datumPrimene");
+	id = item.find(".id").html();
+	preduzece = item.find(".preduzece").html();
 	$("#datumPrimene").val(datumPrimene);
-	$("#cenovnikId").val(id);
+	$("#id").val(id);
 	$("#preduzece").val(preduzece);
 }
 
@@ -188,13 +188,13 @@ $(document).ready(function() {
 		event.preventDefault();
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
-			id : $("#editForm [name='cenovnikId']").val(),
+			id : $("#editForm [name='id']").val(),
             datumPrimene : $("#editForm [name='datumPrimene']").val(),
             preduzece :$("#editForm [name='preduzece']").val()
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/Cenovnici/" + $("#editForm [name='cenovnikId']").val(),
+			url: "http://localhost:8080/Cenovnici/" + $("#editForm [name='id']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad
