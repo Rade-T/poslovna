@@ -144,7 +144,7 @@ $(document).ready(function() {
 			error: function() {
 				console.log("Nije updateovao!")
 			}
-			});
+		});
 	});
 	
 	$("#rollback").click(function(event){
