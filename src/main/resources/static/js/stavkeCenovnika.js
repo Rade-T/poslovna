@@ -105,7 +105,7 @@ $(document).ready(function() {
 	        });
 			console.log(formData);
 			$.ajax({
-				url: "http://localhost:8080/StavkeCenovnika",
+				url: "http://localhost:8080/api/stavke-cenovnika",
 				type: "POST",
 				data: formData,
 				// saljemo json i ocekujemo json nazad
@@ -122,7 +122,7 @@ $(document).ready(function() {
 					+ "<td class=\"robaUsluga\">"
 					+ data.robaUsluga
 					+ "</td>"
-					+ "<td><a class=\"remove\" href='/Stavke cenovnika/" + data.id + "'>"
+					+ "<td><a class=\"remove\" href='/api/stavke-cenovnika/" + data.id + "'>"
 					+ "<img src='images/remove.gif'/></a></td>"
 					+ +"<td class=\"idCell\">"
 					+ data.id + "</td>"
@@ -145,7 +145,7 @@ $(document).ready(function() {
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/StavkeCenovnika/" + $("#editForm [name='stavkeCenovnikaId']").val(),
+			url: "http://localhost:8080/api/stavke-cenovnika/" + $("#editForm [name='stavkeCenovnikaId']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad

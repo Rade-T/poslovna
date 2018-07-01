@@ -100,7 +100,7 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/Cenovnici/"})
+		url : "http://localhost:8080/api/cenovnici/"})
 		.then(
 				function(data) {
 					console.log("Uspeo")
@@ -112,7 +112,7 @@ $(document).ready(function() {
 						+ "<td class=\"preduzece\">"
 						+ data[i].preduzece
 						+ "</td>"
-						+ "<td><a class=\"remove\" href='/Cenovnici/" + data[i].id + "'>"
+						+ "<td><a class=\"remove\" href='/api/cenovnici/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 						+ data[i].id + "</td>"
@@ -121,7 +121,7 @@ $(document).ready(function() {
 				});
 	
 	$.ajax({
-		url : "http://localhost:8080/Preduzeca/"})
+		url : "http://localhost:8080/api/preduzeca/"})
 		.then(
 				function(data) {
 					console.log("Uspeo")
@@ -134,7 +134,7 @@ $(document).ready(function() {
 	
 	$('#inputModal').on('shown.bs.modal', function (e) {
 		$.ajax({
-			url: "http://localhost:8080/Preduzeca"})
+			url: "http://localhost:8080/api/preduzeca"})
 			.then(
 				function(data) {
 					console.log("Ucitavanje preduzeca");
@@ -158,7 +158,7 @@ $(document).ready(function() {
 	        });
 			console.log(formData);
 			$.ajax({
-				url: "http://localhost:8080/Cenovnici",
+				url: "http://localhost:8080/api/cenovnici",
 				type: "POST",
 				data: formData,
 				// saljemo json i ocekujemo json nazad
@@ -172,7 +172,7 @@ $(document).ready(function() {
 					+ "<td class=\"preduzece\">"
 					+ data.preduzece
 					+ "</td>"
-					+ "<td><a class=\"remove\" href='/Cenovnici/" + data.id + "'>"
+					+ "<td><a class=\"remove\" href='/api/cenovnici/" + data.id + "'>"
 					+ "<img src='images/remove.gif'/></a></td>"
 					+ +"<td class=\"idCell\">"
 					+ data.id + "</td>"
@@ -194,7 +194,7 @@ $(document).ready(function() {
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/Cenovnici/" + $("#editForm [name='id']").val(),
+			url: "http://localhost:8080/api/cenovnici/" + $("#editForm [name='id']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad

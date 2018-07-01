@@ -71,7 +71,7 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/PoreskaStopa/"})
+		url : "http://localhost:8080/api/poreske-stope/"})
 		.then(
 				function(data) {
 					console.log("Uspeo")
@@ -89,7 +89,7 @@ $(document).ready(function() {
 						+ "<td class=\"porez\">"
 						+ data[i].porez
 						+ "</td>"
-						+ "<td><a class=\"remove\" href='/PoreskaStopa/" + data[i].id + "'>"
+						+ "<td><a class=\"remove\" href='/api/poreske-stope/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 						+ data[i].id + "</td>"
@@ -110,7 +110,7 @@ $(document).ready(function() {
 	        });
 			console.log(formData);
 			$.ajax({
-				url: "http://localhost:8080/PoreskaStopa",
+				url: "http://localhost:8080/api/poreske-stope",
 				type: "POST",
 				data: formData,
 				// saljemo json i ocekujemo json nazad
@@ -146,14 +146,14 @@ $(document).ready(function() {
 		event.preventDefault();
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
-			id : $("#editForm [name='narudzbenicaId']").val(),
+			id : $("#editForm [name='id']").val(),
             iznosStope : $("#editForm [name='iznosStope']").val(),
             istorijaPoreza :$("#editForm [name='istorijaPoreza']").is(":checked"),
             porez :$("#editForm [name='porez']").is(":checked")
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/PoreskaStopa/" + $("#editForm [name='poreskaStopa_id']").val(),
+			url: "http://localhost:8080/api/poreske-stope/" + $("#editForm [name='id']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad

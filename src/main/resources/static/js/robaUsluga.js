@@ -105,7 +105,7 @@ $(document).ready(function() {
 	        });
 			console.log(formData);
 			$.ajax({
-				url: "http://localhost:8080/RobaUsluga",
+				url: "http://localhost:8080/api/robe-usluge",
 				type: "POST",
 				data: formData,
 				// saljemo json i ocekujemo json nazad
@@ -122,7 +122,7 @@ $(document).ready(function() {
 					+ "<td class=\"grupa\">"
 					+ data.grupa
 					+ "</td>"
-					+ "<td><a class=\"remove\" href='/Roba usluga/" + data.id + "'>"
+					+ "<td><a class=\"remove\" href='/api/robe-usluge/" + data.id + "'>"
 					+ "<img src='images/remove.gif'/></a></td>"
 					+ +"<td class=\"idCell\">"
 					+ data.id + "</td>"
@@ -145,7 +145,7 @@ $(document).ready(function() {
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/RobaUsluga/" + $("#editForm [name='robaUslugaId']").val(),
+			url: "http://localhost:8080/api/robe-usluge/" + $("#editForm [name='robaUslugaId']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad

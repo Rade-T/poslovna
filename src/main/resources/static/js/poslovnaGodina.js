@@ -108,7 +108,7 @@ $(document).ready(function() {
 	        });
 			console.log(formData);
 			$.ajax({
-				url: "http://localhost:8080/PoslovnaGodina",
+				url: "http://localhost:8080/api/poslovne-godine",
 				type: "POST",
 				data: formData,
 				// saljemo json i ocekujemo json nazad
@@ -142,7 +142,7 @@ $(document).ready(function() {
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/PoslovnaGodina/" + $("#editForm [name='poslovnaGodinaId']").val(),
+			url: "http://localhost:8080/api/poslovne-godine/" + $("#editForm [name='id']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad

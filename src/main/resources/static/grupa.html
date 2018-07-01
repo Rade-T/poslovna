@@ -5,7 +5,7 @@
 <script src="scripts/tether.min.js"></script>
 <script src="scripts/bootstrap.min.js"></script>
 <script src="scripts/functions.js"></script>
-<script src="js/cenovnici.js"></script>
+<script src="js/grupa.js"></script>
 <link rel="stylesheet" type="text/css" href="stylesheets/design.css">
 <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
 <!-- <link rel="shortcut icon" type="image/png" href="images/favicon.png}"> -->
@@ -44,9 +44,8 @@
 		</table>
 
 		<div class="panel">
-			<p>
 			<form id="editForm">
-				<input type="hidden" name="grupaId" id="grupaId" />
+				<input type="hidden" name="id" id="id" />
 				<p>
 					<label for="naziv">Naziv</label> <input type="text"
 						name="naziv" id="naziv" />
@@ -54,33 +53,17 @@
 				<p>
 					<label for="preduzece">Preduzece</label>
 					<select name="preduzece" id="preduzece"></select>
-<!-- 					<button type="button" class="btn btn-info btn-sm" -->
-<!-- 						data-toggle="modal" data-target="#porezModal">...</button> -->
 				</p>
 				<p>
 					<label for="porez">Porez</label>
 					<select name="porez" id="porez"></select>
-<!-- 					<button type="button" class="btn btn-info btn-sm" -->
-<!-- 						data-toggle="modal" data-target="#porezModal">...</button> -->
 				</p>
-<!-- 				<p> -->
-<!-- 					<label id="procenatL" for="procenat">Procenat</label> <input -->
-<!-- 						type="number" name="${field.name}" id="procenat" /> -->
-<!-- 				<p> -->
-<!-- 					<input type="checkbox" name="povecanje" id="povecanje"/> -->
-<!-- 					Povecanje -->
-<!-- 				</p> -->
-<!-- 				<p> -->
-<!-- 					<input type="checkbox" name="smanjenje" id="smanjenje"/> -->
-<!-- 					Smanjenje -->
-<!-- 				</p> -->
 
 				<div id="formActions">
 					<input id="potvrda" type="button" value="Potvrda" style="margin-left: 6em" /> <a
 						id="rollback" href="#" style="margin-left: 1em">Rollback</a>
 				</div>
 			</form>
-<!-- 			</p> -->
 		</div>
 		<div class="modal" id="inputModal" tabindex="-1" role="dialog">
 			<div class="modal-dialog" role="document">

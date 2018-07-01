@@ -83,7 +83,7 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/stavkeFaktura/"})
+		url : "http://localhost:8080/api/stavke-faktura/"})
 		.then(
 				function(data) {
 					console.log("Uspeo")
@@ -120,7 +120,7 @@ $(document).ready(function() {
 						+ data[i].robaUsluga
 						+ "</td>"
 						
-						+ "<td><a class=\"remove\" href='/stavkeFaktura/" + data[i].id + "'>"
+						+ "<td><a class=\"remove\" href='/api/stavke-faktura/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 						+ data[i].id + "</td>"
@@ -150,7 +150,7 @@ $(document).ready(function() {
 	        });
 			console.log(formData);
 			$.ajax({
-				url: "http://localhost:8080/stavkeFaktura",
+				url: "http://localhost:8080/api/stavke-faktura",
 				type: "POST",
 				data: formData,
 				// saljemo json i ocekujemo json nazad
@@ -188,7 +188,7 @@ $(document).ready(function() {
 					+ "<td class=\"robaUsluga\">"
 					+ data.robaUsluga
 					+ "</td>"
-					+ "<td><a class=\"remove\" href='/stavkeFaktura/" + data.id + "'>"
+					+ "<td><a class=\"remove\" href='/api/stavke-faktura/" + data.id + "'>"
 					+ "<img src='images/remove.gif'/></a></td>"
 					+ +"<td class=\"idCell\">"
 					+ data.id + "</td>"
@@ -217,7 +217,7 @@ $(document).ready(function() {
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/stavkeFaktura/" + $("#editForm [name='id']").val(),
+			url: "http://localhost:8080/api/stavke-faktura/" + $("#editForm [name='id']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad

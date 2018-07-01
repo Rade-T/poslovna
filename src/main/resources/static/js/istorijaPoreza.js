@@ -69,7 +69,7 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/IstorijePoreza/"})
+		url : "http://localhost:8080/api/istorije-poreza/"})
 		.then(
 				function(data) {
 					console.log("Uspeo")
@@ -81,7 +81,7 @@ $(document).ready(function() {
 						+ "<td class=\"preduzece\">"
 						+ data[i].preduzece
 						+ "</td>"
-						+ "<td><a class=\"remove\" href='/grupa/" + data[i].id + "'>"
+						+ "<td><a class=\"remove\" href='/api/istorije-poreza/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 						+ data[i].id + "</td>"
@@ -89,9 +89,8 @@ $(document).ready(function() {
 					}
 				});
 	
-/* OVO NE ZNAM STA JE 
 	$.ajax({
-		url : "http://localhost:8080/grupa/"})
+		url : "http://localhost:8080/api/preduzece/"})
 		.then(
 				function(data) {
 					console.log("Uspeo")
@@ -104,7 +103,7 @@ $(document).ready(function() {
 				
 	$('#inputModal').on('shown.bs.modal', function (e) {
 		$.ajax({
-			url: "http://localhost:8080/grupa"})
+			url: "http://localhost:8080/api/preduzece"})
 			.then(
 				function(data) {
 					console.log("Ucitavanje grupe");
@@ -128,7 +127,7 @@ $(document).ready(function() {
 	        });
 			console.log(formData);
 			$.ajax({
-				url: "http://localhost:8080/IstorijePoreza/",
+				url: "http://localhost:8080/api/istorije-poreza/",
 				type: "POST",
 				data: formData,
 				// saljemo json i ocekujemo json nazad
@@ -142,7 +141,7 @@ $(document).ready(function() {
 						+ "<td class=\"preduzece\">"
 						+ data[i].preduzece
 						+ "</td>"
-					+ "<td><a class=\"remove\" href='/IstorijePoreza/" + data.id + "'>"
+					+ "<td><a class=\"remove\" href='/api/istorije-poreza/" + data.id + "'>"
 					+ "<img src='images/remove.gif'/></a></td>"
 					+ +"<td class=\"idCell\">"
 					+ data.id + "</td>"
@@ -158,14 +157,14 @@ $(document).ready(function() {
 		event.preventDefault();
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
-			 id : $("#editForm [name='istorijaPorezaId']").val(),
+			 id : $("#editForm [name='id']").val(),
 			 datumPrimene : $("#inputForm [name='datumPrimene']").val(),
 	         preduzece :$("#editForm [name='preduzece']").val(),
 	   
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/IstorijePoreza/" + $("#editForm [name='istorijaPorezaId']").val(),
+			url: "http://localhost:8080/api/istorije-poreza/" + $("#editForm [name='id']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad

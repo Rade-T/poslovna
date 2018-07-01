@@ -69,7 +69,7 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/Porez/"})
+		url : "http://localhost:8080/api/porezi/"})
 		.then(
 				function(data) {
 					console.log("Uspeo")
@@ -100,7 +100,7 @@ $(document).ready(function() {
 	        });
 			console.log(formData);
 			$.ajax({
-				url: "http://localhost:8080/Porez",
+				url: "http://localhost:8080/api/porezi",
 				type: "POST",
 				data: formData,
 				// saljemo json i ocekujemo json nazad
@@ -114,7 +114,7 @@ $(document).ready(function() {
 					+ "<td class=\"vazeci\">"
 					+ data.vazeci
 					+ "</td>"
-					+ "<td><a class=\"remove\" href='/Porez/" + data.id + "'>"
+					+ "<td><a class=\"remove\" href='/api/porezi/" + data.id + "'>"
 					+ "<img src='images/remove.gif'/></a></td>"
 					+ +"<td class=\"idCell\">"
 					+ data.id + "</td>"
@@ -130,13 +130,13 @@ $(document).ready(function() {
 		event.preventDefault();
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
-			id : $("#editForm [name='porezId']").val(),
+			id : $("#editForm [name='id']").val(),
             nazivPoreza : $("#editForm [name='nazivPoreza']").val(),
             vazeci :$("#editForm [name='vazeci']").is(":checked"),
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/Porez/" + $("#editForm [name='porezId']").val(),
+			url: "http://localhost:8080/api/porezi/" + $("#editForm [name='id']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad

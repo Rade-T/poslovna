@@ -35,7 +35,7 @@ function sync(item){
 
 $(document).ready(function() {
 	$.ajax({
-		url : "http://localhost:8080/Preduzeca/"})
+		url : "http://localhost:8080/api/preduzeca/"})
 		.then(
 			function(data) {
 				for (i = 0; i < data.length; i++) {
@@ -47,7 +47,7 @@ $(document).ready(function() {
 					+ "<td class=\"sifraDelatnosti\">" + data[i].sifraDelatnosti + "</td>"
 					+ "<td class=\"telefon\">" + data[i].telefon + "</td>"
 					+ "<td class=\"email\">" + data[i].email + "</td>"
-					+ "<td><a class=\"remove\" href='/Preduzeca/" + data[i].PIB + "'>" 
+					+ "<td><a class=\"remove\" href='/api/preduzeca/" + data[i].PIB + "'>" 
 					+ "<img src='images/remove.gif'/></a></td>" +
 					+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 					+ data[i].PIB + "</td>"
@@ -86,7 +86,7 @@ $(document).ready(function() {
 	            email :$("#inputForm [name='email']").val(),
 	        });
 			$.ajax({
-				url: "http://localhost:8080/Preduzeca",
+				url: "http://localhost:8080/api/preduzeca",
 				type: "POST",
 				data: formData,
 				// saljemo json i ocekujemo json nazad
@@ -101,7 +101,7 @@ $(document).ready(function() {
 					+ "<td class=\"sifraDelatnosti\">" + data.sifraDelatnosti + "</td>"
 					+ "<td class=\"telefon\">" + data.telefon + "</td>"
 					+ "<td class=\"email\">" + data.email + "</td>"
-					+ "<td><a class=\"remove\" href='/Preduzeca/" + data.PIB + "'>" 
+					+ "<td><a class=\"remove\" href='/api/preduzeca/" + data.PIB + "'>" 
 					+ "<img src='images/remove.gif'/></a></td>" +
 					+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 					+ data.PIB + "</td>"
@@ -127,7 +127,7 @@ $(document).ready(function() {
             email :$("#editForm [name='email']").val(),
         });
 		$.ajax({
-			url: "http://localhost:8080/Preduzeca/" + $("#editForm [name='PIB']").val(),
+			url: "http://localhost:8080/api/preduzeca/" + $("#editForm [name='PIB']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad

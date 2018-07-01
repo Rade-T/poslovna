@@ -79,7 +79,7 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/Otpremnice/"})
+		url : "http://localhost:8080/api/otpremnice/"})
 		.then(
 				function(data) {
 					console.log("Uspeo")
@@ -110,7 +110,7 @@ $(document).ready(function() {
 						+ data[i].procenatL
 						+ "</td>"
 						
-						+ "<td><a class=\"remove\" href='/Otpremnice/" + data[i].id + "'>"
+						+ "<td><a class=\"remove\" href='/api/otpremnice/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 						+ data[i].id + "</td>"
@@ -163,7 +163,7 @@ $(document).ready(function() {
 	        });
 			console.log(formData);
 			$.ajax({
-				url: "http://localhost:8080/Otpremnice",
+				url: "http://localhost:8080/api/otpremnice",
 				type: "POST",
 				data: formData,
 				// saljemo json i ocekujemo json nazad
@@ -211,7 +211,7 @@ $(document).ready(function() {
 		event.preventDefault();
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
-			id : $("#editForm [name='otpremnicaId']").val(),
+			id : $("#editForm [name='id']").val(),
             datumPrimene : $("#editForm [name='datumOtpremnice']").val(),
             otpremnicaId : $("#editForm [name='otpremnicaId']").val(),
 	        osnovica : $("#editForm [name='osnovica']").val(),
@@ -224,7 +224,7 @@ $(document).ready(function() {
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/Otpremnice/" + $("#editForm [name='otpremnicaId']").val(),
+			url: "http://localhost:8080/api/otpremnice/" + $("#editForm [name='id']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad

@@ -74,7 +74,7 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/stavkeNarudzbenica/"})
+		url : "http://localhost:8080/api/stavke-narudzbenica/"})
 		.then(
 				function(data) {
 					console.log("Uspeo")
@@ -98,7 +98,7 @@ $(document).ready(function() {
 						+ "<td class=\"narudzbenica\">"
 						+ data[i].narudzbenica
 						+ "</td>"
-						+ "<td><a class=\"remove\" href='/stavkeNarudzbenica/" + data[i].id + "'>"
+						+ "<td><a class=\"remove\" href='/api/stavke-narudzbenica/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 						+ data[i].id + "</td>"
@@ -122,7 +122,7 @@ $(document).ready(function() {
 	        });
 			console.log(formData);
 			$.ajax({
-				url: "http://localhost:8080/stavkeNarudzbenica",
+				url: "http://localhost:8080/api/stavke-narudzbenica",
 				type: "POST",
 				data: formData,
 				// saljemo json i ocekujemo json nazad
@@ -148,7 +148,7 @@ $(document).ready(function() {
 					+ "<td class=\"narudzbenica\">"
 					+ data.narudzbenica
 					+ "</td>"
-					+ "<td><a class=\"remove\" href='/stavkeNarudzbenica/" + data.id + "'>"
+					+ "<td><a class=\"remove\" href='/api/stavke-narudzbenica/" + data.id + "'>"
 					+ "<img src='images/remove.gif'/></a></td>"
 					+ +"<td class=\"idCell\">"
 					+ data.id + "</td>"
@@ -173,7 +173,7 @@ $(document).ready(function() {
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/stavkeNarudzbenica/" + $("#editForm [name='id']").val(),
+			url: "http://localhost:8080/api/stavke-narudzbenica/" + $("#editForm [name='id']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad

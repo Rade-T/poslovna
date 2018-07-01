@@ -69,7 +69,7 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/Racuni/"})
+		url : "http://localhost:8080/api/racuni/"})
 		.then(
 				function(data) {
 					console.log("Uspeo")
@@ -82,7 +82,7 @@ $(document).ready(function() {
 						+ data[i].preduzece_pib
 						+ "</td>"
 						
-						+ "<td><a class=\"remove\" href='/Racuni/" + data[i].id + "'>"
+						+ "<td><a class=\"remove\" href='/api/racuni/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 						+ data[i].id + "</td>"
@@ -91,7 +91,7 @@ $(document).ready(function() {
 				});
 	
 	$.ajax({
-		url : "http://localhost:8080/Preduzeca/"})
+		url : "http://localhost:8080/api/preduzeca/"})
 		.then(
 				function(data) {
 					console.log("Uspeo")
@@ -104,7 +104,7 @@ $(document).ready(function() {
 	
 	$('#inputModal').on('shown.bs.modal', function (e) {
 		$.ajax({
-			url: "http://localhost:8080/Preduzeca"})
+			url: "http://localhost:8080/api/preduzeca"})
 			.then(
 				function(data) {
 					console.log("Ucitavanje preduzeca");
@@ -127,7 +127,7 @@ $(document).ready(function() {
 	        });
 			console.log(formData);
 			$.ajax({
-				url: "http://localhost:8080/Racuni",
+				url: "http://localhost:8080/api/racuni",
 				type: "POST",
 				data: formData,
 				// saljemo json i ocekujemo json nazad
@@ -168,7 +168,7 @@ $(document).ready(function() {
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/Racuni/" + $("#editForm [name='id']").val(),
+			url: "http://localhost:8080/api/racuni/" + $("#editForm [name='id']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad

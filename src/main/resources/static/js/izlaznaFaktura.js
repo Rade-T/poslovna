@@ -31,7 +31,6 @@ function sync(item) {
 	poslovnaGodina = item.find(".poslovnaGodina").html();
 	otpremnica = item.find(".otpremnica").html();
 	
-	
 	$("#id").val(id);
 	$("#datumFakture").val(datumFakture);
 	$("#datumValute").val(datumValute);
@@ -69,7 +68,7 @@ $(document).on("click", ".remove", function(event){
         }
 	});
 });
-/*
+
 $(document).ready(function() {
 	$("#porezPickup").click(function() {
 		id = $(".highlighted").find(".id").html();
@@ -95,7 +94,7 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/Porez/"})
+		url : "http://localhost:8080/api/izlazne-fakture/"})
 		.then(
 				function(data) {
 					console.log("Uspeo")
@@ -140,7 +139,7 @@ $(document).ready(function() {
 	        });
 			console.log(formData);
 			$.ajax({
-				url: "http://localhost:8080/IzlazneFakture",
+				url: "http://localhost:8080/api/izlazne-fakture",
 				type: "POST",
 				data: formData,
 				// saljemo json i ocekujemo json nazad
@@ -221,7 +220,7 @@ $(document).ready(function() {
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/IzlazneFakture/" + $("#editForm [name='izlaznaFakturaId']").val(),
+			url: "http://localhost:8080/IzlazneFakture/" + $("#editForm [name='id']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad

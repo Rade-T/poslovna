@@ -71,7 +71,7 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/narudzbenica/"})
+		url : "http://localhost:8080/api/narudzbenice/"})
 		.then(
 				function(data) {
 					console.log("Uspeo")
@@ -89,7 +89,7 @@ $(document).ready(function() {
 						+ "<td class=\"poslovniPartner\">"
 						+ data[i].poslovniPartner
 						+ "</td>"
-						+ "<td><a class=\"remove\" href='/narudzbenica/" + data[i].id + "'>"
+						+ "<td><a class=\"remove\" href='/api/narudzbenice/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 						+ data[i].id + "</td>"
@@ -110,7 +110,7 @@ $(document).ready(function() {
 	        });
 			console.log(formData);
 			$.ajax({
-				url: "http://localhost:8080/narudzbenica",
+				url: "http://localhost:8080/api/narudzbenice",
 				type: "POST",
 				data: formData,
 				// saljemo json i ocekujemo json nazad
@@ -130,7 +130,7 @@ $(document).ready(function() {
 					+ "<td class=\"poslovniPartner\">"
 					+ data.poslovniPartner
 					+ "</td>"
-					+ "<td><a class=\"remove\" href='/narudzbenica/" + data.id + "'>"
+					+ "<td><a class=\"remove\" href='/api/narudzbenice/" + data.id + "'>"
 					+ "<img src='images/remove.gif'/></a></td>"
 					+ +"<td class=\"idCell\">"
 					+ data.id + "</td>"
@@ -146,14 +146,14 @@ $(document).ready(function() {
 		event.preventDefault();
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
-			id : $("#editForm [name='narudzbenicaId']").val(),
+			id : $("#editForm [name='id']").val(),
             kolicina : $("#editForm [name='kolicina']").val(),
             poslovnaGodina :$("#editForm [name='poslovnaGodina']").is(":checked"),
             poslovniPartner :$("#editForm [name='poslovniPartner']").is(":checked")
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/narudzbenica/" + $("#editForm [name='narudzbenica_Id']").val(),
+			url: "http://localhost:8080/api/narudzbenice/" + $("#editForm [name='id']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad

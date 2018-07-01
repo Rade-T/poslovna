@@ -111,7 +111,7 @@ $(document).ready(function() {
 	        });
 			console.log(formData);
 			$.ajax({
-				url: "http://localhost:8080/StavkeOtpremnice",
+				url: "http://localhost:8080/api/stavke-otpremnica",
 				type: "POST",
 				data: formData,
 				// saljemo json i ocekujemo json nazad
@@ -134,7 +134,7 @@ $(document).ready(function() {
 					+ "<td class=\"robaUsluga\">"
 					+ data.robaUsluga
 					+ "</td>"
-					+ "<td><a class=\"remove\" href='/Stavke otpremnice/" + data.id + "'>"
+					+ "<td><a class=\"remove\" href='/api/stavke-otpremnica/" + data.id + "'>"
 					+ "<img src='images/remove.gif'/></a></td>"
 					+ +"<td class=\"idCell\">"
 					+ data.id + "</td>"
@@ -159,7 +159,7 @@ $(document).ready(function() {
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/StavkeOtpremnice/" + $("#editForm [name='stavkeOtpremniceId']").val(),
+			url: "http://localhost:8080/api/stavke-otpremnica/" + $("#editForm [name='stavkeOtpremniceId']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad
