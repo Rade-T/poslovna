@@ -19,8 +19,8 @@ import pi.repository.PoslovniPartnerRepository;
 import pi.repository.PreduzeceRepository;
 
 @RestController
-@RequestMapping(path = "/PoslovniPartner")
-public class PoslovniPartner {
+@RequestMapping(path = "/api/poslovni-partneri")
+public class PoslovniPartnerController {
 	
 	@Autowired
 	private PoslovniPartnerRepository poslovniPartnerRepository;

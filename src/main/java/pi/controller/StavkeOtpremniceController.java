@@ -19,8 +19,8 @@ import pi.repository.OtpremnicaRepository;
 import pi.repository.RobaUslugaRepository;
 import pi.repository.StavkeOtpremniceRepository;
 
-@RequestMapping(path = "/StavkeOtpremnice")
-public class StavkeOtpremnica {
+@RequestMapping(path = "/api/stavke-otpremnice")
+public class StavkeOtpremniceController {
 
 	@Autowired
 	private StavkeOtpremniceRepository stavkeotpremniceRepository;

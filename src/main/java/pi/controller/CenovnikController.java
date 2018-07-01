@@ -20,8 +20,8 @@ import pi.repository.CenovnikRepository;
 import pi.repository.PreduzeceRepository;
 
 @RestController
-@RequestMapping(path = "/Cenovnici")
-public class Cenovnici {
+@RequestMapping(path = "/api/cenovnici")
+public class CenovnikController {
 
 	@Autowired
 	private CenovnikRepository cenovnikRepository;

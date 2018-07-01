@@ -18,8 +18,8 @@ import pi.dto.RobaUslugaDTO;
 import pi.repository.RobaUslugaRepository;
 
 @RestController
-@RequestMapping(value="RobaUsluga")
-public class RobaUsluga {
+@RequestMapping(value="api/robe-usluge")
+public class RobaUslugaController {
 	
 	@Autowired
 	private RobaUslugaRepository robaUslugaRepository;

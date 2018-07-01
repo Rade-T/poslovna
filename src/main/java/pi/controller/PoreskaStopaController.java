@@ -20,8 +20,8 @@ import pi.repository.PoreskaStopaRepository;
 import pi.repository.PorezRepository;
 
 @RestController
-@RequestMapping(path = "/PoreskaStopa")
-public class PoreskaStopa {
+@RequestMapping(path = "/api/poreske-stope")
+public class PoreskaStopaController {
 	
 	@Autowired
 	private PoreskaStopaRepository poreskaStopaRepository;

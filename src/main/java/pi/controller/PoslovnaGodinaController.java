@@ -19,8 +19,8 @@ import pi.repository.PoslovnaGodinaRepository;
 import pi.repository.PreduzeceRepository;
 
 @RestController
-@RequestMapping(path="/PoslovnaGodina")
-public class PoslovnaGodina {
+@RequestMapping(path="/api/poslovne-godine")
+public class PoslovnaGodinaController {
 	
 	@Autowired
 	private PoslovnaGodinaRepository poslovnaGodinaRepository;

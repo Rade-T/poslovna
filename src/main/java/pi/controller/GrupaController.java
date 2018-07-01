@@ -22,8 +22,8 @@ import pi.repository.PorezRepository;
 import pi.repository.PreduzeceRepository;;
 
 @RestController
-@RequestMapping(path="/grupa")
-public class Grupa {
+@RequestMapping(path="/api/grupe")
+public class GrupaController {
 	
 	@Autowired
 	private GrupaRepository grupaRepository;

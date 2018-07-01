@@ -20,8 +20,8 @@ import pi.repository.PreduzeceRepository;
 import pi.repository.RacunRepository;
 
 @RestController
-@RequestMapping(path="/Racuni")
-public class Racuni {
+@RequestMapping(path="/api/racuni")
+public class RacunController {
 	
 	@Autowired
 	private RacunRepository racunRepository;

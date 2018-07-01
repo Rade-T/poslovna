@@ -18,8 +18,8 @@ import pi.model.StavkeCenovnika;
 import pi.repository.CenovnikRepository;
 import pi.repository.StavkeCenovnikaRepository;
 
-@RequestMapping(path = "/StavkeCenovnika")
-public class StavkeCenovnici {
+@RequestMapping(path = "/api/stavke-cenovnika")
+public class StavkeCenovnikaController {
 
 	@Autowired
 	private StavkeCenovnikaRepository stavkecenovnikRepository;

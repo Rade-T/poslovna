@@ -18,8 +18,8 @@ import pi.dto.PorezDTO;
 import pi.repository.PorezRepository;
 
 @RestController
-@RequestMapping(value="/Porez")
-public class Porez {
+@RequestMapping(value="/api/porez")
+public class PorezController {
 	
 	@Autowired
 	private PorezRepository porezRepository;

@@ -19,8 +19,8 @@ import pi.repository.IzlaznaFaktoraRepository;
 import pi.repository.RobaUslugaRepository;
 import pi.repository.StavkeFaktureRepository;
 
-@RequestMapping(path = "/stavkeFaktura")
-public class StavkeFaktura {
+@RequestMapping(path = "/api/stavke-faktura")
+public class StavkeFakturaController {
 
 	@Autowired
 	private StavkeFaktureRepository stavkefakturaRepository;

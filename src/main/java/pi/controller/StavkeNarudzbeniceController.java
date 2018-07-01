@@ -19,8 +19,8 @@ import pi.repository.NarudzbenicaRepository;
 import pi.repository.RobaUslugaRepository;
 import pi.repository.StavkaNarudzbeniceRepository;
 
-@RequestMapping(path = "/stavkeNarudzbenica")
-public class StavkeNarudzbenica {
+@RequestMapping(path = "/api/stavke-narudzbenica")
+public class StavkeNarudzbeniceController {
 
 	@Autowired
 	private StavkaNarudzbeniceRepository stavkenarudzbenicaRepository;

@@ -18,9 +18,9 @@ import pi.dto.NarudzbenicaDTO;
 import pi.repository.NarudzbenicaRepository;
 
 @RestController
-@RequestMapping(path="/narudzbenica")
+@RequestMapping(path="/api/narudzbenice")
 
-public class Narudzbenica {
+public class NarudzbenicaController {
 	
 	@Autowired
 	private NarudzbenicaRepository narudzbenicaRepository;

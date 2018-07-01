@@ -19,8 +19,8 @@ import pi.model.Otpremnica;
 import pi.repository.OtpremnicaRepository;
 
 @RestController
-@RequestMapping(path="/Otpremnice")
-public class Otpremnice {
+@RequestMapping(path="/api/otpremnice")
+public class OtpremnicaController {
 	
 	@Autowired
 	private OtpremnicaRepository otpremniceRepository;
