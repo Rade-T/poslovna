@@ -9,9 +9,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import pi.security.TokenUtils;
@@ -19,6 +19,7 @@ import pi.dto.LoginDTO;
 import pi.dto.TokenDTO;
 
 @RestController
+@RequestMapping(value = "/api/login")
 public class UserController {
 
 	@Autowired
@@ -30,7 +31,7 @@ public class UserController {
 	@Autowired
 	TokenUtils tokenUtils;
 	
-	@RequestMapping(value = "/api/login", method = RequestMethod.POST)
+	@PostMapping
 	public ResponseEntity<TokenDTO> login(@RequestBody LoginDTO loginDTO) {
         try {
 			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(

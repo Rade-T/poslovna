@@ -63,9 +63,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.authorizeRequests() // bez logovanja dostupni samo servisi login
 				.antMatchers("/api/login").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/**").hasAuthority("ROLE_USER")
-				.antMatchers(HttpMethod.POST, "/api/*").hasAuthority("ROLE_USER")
-				.antMatchers(HttpMethod.DELETE, "/api/*").hasAuthority("ROLE_USER")
-				.antMatchers(HttpMethod.PUT, "/api/*").hasAuthority("ROLE_USER")
+				.antMatchers(HttpMethod.POST, "/api/**").hasAuthority("ROLE_USER")
+				.antMatchers(HttpMethod.DELETE, "/api/**").hasAuthority("ROLE_USER")
+				.antMatchers(HttpMethod.PUT, "/api/**").hasAuthority("ROLE_USER")
 				.antMatchers("/**").permitAll()
 				.anyRequest().authenticated(); // za ostale akcije se mora biti ulogovan
 				
