@@ -103,9 +103,6 @@ $(document).ready(function() {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
-						+ "<td class=\"id\">"
-						+ data[i].id
-						+ "</td>"
 						+ "<td class=\"kolicina\">"
 						+ data[i].kolicina
 						+ "</td>"
@@ -141,8 +138,76 @@ $(document).ready(function() {
 						$("#dataTable").append(newRow)
 						console.log(data);
 					}
-				});
+		},
+    	error: function(err) {
+    		console.log(err);
+    	}
+	});
 	
+	$.ajax({
+		url : "http://localhost:8080/api/izlazne-fakture/",
+		type: "GET",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
+    	success: function(data) {
+			for (i = 0; i < data.length; i++) {
+				var newOption = '<option value="' + data[i].brojOtpremnice + '</option>';
+				$("#izlaznaFaktura").append(newOption);
+			}
+    	}
+	});
+	
+	$.ajax({
+		url : "http://localhost:8080/api/robe-usluge/",
+		type: "GET",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
+    	success: function(data) {
+			for (i = 0; i < data.length; i++) {
+				var newOption = '<option value="' + data[i].Id + '">'
+				+ data[i].naziv + '</option>';
+				$("#robaUsluga").append(newOption);
+			}
+    	}
+	});
+	
+	$('#inputModal').on('shown.bs.modal', function (e) {
+		$.ajax({
+			url: "http://localhost:8080/api/izlazne-fakture/",
+			type: "GET",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
+			success: function(data) {
+				for (i = 0; i < data.length; i++) {
+					console.log(i);
+					var newOption = '<option value="' + data[i].brojOtpremnice + '</option>';
+					console.log(data[i]);
+					$(e.currentTarget).find('select[name="izlaznaFakturaSelect"]').append(newOption);
+				}
+			}
+		});
+	
+
+		$.ajax({
+			url: "http://localhost:8080/api/robe-usluge/",
+			type: "GET",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
+			success: function(data) {
+				for (i = 0; i < data.length; i++) {
+					console.log(i);
+					var newOption = '<option value="' + data[i].Id + '">'
+					+ data[i].naziv + '</option>';
+					console.log(data[i]);
+					$(e.currentTarget).find('select[name="robaUslugaSelect"]').append(newOption);
+				}
+			}
+		});
+	});
 	
 	$("#add").click(function(){
 		// pripremamo JSON koji cemo poslati
@@ -157,9 +222,9 @@ $(document).ready(function() {
 	            ukupanIznos :$("#inputForm [name='ukupanIznos']").is(":checked"),
 	            pdv :$("#inputForm [name='pdv']").is(":checked"),
 	            pdvIznos :$("#inputForm [name='pdvIznos']").is(":checked"),
-	            izlaznaFaktura :$("#inputForm [name='izlaznaFaktura']").is(":checked")
-	            robaUsluga :$("#inputForm [name='robaUsluga']").is(":checked")
-	            kolicina :$("#inputForm [name='kolicina']").is(":checked")
+	            izlaznaFaktura :$("#inputForm [name='izlaznaFaktura']").is(":checked"),
+	            robaUsluga :$("#inputForm [name='robaUsluga']").is(":checked"),
+	            kolicina :$("#inputForm [name='kolicina']").is(":checked"),
 	            
 	        });
 			console.log(formData);
@@ -175,9 +240,6 @@ $(document).ready(function() {
 				},
 				success: function(data) {
 					var newRow = "<tr>"
-					+ "<td class=\"id\">"
-					+ data.id
-					+ "</td>"
 					+ "<td class=\"kolicna\">"
 					+ data.kolicina
 					+ "</td>"
@@ -221,7 +283,6 @@ $(document).ready(function() {
 		event.preventDefault();
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
-			id : $("#editForm [name='porezId']").val(),
             kolicina : $("#editForm [name='kolicina']").val(),
             cenaPoJediniciMere :$("#editForm [name='cenaPoJediniciMere']").is(":checked"),
             rabat :$("#editForm [name='rabat']").is(":checked"),

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import pi.dto.StavkeFaktureDTO;
 import pi.model.StavkeFakture;
@@ -19,6 +20,7 @@ import pi.repository.IzlaznaFaktoraRepository;
 import pi.repository.RobaUslugaRepository;
 import pi.repository.StavkeFaktureRepository;
 
+@RestController
 @RequestMapping(path = "/api/stavke-faktura")
 public class StavkeFakturaController {
 

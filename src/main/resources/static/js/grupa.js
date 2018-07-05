@@ -107,22 +107,29 @@ $(document).ready(function() {
 		});
 	
 	$.ajax({
-		url : "http://localhost:8080/api/preduzeca/"})
-		.then(
-				function(data) {
+		url : "http://localhost:8080/api/preduzeca/",
+		type: "GET",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
+    	success: function(data) {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newOption = '<option value="' + data[i].PIB + '">'
 						+ data[i].naziv + '</option>';
 						$("#preduzece").append(newOption);
 					}
-				});
+    	}
+	});
 				
 	$('#inputModal').on('shown.bs.modal', function (e) {
 		$.ajax({
-			url: "http://localhost:8080/api/preduzeca"})
-			.then(
-				function(data) {
+			url: "http://localhost:8080/api/preduzeca",
+			type: "GET",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
+			success: function(data) {
 					console.log("Ucitavanje grupe");
 					console.log(data);
 					for (i = 0; i < data.length; i++) {
@@ -132,25 +139,34 @@ $(document).ready(function() {
 						console.log(data[i]);
 						$(e.currentTarget).find('select[name="preduzeceSelect"]').append(newOption);
 					}
-			});
+			}
+		});
 	});
 	$.ajax({
-		url : "http://localhost:8080/api/porez/"})
-		.then(
-				function(data) {
+		url : "http://localhost:8080/api/porez/",
+		type: "GET",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
+    	success: function(data) {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newOption = '<option value="' + data[i].nazivPoreza + '">'
 						+ data[i].naziv + '</option>';
 						$("#preduzece").append(newOption);
 					}
-				});
+    	}
+	});
+			
 				
 	$('#inputModal').on('shown.bs.modal', function (e) {
 		$.ajax({
-			url: "http://localhost:8080/api/porez"})
-			.then(
-				function(data) {
+			url: "http://localhost:8080/api/porez",
+			type: "GET",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
+			success: function(data) {
 					console.log("Ucitavanje poreza");
 					console.log(data);
 					for (i = 0; i < data.length; i++) {
@@ -160,8 +176,9 @@ $(document).ready(function() {
 						console.log(data[i]);
 						$(e.currentTarget).find('select[name="porezSelect"]').append(newOption);
 					}
+				}
 			});
-	});
+		});
 	
 	$("#add").click(function(){
 		// pripremamo JSON koji cemo poslati
