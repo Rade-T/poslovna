@@ -5,7 +5,7 @@
 <script src="scripts/tether.min.js"></script>
 <script src="scripts/bootstrap.min.js"></script>
 <script src="scripts/functions.js"></script>
-<script src="js/cenovnici.js"></script>
+<script src="js/izlaznaFaktura.js"></script>
 <link rel="stylesheet" type="text/css" href="stylesheets/design.css">
 <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
 <!-- <link rel="shortcut icon" type="image/png" href="images/favicon.png}"> -->
@@ -41,7 +41,7 @@
 				<th>Datum valute</th>
 				<th>Datum obracuna</th>
 				<th>Ukupno robe</th>
-				<th>Ukupna rabat</th>
+				<th>Ukupan rabat</th>
 				<th>Ukupan porez</th>
 				<th>Iznos fakture</th>
 				<th>Iznos fakture osnovica</th>
@@ -58,17 +58,17 @@
 		<div class="panel">
 			<p>
 			<form id="editForm">
-				<input type="hidden" name="izlaznaFakturaId" id="izlaznaFakturaId" />
+				<input type="hidden" name="brojFakture" id="brojFakture" />
 				<p>
-					<label for="datumFakture">Datum fakture</label> <input type="text"
+					<label for="datumFakture">Datum fakture</label> <input type="date"
 						name="datumFakture" id="datumFakture" />
 				</p>
 				<p>
-					<label for="datumValute">Datum valute</label> <input type="text"
+					<label for="datumValute">Datum valute</label> <input type="date"
 						name="datumValute" id="datumValute" />
 				</p>
 				<p>
-					<label for="datumObracuna">Datum obracuna</label> <input type="text"
+					<label for="datumObracuna">Datum obracuna</label> <input type="date"
 						name="datumObracuna" id="datumObracuna" />
 				</p>
 				<p>
@@ -76,7 +76,7 @@
 						name="ukupnoRobe" id="ukupnoRobe" />
 				</p>
 				<p>
-					<label for="ukupanRabat">Ukupno rabat</label> <input type="text"
+					<label for="ukupanRabat">Ukupan rabat</label> <input type="text"
 						name="ukupanRabat" id="ukupanRabat" />
 				</p>
 				<p>
@@ -118,18 +118,6 @@
 					<select id="otpremnica" name="otpremnica">
 								</select>
 				</p>
-				
-<!-- 				<p> -->
-<!-- 					<label id="procenatL" for="procenat">Procenat</label> <input -->
-<!-- 						type="number" name="${field.name}" id="procenat" /> -->
-<!-- 				<p> -->
-<!-- 					<input type="checkbox" name="povecanje" id="povecanje"/> -->
-<!-- 					Povecanje -->
-<!-- 				</p> -->
-<!-- 				<p> -->
-<!-- 					<input type="checkbox" name="smanjenje" id="smanjenje"/> -->
-<!-- 					Smanjenje -->
-<!-- 				</p> -->
 
 				<div id="formActions">
 					<input id="potvrda" type="button" value="Potvrda" style="margin-left: 6em" /> <a
@@ -152,15 +140,15 @@
 						<div class="modal-body">
 							<input type="hidden" name="id" id="id" />
 							<p>
-					<label for="datumFakture">Datum fakture</label> <input type="text"
+					<label for="datumFakture">Datum fakture</label> <input type="date"
 						name="datumFakture" id="datumFakture" />
 				</p>
 				<p>
-					<label for="datumValute">Datum valute</label> <input type="text"
+					<label for="datumValute">Datum valute</label> <input type="date"
 						name="datumValute" id="datumValute" />
 				</p>
 				<p>
-					<label for="datumObracuna">Datum obracuna</label> <input type="text"
+					<label for="datumObracuna">Datum obracuna</label> <input type="date"
 						name="datumObracuna" id="datumObracuna" />
 				</p>
 				<p>

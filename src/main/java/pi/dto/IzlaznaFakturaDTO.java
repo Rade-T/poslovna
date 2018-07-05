@@ -1,11 +1,8 @@
 package pi.dto;
 
 import java.util.Date;
-import java.util.List;
 
 import pi.model.IzlaznaFaktura;
-import pi.model.ObracunatiPorez;
-import pi.model.StavkeFakture;
 
 public class IzlaznaFakturaDTO {
 	public int brojFakture;
@@ -19,8 +16,6 @@ public class IzlaznaFakturaDTO {
 	public float iznosFaktureOsnovica;
 	public String uplataNaRacun;
 	public String pozivNaBroj;
-	public List<Integer> stavkeFakture;
-	public List<Integer> obracunatiPorez;
 	public String statusFakture;
 	public int poslovniPartner;
 	public int poslovnaGodina;
@@ -43,14 +38,6 @@ public class IzlaznaFakturaDTO {
 		this.iznosFaktureOsnovica = dto.getIznosFaktureOsnovica();
 		this.uplataNaRacun = dto.getUplataNaRacun();
 		this.pozivNaBroj = dto.getPozivNaBroj();
-
-		for (ObracunatiPorez obracunatiPorez : dto.getObracunatiPorez()) {
-			this.obracunatiPorez.add(obracunatiPorez.getId());
-		}
-		for (StavkeFakture stavke : dto.getStavkeFakture()) {
-			this.stavkeFakture.add(stavke.getId());
-		}
-
 		this.statusFakture = dto.getStatusFakture();
 		this.poslovniPartner = dto.getPoslovniPartner().getId();
 		this.poslovnaGodina = dto.getPoslovnaGodina().getId();
@@ -143,22 +130,6 @@ public class IzlaznaFakturaDTO {
 
 	public void setPozivNaBroj(String pozivNaBroj) {
 		this.pozivNaBroj = pozivNaBroj;
-	}
-
-	public List<Integer> getStavkeFakture() {
-		return stavkeFakture;
-	}
-
-	public void setStavkeFakture(List<Integer> stavkeFakture) {
-		this.stavkeFakture = stavkeFakture;
-	}
-
-	public List<Integer> getObracunatiPorez() {
-		return obracunatiPorez;
-	}
-
-	public void setObracunatiPorez(List<Integer> obracunatiPorez) {
-		this.obracunatiPorez = obracunatiPorez;
 	}
 
 	public String getStatusFakture() {

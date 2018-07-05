@@ -17,7 +17,7 @@ function highlightRow(row) {
 
 function sync(item) {
 	datumFakture = item.find(".datumFakture").html();
-	id = item.find(".id").html();
+	brojFakture = item.find(".brojFakture").html();
 	datumValute = item.find(".datumValute").html();
 	datumObracuna = item.find(".datumObracuna").html();
 	ukupnoRobe = item.find(".ukupnoRobe").html();
@@ -32,7 +32,7 @@ function sync(item) {
 	poslovnaGodina = item.find(".poslovnaGodina").html();
 	otpremnica = item.find(".otpremnica").html();
 	
-	$("#id").val(id);
+	$("#brojFakture").val(brojFakture);
 	$("#datumFakture").val(datumFakture);
 	$("#datumValute").val(datumValute);
 	$("#datumObracuna").val(datumObracuna);
@@ -55,16 +55,19 @@ $(document).on("click", "tr", function(event) {
 });
 
 $(document).on("click", ".remove", function(event){
-	//ne salji get zahtev
+	// ne salji get zahtev
 	event.preventDefault(); 
 	url = $(this).attr("href")
-	//red koji se treba izbrisati ako je brisanje na serveru bilo uspesno
+	// red koji se treba izbrisati ako je brisanje na serveru bilo uspesno
 	tr_parent = $(this).closest("tr")
 	$.ajax({
     	url: url,
     	type: "DELETE",
+    	beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
     	success: function(){
-    		//ukloni i na strani 
+    		// ukloni i na strani
 			tr_parent.remove()
         }
 	});
@@ -76,7 +79,7 @@ $(document).ready(function() {
     if (!token) {
         window.location.replace("/login.html");
     }
-}
+
 	$("#porezPickup").click(function() {
 		id = $(".highlighted").find(".id").html();
 		$("select").val(id);
@@ -115,22 +118,157 @@ $(document).ready(function() {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
-						+ "<td class=\"nazivPoreza\">"
-						+ data[i].nazivPoreza
+						+ "<td class=\"datumFakture\">"
+						+ data[i].datumFakture
 						+ "</td>"
-						+ "<td class=\"vazeci\">"
-						+ data[i].vazeci
+						+ "<td class=\"datumValute\">"
+						+ data[i].datumValute
 						+ "</td>"
-						+ "<td><a class=\"remove\" href='/Porez/" + data[i].id + "'>"
+						+ "<td class=\"datumObracuna\">"
+						+ data[i].datumObracuna
+						+ "</td>"
+						+ "<td class=\"ukupnoRobe\">"
+						+ data[i].ukupnoRobe
+						+ "</td>"
+						+ "<td class=\"ukupanRabat\">"
+						+ data[i].ukupanRabat
+						+ "</td>"
+						+ "<td class=\"ukupanPorez\">"
+						+ data[i].ukupanPorez
+						+ "</td>"
+						+ "<td class=\"iznosFakture\">"
+						+ data[i].iznosFakture
+						+ "</td>"
+						+ "<td class=\"iznosFaktureOsnovica\">"
+						+ data[i].iznosFaktureOsnovica
+						+ "</td>"
+						+ "<td class=\"uplataNaRacun\">"
+						+ data[i].uplataNaRacun
+						+ "</td>"
+						+ "<td class=\"pozivNaBroj\">"
+						+ data[i].pozivNaBroj
+						+ "</td>"
+						+ "<td class=\"statusFakture\">"
+						+ data[i].statusFakture
+						+ "</td>"
+						+ "<td class=\"poslovniPartner\">"
+						+ data[i].poslovniPartner
+						+ "</td>"
+						+ "<td class=\"poslovnaGodina\">"
+						+ data[i].poslovnaGodina
+						+ "</td>"
+						+ "<td class=\"otpremnica\">"
+						+ data[i].otpremnica
+						+ "</td>"
+						
+						+ "<td><a class=\"remove\" href='/api/izlazne-fakture/" + data[i].brojFakture + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
-						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
-						+ data[i].id + "</td>"
+						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"brojFakture\">"
+						+ data[i].brojFakture + "</td>"
 						$("#dataTable").append(newRow)
 					}
 		},
     	error: function(err) {
     		console.log(err);
     	}
+	});
+	
+	$.ajax({
+		url : "http://localhost:8080/api/poslovne-godine/",
+		type: "GET",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
+    	success: function(data) {
+			for (i = 0; i < data.length; i++) {
+				var newOption = '<option value="' + data[i].id + '">'
+				+ data[i].godina + '</option>';
+				$("#poslovnaGodina").append(newOption);
+			}
+    	}
+	});
+	
+	$.ajax({
+		url : "http://localhost:8080/api/poslovni-partneri/",
+		type: "GET",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
+    	success: function(data) {
+			for (i = 0; i < data.length; i++) {
+				var newOption = '<option value="' + data[i].id + '">'
+				+ data[i].nazivPartnera + '</option>';
+				$("#poslovniPartner").append(newOption);
+			}
+    	}
+	});
+	
+	$.ajax({
+		url : "http://localhost:8080/api/otpremnice/",
+		type: "GET",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
+    	success: function(data) {
+			for (i = 0; i < data.length; i++) {
+				var newOption = '<option value="' + data[i].brojOtpremnice + '">'
+				+ data[i].brojOtpremnice + '</option>';
+				$("#otpremnica").append(newOption);
+			}
+    	}
+	});
+	
+	$('#inputModal').on('shown.bs.modal', function (e) {
+		$.ajax({
+			url: "http://localhost:8080/api/otpremnice/",
+			type: "GET",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
+			success: function(data) {
+				for (i = 0; i < data.length; i++) {
+					console.log(i);
+					var newOption = '<option value="' + data[i].brojOtpremnice + '">'
+					+ data[i].brojOtpremnice + '</option>';
+					console.log(data[i]);
+					$(e.currentTarget).find('select[name="otpremnica"]').append(newOption);
+				}
+			}
+		});
+		
+		$.ajax({
+			url: "http://localhost:8080/api/poslovni-partneri/",
+			type: "GET",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
+			success: function(data) {
+				for (i = 0; i < data.length; i++) {
+					console.log(i);
+					var newOption = '<option value="' + data[i].id + '">'
+					+ data[i].nazivPartnera + '</option>';
+					console.log(data[i]);
+					$(e.currentTarget).find('select[name="poslovniPartner"]').append(newOption);
+				}
+			}
+		});
+		
+		$.ajax({
+			url: "http://localhost:8080/api/poslovne-godine/",
+			type: "GET",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
+			success: function(data) {
+				for (i = 0; i < data.length; i++) {
+					console.log(i);
+					var newOption = '<option value="' + data[i].id + '">'
+					+ data[i].godina + '</option>';
+					console.log(data[i]);
+					$(e.currentTarget).find('select[name="poslovnaGodina"]').append(newOption);
+				}
+			}
+		});
 	});
 	
 	$("#add").click(function(){
@@ -151,8 +289,6 @@ $(document).ready(function() {
 				poslovniPartner : $("#inputForm [name='poslovniPartner']").val(),
 				poslovnaGodina : $("#inputForm [name='poslovnaGodina']").val(),
 				otpremnica : $("#inputForm [name='otpremnica']").val(),
-	           
-	           
 	        });
 			console.log(formData);
 			$.ajax({
@@ -212,6 +348,10 @@ $(document).ready(function() {
 					+ "<td class=\"otpremnica\">"
 					+ data.otpremnica
 					+ "</td>"
+					+ "<td><a class=\"remove\" href='/api/izlazne-fakture/" + data.brojFakture + "'>"
+					+ "<img src='images/remove.gif'/></a></td>"
+					+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"brojFakture\">"
+					+ data.brojFakture + "</td>"
 					$("#dataTable").append(newRow)
 				  }
 				});
@@ -237,10 +377,11 @@ $(document).ready(function() {
 			poslovniPartner : $("#editForm [name='poslovniPartner']").val(),
 			poslovnaGodina : $("#editForm [name='poslovnaGodina']").val(),
 			otpremnica : $("#editForm [name='otpremnica']").val(),
+			brojFakture : $("#editForm [name='brojFakture']").val(),
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/IzlazneFakture/" + $("#editForm [name='id']").val(),
+			url: "http://localhost:8080/api/izlazne-fakture/" + $("#editForm [name='brojFakture']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad
@@ -275,3 +416,4 @@ $(document).ready(function() {
 		event.preventDefault();
 		sync($(".highlighted"));
 	});
+});
