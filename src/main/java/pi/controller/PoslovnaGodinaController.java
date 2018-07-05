@@ -38,29 +38,31 @@ public class PoslovnaGodinaController {
 		return poslovnaGodinaDTO;
 	}
 	@PostMapping
-	public @ResponseBody pi.model.PoslovnaGodina create (@RequestBody PoslovnaGodinaDTO dto){
+	public @ResponseBody PoslovnaGodinaDTO create (@RequestBody PoslovnaGodinaDTO dto){
 		pi.model.PoslovnaGodina psg = new pi.model.PoslovnaGodina();
 		psg.setGodina(dto.getGodina());
 		psg.setPreduzece( PRepo.findById(dto.getPreduzece()).get() );
-		return poslovnaGodinaRepository.save(psg);
+		psg.setZakljucena(dto.isZakljucena());
+		return new PoslovnaGodinaDTO(poslovnaGodinaRepository.save(psg));
 		
 	} 
-	@GetMapping("{/id}")
+	@GetMapping("/{id}")
 	public @ResponseBody PoslovnaGodinaDTO readOne(@PathVariable(value = "id")Integer id){
 		pi.model.PoslovnaGodina psg = poslovnaGodinaRepository.findById(id).get();
 		return new PoslovnaGodinaDTO(psg);
 	}
 	
-	@PutMapping("{/id}")
+	@PutMapping("/{id}")
 	public @ResponseBody PoslovnaGodinaDTO update(@PathVariable(value = "id")Integer id, @RequestBody PoslovnaGodinaDTO dto){
 		pi.model.PoslovnaGodina psg = new pi.model.PoslovnaGodina();
 		psg.setGodina(dto.getGodina());
+		psg.setZakljucena(dto.isZakljucena());
 		psg.setPreduzece( PRepo.findById(dto.getPreduzece()).get() );
 		return new PoslovnaGodinaDTO(psg);
 	
 	}
 	
-	@DeleteMapping("{/id}")
+	@DeleteMapping("/{id}")
 	public @ResponseBody PoslovnaGodinaDTO delete(@PathVariable(value = "id")Integer id){
 		pi.model.PoslovnaGodina psg = poslovnaGodinaRepository.findById(id).get();
 		poslovnaGodinaRepository.delete(psg);

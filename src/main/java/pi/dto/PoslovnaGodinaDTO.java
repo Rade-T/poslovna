@@ -9,6 +9,7 @@ public class PoslovnaGodinaDTO {
 	public int preduzece;
 //	public List<Otpremnica> otpremnica;
 //	public List<Narudzbenica> narudzbenica;
+	private int id;
 	
 	public PoslovnaGodinaDTO(){
 		
@@ -16,6 +17,7 @@ public class PoslovnaGodinaDTO {
 
 	public PoslovnaGodinaDTO(PoslovnaGodina dto) {
 		super();
+		this.id = dto.getId();
 		this.godina = dto.getGodina();
 		this.zakljucena = dto.isZakljucena();
 		this.preduzece = dto.getPreduzece().getPIB();
@@ -43,6 +45,14 @@ public class PoslovnaGodinaDTO {
 
 	public void setPreduzece(int preduzece) {
 		this.preduzece = preduzece;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

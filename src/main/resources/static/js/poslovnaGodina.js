@@ -17,17 +17,14 @@ function highlightRow(row) {
 
 function sync(item) {
 	godina = item.find(".godina").html();
-	id = item.find(".poslovnaGodinaId").html();
+	id = item.find(".id").html();
 	zakljucena = item.find(".zakljucena").html();
 	preduzece = item.find(".preduzece").html();
 	
-	
-	
-	$("#poslovnaGodinaId").val(id);
+	$("#id").val(id);
 	$("#godina").val(godina);
-	$("#zakljucena").val(zakljucena);
+	$("#zakljucena").prop('checked', zakljucena);
 	$("#preduzece").val(preduzece);
-
 }
 
 $(document).on("click", "tr", function(event) {
@@ -43,14 +40,22 @@ $(document).on("click", ".remove", function(event){
 	$.ajax({
     	url: url,
     	type: "DELETE",
+    	beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
     	success: function(){
     		//ukloni i na strani 
 			tr_parent.remove()
         }
 	});
 });
-/*
+
 $(document).ready(function() {
+	token = localStorage.getItem('token');
+
+    if (!token) {
+        window.location.replace("/login.html");
+    }
 	$("#porezPickup").click(function() {
 		id = $(".highlighted").find(".id").html();
 		$("select").val(id);
@@ -75,37 +80,81 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/Porez/"})
-		.then(
-				function(data) {
+		url : "http://localhost:8080/api/poslovne-godine/",
+		type: "GET",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
+    	success: function(data) {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
-						+ "<td class=\"nazivPoreza\">"
-						+ data[i].nazivPoreza
+						+ "<td class=\"godina\">"
+						+ data[i].godina
 						+ "</td>"
-						+ "<td class=\"vazeci\">"
-						+ data[i].vazeci
+						+ "<td class=\"zakljucena\">"
+						+ data[i].zakljucena
 						+ "</td>"
-						+ "<td><a class=\"remove\" href='/Porez/" + data[i].id + "'>"
+						+ "<td class=\"preduzece\">"
+						+ data[i].preduzece
+						+ "</td>"
+						+ "<td><a class=\"remove\" href='/api/poslovne-godine/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 						+ data[i].id + "</td>"
 						$("#dataTable").append(newRow)
 						console.log(data);
 					}
-				});
-	*/
+		},
+    	error: function(err) {
+    		console.log(err);
+    	}
+	});
+	
+	$.ajax({
+		url : "http://localhost:8080/api/preduzeca/",
+		type: "GET",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
+    	success: function(data) {
+			console.log("Uspeo")
+			for (i = 0; i < data.length; i++) {
+				var newOption = '<option value="' + data[i].PIB + '">'
+				+ data[i].naziv + '</option>';
+				$("#preduzece").append(newOption);
+			}
+    	}
+	});
+				
+	$('#inputModal').on('shown.bs.modal', function (e) {
+		$.ajax({
+			url: "http://localhost:8080/api/preduzeca",
+			type: "GET",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
+			success: function(data) {
+				console.log("Ucitavanje grupe");
+				console.log(data);
+				for (i = 0; i < data.length; i++) {
+					console.log(i);
+					var newOption = '<option value="' + data[i].PIB + '">'
+					+ data[i].naziv + '</option>';
+					console.log(data[i]);
+					$(e.currentTarget).find('select[name="preduzece"]').append(newOption);
+				}
+			}
+		});
+	});
 	
 	$("#add").click(function(){
 		// pripremamo JSON koji cemo poslati
 			console.log("start");
 			formData = JSON.stringify({
 				godina : $("#inputForm [name='godina']").val(),
-				zakljucena : $("#inputForm [name='zakljucena']").val(),
+				zakljucena : $("#inputForm [name='zakljucena']").is(":checked"),
 				preduzece : $("#inputForm [name='preduzece']").val(),
-
-	           
 	        });
 			console.log(formData);
 			$.ajax({
@@ -115,6 +164,9 @@ $(document).ready(function() {
 				// saljemo json i ocekujemo json nazad
 				contentType: "application/json",
 				datatype: 'json',
+				beforeSend: function (request) {
+		            request.setRequestHeader("X-Auth-Token", token);
+		    	},
 				success: function(data) {
 					var newRow = "<tr>"
 					+ "<td class=\"godina\">"
@@ -137,8 +189,9 @@ $(document).ready(function() {
 		event.preventDefault();
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
+			id : $("#editForm [name='id']").val(),
 			godina : $("#editForm [name='godina']").val(),
-			zakljucena : $("#editForm [name='zakljucena']").val(),
+			zakljucena : $("#editForm [name='zakljucena']").is(":checked"),
 			preduzece : $("#editForm [name='preduzece']").val(),
         });
 		console.log(formData);
@@ -149,6 +202,9 @@ $(document).ready(function() {
 			// saljemo json i ocekujemo json nazad
 			contentType: "application/json",
 			datatype: 'json',
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
 			success: function(data) {
 				$(".highlighted").find(".godina")[0].innerHTML = data.godina;
 				$(".highlighted").find(".zakljucena")[0].innerHTML = data.zakljucena;

@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class PoslovnaGodina {
 	
@@ -27,6 +29,7 @@ public class PoslovnaGodina {
 	@OneToMany(mappedBy="poslovnaGodina")
 	public List<IzlaznaFaktura> izlaznaFaktura;
 	
+	@JsonIgnore
 	@ManyToOne
 	public Preduzece preduzece;
 	
