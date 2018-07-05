@@ -20,7 +20,7 @@ function sync(item) {
 	id = item.find(".id").html();
 	vazeci = item.find(".vazeci").html();
 	console.log("Checkbox je: " + vazeci);
-	$("#porezId").val(id);
+	$("#id").val(id);
 	$("#nazivPoreza").val(nazivPoreza);
 	$("#vazeci").prop('checked', vazeci);
 }
@@ -80,7 +80,7 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/api/porezi/",
+		url : "http://localhost:8080/api/porez/",
 		type: "GET",
 		beforeSend: function (request) {
             request.setRequestHeader("X-Auth-Token", token);
@@ -95,9 +95,9 @@ $(document).ready(function() {
 						+ "<td class=\"vazeci\">"
 						+ data[i].vazeci
 						+ "</td>"
-						+ "<td><a class=\"remove\" href='/Porez/" + data[i].id + "'>"
+						+ "<td><a class=\"remove\" href='/api/porez/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
-						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
+						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\".id\">"
 						+ data[i].id + "</td>"
 						$("#dataTable").append(newRow)
 						console.log(data);
@@ -117,7 +117,7 @@ $(document).ready(function() {
 	        });
 			console.log(formData);
 			$.ajax({
-				url: "http://localhost:8080/api/porezi",
+				url: "http://localhost:8080/api/porez",
 				type: "POST",
 				data: formData,
 				// saljemo json i ocekujemo json nazad
@@ -134,7 +134,7 @@ $(document).ready(function() {
 					+ "<td class=\"vazeci\">"
 					+ data.vazeci
 					+ "</td>"
-					+ "<td><a class=\"remove\" href='/api/porezi/" + data.id + "'>"
+					+ "<td><a class=\"remove\" href='/api/porez/" + data.id + "'>"
 					+ "<img src='images/remove.gif'/></a></td>"
 					+ +"<td class=\"idCell\">"
 					+ data.id + "</td>"
@@ -156,7 +156,7 @@ $(document).ready(function() {
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/api/porezi/" + $("#editForm [name='id']").val(),
+			url: "http://localhost:8080/api/porez/" + $("#editForm [name='id']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad
