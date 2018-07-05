@@ -44,6 +44,9 @@ $(document).on("click", ".remove", function(event){
 	$.ajax({
     	url: url,
     	type: "DELETE",
+    	beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
     	success: function(){
     		//ukloni i na strani 
 			tr_parent.remove()
@@ -121,32 +124,40 @@ $(document).ready(function() {
 	});
 	
 	$.ajax({
-		url : "http://localhost:8080/api/preduzeca/"})
-		.then(
-				function(data) {
-					console.log("Uspeo")
-					for (i = 0; i < data.length; i++) {
-						var newOption = '<option value="' + data[i].PIB + '">'
-						+ data[i].naziv + '</option>';
-						$("#preduzece").append(newOption);
-					}
-				});
-	
+		url : "http://localhost:8080/api/preduzeca/",
+		type: "GET",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
+    	success: function(data) {
+			console.log("Uspeo")
+			for (i = 0; i < data.length; i++) {
+				var newOption = '<option value="' + data[i].PIB + '">'
+				+ data[i].naziv + '</option>';
+				$("#preduzece").append(newOption);
+			}
+    	}
+	});
+				
 	$('#inputModal').on('shown.bs.modal', function (e) {
 		$.ajax({
-			url: "http://localhost:8080/api/preduzeca"})
-			.then(
-				function(data) {
-					console.log("Ucitavanje preduzeca");
-					console.log(data);
-					for (i = 0; i < data.length; i++) {
-						console.log(i);
-						var newOption = '<option value="' + data[i].PIB + '">'
-						+ data[i].naziv + '</option>';
-						console.log(data[i]);
-						$(e.currentTarget).find('select[name="preduzeceSelect"]').append(newOption);
-					}
-			});
+			url: "http://localhost:8080/api/preduzeca",
+			type: "GET",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
+			success: function(data) {
+				console.log("Ucitavanje grupe");
+				console.log(data);
+				for (i = 0; i < data.length; i++) {
+					console.log(i);
+					var newOption = '<option value="' + data[i].PIB + '">'
+					+ data[i].naziv + '</option>';
+					console.log(data[i]);
+					$(e.currentTarget).find('select[name="preduzeceSelect"]').append(newOption);
+				}
+			}
+		});
 	});
 	
 	$("#add").click(function(){
@@ -156,7 +167,7 @@ $(document).ready(function() {
 				nazivPartnera : $("#inputForm [name='nazivPartnera']").val(),
 				adresa : $("#inputForm [name='adresa']").val(),
 				vrstaPartnera : $("#inputForm [name='vrstaPartnera']").val(),
-				preduzece : $("#inputForm [name='preduzece']").val(),
+				preduzece : $("#inputForm [name='preduzeceSelect']").val(),
 	        });
 			console.log(formData);
 			$.ajax({
@@ -183,6 +194,10 @@ $(document).ready(function() {
 					+ "<td class=\"preduzece\">"
 					+ data.preduzece
 					+ "</td>"
+					+ "<td><a class=\"remove\" href='/api/poslovni-partneri/" + data.id + "'>"
+					+ "<img src='images/remove.gif'/></a></td>"
+					+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
+					+ data.id + "</td>"
 					$("#dataTable").append(newRow)
 				  }
 				});

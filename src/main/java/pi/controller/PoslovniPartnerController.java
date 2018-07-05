@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import pi.dto.PoslovniPartnerDTO;
+import pi.model.PoslovniPartner;
 import pi.repository.PoslovniPartnerRepository;
 import pi.repository.PreduzeceRepository;
 
@@ -39,13 +40,13 @@ public class PoslovniPartnerController {
 	}
 	
 	@PostMapping
-	public @ResponseBody pi.model.PoslovniPartner create (@RequestBody PoslovniPartnerDTO dto){
-		pi.model.PoslovniPartner pp = new pi.model.PoslovniPartner();
+	public @ResponseBody PoslovniPartnerDTO create (@RequestBody PoslovniPartnerDTO dto){
+		PoslovniPartner pp = new PoslovniPartner();
 		pp.setAdresa(dto.getAdresa());
 		pp.setNazivPartnera(dto.getNazivPartnera());
 		pp.setPreduzece( PRepo.findById(dto.getPreduzece()).get() );
 		pp.setVrstaPartnera(dto.getVrstaPartnera());
-		return poslovniPartnerRepository.save(pp);
+		return new PoslovniPartnerDTO(poslovniPartnerRepository.save(pp));
 	}
 	
 	@GetMapping("/{id}")
@@ -56,7 +57,7 @@ public class PoslovniPartnerController {
 	
 	@PutMapping("/{id}")
 	public @ResponseBody PoslovniPartnerDTO update(@PathVariable(value = "id")Integer id, @RequestBody PoslovniPartnerDTO dto){
-		pi.model.PoslovniPartner pp = poslovniPartnerRepository.findById(id).get();
+		PoslovniPartner pp = poslovniPartnerRepository.findById(id).get();
 		System.out.println(pp.getId());
 		pp.setAdresa(dto.getAdresa());
 		pp.setNazivPartnera(dto.getNazivPartnera());
@@ -68,7 +69,7 @@ public class PoslovniPartnerController {
 	
 	@DeleteMapping("/{id}")
 	public @ResponseBody PoslovniPartnerDTO delete(@PathVariable(value = "id") Integer id){
-		pi.model.PoslovniPartner pp = poslovniPartnerRepository.findById(id).get();
+		PoslovniPartner pp = poslovniPartnerRepository.findById(id).get();
 		poslovniPartnerRepository.delete(pp);
 		return new PoslovniPartnerDTO(pp);
 	}
