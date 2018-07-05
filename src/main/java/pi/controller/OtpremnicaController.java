@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pi.dto.OtpremnicaDTO;
 import pi.model.Otpremnica;
+import pi.repository.NarudzbenicaRepository;
 import pi.repository.OtpremnicaRepository;
+import pi.repository.PoslovnaGodinaRepository;
+import pi.repository.PoslovniPartnerRepository;
 
 @RestController
 @RequestMapping(path="/api/otpremnice")
@@ -24,6 +27,15 @@ public class OtpremnicaController {
 	
 	@Autowired
 	private OtpremnicaRepository otpremniceRepository;
+	
+	@Autowired
+	private PoslovnaGodinaRepository pgRepo;
+	
+	@Autowired
+	private PoslovniPartnerRepository ppRepo;
+	
+	@Autowired
+	private NarudzbenicaRepository nRepo;
 	
 	@GetMapping
 	public @ResponseBody List<OtpremnicaDTO> readAll() {
@@ -37,15 +49,17 @@ public class OtpremnicaController {
 	}
 	
 	@PostMapping
-	public @ResponseBody Otpremnica create(@RequestBody OtpremnicaDTO dto) {
+	public @ResponseBody OtpremnicaDTO create(@RequestBody OtpremnicaDTO dto) {
 		Otpremnica o = new Otpremnica();
 		o.setBrojOtpremnice(dto.getBrojOtpremnice());
 		o.setDatumOtpremnice(dto.getDatumOtpremnice());
 		o.setOsnovica(dto.getOsnovica());
-		o.setUkupanPdv(dto.getUkupanPdv());
+		o.setUkupanPdv(dto.getUkupanPDV());
 		o.setIznosZaPlacanje(dto.getIznosZaPlacanje());
-
-		return otpremniceRepository.save(o);	
+		o.setNarudzbenica( nRepo.findById(dto.getNarudzbenica()).get() );
+		o.setPoslovnaGodina( pgRepo.findById(dto.getPoslovnaGodina()).get() );
+		o.setPoslovniPartner( ppRepo.findById(dto.getPoslovniPartner()).get() );
+		return new OtpremnicaDTO(otpremniceRepository.save(o));	
 
 	}
 	
@@ -63,8 +77,11 @@ public class OtpremnicaController {
 		o.setBrojOtpremnice(dto.getBrojOtpremnice());
 		o.setDatumOtpremnice(dto.getDatumOtpremnice());
 		o.setOsnovica(dto.getOsnovica());
-		o.setUkupanPdv(dto.getUkupanPdv());
+		o.setUkupanPdv(dto.getUkupanPDV());
 		o.setIznosZaPlacanje(dto.getIznosZaPlacanje());
+		o.setNarudzbenica( nRepo.findById(dto.getNarudzbenica()).get() );
+		o.setPoslovnaGodina( pgRepo.findById(dto.getPoslovnaGodina()).get() );
+		o.setPoslovniPartner( ppRepo.findById(dto.getPoslovniPartner()).get() );
 	    otpremniceRepository.save(o);
 	    return new OtpremnicaDTO(o);
 	}

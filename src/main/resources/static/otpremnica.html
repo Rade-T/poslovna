@@ -5,7 +5,7 @@
 <script src="scripts/tether.min.js"></script>
 <script src="scripts/bootstrap.min.js"></script>
 <script src="scripts/functions.js"></script>
-<script src="js/cenovnici.js"></script>
+<script src="js/otpremnica.js"></script>
 <link rel="stylesheet" type="text/css" href="stylesheets/design.css">
 <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
 <!-- <link rel="shortcut icon" type="image/png" href="images/favicon.png}"> -->
@@ -44,65 +44,54 @@
 				<th>Iznos za placanje</th>
 				<th>Poslovni partner</th>
 				<th>Poslovna godina</th>
+				<th>Narudzbenica</th>
 				<th>Brisanje</th>
 			</tr>
 		</table>
 
 		<div class="panel">
-			<p>
 			<form id="editForm">
-				<input type="hidden" name="otpremnicaId" id="otpremnicaId" />
+				<input type="hidden" name="id" id="id" />
 				<p>
-					<label for="datumOtpremnice">Datum otpremnice</label> <input type="text"
+					<label for="datumOtpremnice">Datum otpremnice</label> <input type="date"
 						name="datumOtpremnice" id="datumOtpremnice" />
 				</p>
 				<p>
-					<label for="brojOtpremnice">Broj otpremnice</label> <input type="text"
+					<label for="brojOtpremnice">Broj otpremnice</label> <input type="number"
 						name="brojOtpremnice" id="brojOtpremnice" />
 				</p>
 				<p>
-					<label for="osnovica">Osnovica</label> <input type="text"
+					<label for="osnovica">Osnovica</label> <input type="number"
 						name="osnovica" id="osnovica" />
 				</p>
 				<p>
-					<label for="ukupanPDV">ukupan PDV</label> <input type="text"
+					<label for="ukupanPDV">ukupan PDV</label> <input type="number"
 						name="ukupanPDV" id="ukupanPDV" />
 				</p>
 				<p>
-					<label for="iznosZaPlacanje">iznos za Placanje</label> <input type="text"
+					<label for="iznosZaPlacanje">iznos za Placanje</label> <input type="number"
 						name="iznosZaPlacanje" id="iznosZaPlacanje" />
 				</p>
 				<p>
 					<label for="poslovnaGodina">Poslovna Godina</label>
 					<select name="poslovnaGodina" id="poslovnaGodina"></select>
-<!-- 					<button type="button" class="btn btn-info btn-sm" -->
-<!-- 						data-toggle="modal" data-target="#porezModal">...</button> -->
 				</p>
 				<p>
-					<label for="poslovnaPartner">Poslovni Partner</label>
-					<select name="poslovnaPartner" id="poslovnaPartner"></select>
-<!-- 					<button type="button" class="btn btn-info btn-sm" -->
-<!-- 						data-toggle="modal" data-target="#porezModal">...</button> -->
+					<label for="poslovniPartner">Poslovni Partner</label>
+					<select name="poslovniPartner" id="poslovniPartner"></select>
 				</p>
-<!-- 				<p> -->
-<!-- 					<label id="procenatL" for="procenat">Procenat</label> <input -->
-<!-- 						type="number" name="${field.name}" id="procenat" /> -->
-<!-- 				<p> -->
-<!-- 					<input type="checkbox" name="povecanje" id="povecanje"/> -->
-<!-- 					Povecanje -->
-<!-- 				</p> -->
-<!-- 				<p> -->
-<!-- 					<input type="checkbox" name="smanjenje" id="smanjenje"/> -->
-<!-- 					Smanjenje -->
-<!-- 				</p> -->
-
+				<p>
+					<label for="narudzbenicaSelect">Narudzbenica</label>
+					<select id="narudzbenicaSelect" name="narudzbenicaSelect">
+					</select>
+				</p>
 				<div id="formActions">
 					<input id="potvrda" type="button" value="Potvrda" style="margin-left: 6em" /> <a
 						id="rollback" href="#" style="margin-left: 1em">Rollback</a>
 				</div>
 			</form>
-<!-- 			</p> -->
 		</div>
+		
 		<div class="modal" id="inputModal" tabindex="-1" role="dialog">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -117,36 +106,39 @@
 						<div class="modal-body">
 							<input type="hidden" name="id" id="id" />
 							<p>
-								<label for="datumOtprmnice">Datum otpremnice</label> <input type="date"
+								<label for="datumOtpremnice">Datum otpremnice</label> <input type="date"
 									name="datumOtpremnice" id="datumOtpremnice" />
 							</p>
 							<p>
-								<label for="brojOtprmnice">Broj otpremnice</label> <input type="date"
+								<label for="brojOtpremnice">Broj otpremnice</label> <input type="number"
 									name="brojOtpremnice" id="brojOtpremnice" />
 							</p>
 							<p>
-								<label for="osnovica">Osnovica</label> <input type="date"
+								<label for="osnovica">Osnovica</label> <input type="number"
 									name="osnovica" id="osnovica" />
 							</p>
 							<p>
-								<label for="ukupanPDV">ukupan PDV</label> <input type="date"
+								<label for="ukupanPDV">ukupan PDV</label> <input type="number"
 									name="ukupanPDV" id="ukupanPDV" />
 							</p>
 							<p>
-								<label for="iznosZaPlacanje">Iznos za placanje</label> <input type="date"
+								<label for="iznosZaPlacanje">Iznos za placanje</label> <input type="number"
 									name="iznosZaPlacanje" id="iznosZaPlacanje" />
 							</p>
 							
 							<p>
 								<label for="poslovniPartnerSelect">poslovni Partner</label>
-<!-- 								<input type="text" name="poslovniPartner" id="poslovniPartner" /> -->
 								<select id="poslovniPartnerSelect" name="poslovniPartnerSelect">
 								</select>
 							</p>
 							<p>
 								<label for="poslovnaGodinaSelect">poslovna Godina</label>
-<!-- 								<input type="text" name="poslovnaGodina" id="poslovnaGodina" /> -->
 								<select id="poslovnaGodinaSelect" name="poslovnaGodinaSelect">
+								</select>
+							</p>
+							<p>
+								<label for="narudzbenicaSelect">Narudzbenica</label>
+								<select id="narudzbenicaSelect" name="narudzbenicaSelect">
 								</select>
 							</p>
 						</div>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import pi.dto.NarudzbenicaDTO;
+import pi.model.Narudzbenica;
 import pi.repository.NarudzbenicaRepository;
 
 @RestController
@@ -27,24 +28,24 @@ public class NarudzbenicaController {
 	
 	@GetMapping
 	public @ResponseBody List<NarudzbenicaDTO> readAll(){
-		List<pi.model.Narudzbenica> narudzbenice = (List<pi.model.Narudzbenica>) narudzbenicaRepository.findAll();
+		List<Narudzbenica> narudzbenice = (List<Narudzbenica>) narudzbenicaRepository.findAll();
 		List<NarudzbenicaDTO> narudzbeniceDTO = new ArrayList<>();
-		for (pi.model.Narudzbenica n : narudzbenice){
+		for (Narudzbenica n : narudzbenice){
 			narudzbeniceDTO.add(new NarudzbenicaDTO(n));
 		}
 		return narudzbeniceDTO;
 	}
 	
 	@PostMapping
-	public @ResponseBody pi.model.Narudzbenica create (@RequestBody NarudzbenicaDTO dto) {
-		pi.model.Narudzbenica n = new pi.model.Narudzbenica();
+	public @ResponseBody Narudzbenica create (@RequestBody NarudzbenicaDTO dto) {
+		Narudzbenica n = new Narudzbenica();
 		n.setKolicina(dto.getKolicina());
 		return narudzbenicaRepository.save(n);
 	}
 	
 	@GetMapping("/id")
 	public @ResponseBody NarudzbenicaDTO readOne (@PathVariable(value="id")Integer id, @RequestBody NarudzbenicaDTO dto){
-		pi.model.Narudzbenica n = narudzbenicaRepository.findById(id).get();
+		Narudzbenica n = narudzbenicaRepository.findById(id).get();
 		return new NarudzbenicaDTO(n);
 	}
 	
@@ -52,7 +53,7 @@ public class NarudzbenicaController {
 	public @ResponseBody NarudzbenicaDTO update(@PathVariable(value = "id") Integer id,
 	                                        @RequestBody NarudzbenicaDTO dto) {
 
-	    pi.model.Narudzbenica n = narudzbenicaRepository.findById(id).get();  
+	    Narudzbenica n = narudzbenicaRepository.findById(id).get();  
 		n.setKolicina(dto.getKolicina());
 		narudzbenicaRepository.save(n);
 	    return new NarudzbenicaDTO(n);
@@ -60,7 +61,7 @@ public class NarudzbenicaController {
 	
 	@DeleteMapping("/{id}")
 	public @ResponseBody NarudzbenicaDTO delete(@PathVariable(value = "id") Integer id) {
-		pi.model.Narudzbenica n = narudzbenicaRepository.findById(id).get();
+		Narudzbenica n = narudzbenicaRepository.findById(id).get();
 	    narudzbenicaRepository.delete(n);
 	    return new NarudzbenicaDTO(n);
 	}

@@ -12,9 +12,15 @@ public class OtpremnicaDTO {
 
 	public float osnovica;
 
-	public float ukupanPdv;
+	public float ukupanPDV;
 
 	public float iznosZaPlacanje;
+	
+	private int poslovniPartner;
+	
+	private int poslovnaGodina;
+	
+	private int narudzbenica;
 
 	public OtpremnicaDTO() {
 
@@ -25,8 +31,11 @@ public class OtpremnicaDTO {
 		this.brojOtpremnice = dto.getBrojOtpremnice();
 		this.datumOtpremnice = dto.getDatumOtpremnice();
 		this.osnovica = dto.getOsnovica();
-		this.ukupanPdv = dto.getUkupanPdv();
+		this.ukupanPDV = dto.getUkupanPdv();
 		this.iznosZaPlacanje = dto.getIznosZaPlacanje();
+		this.poslovnaGodina = dto.getPoslovnaGodina().getId();
+		this.poslovniPartner = dto.getPoslovniPartner().getId();
+		this.narudzbenica = dto.getNarudzbenica().getId();
 	}
 
 	public int getBrojOtpremnice() {
@@ -53,12 +62,12 @@ public class OtpremnicaDTO {
 		this.osnovica = osnovica;
 	}
 
-	public float getUkupanPdv() {
-		return ukupanPdv;
+	public float getUkupanPDV() {
+		return ukupanPDV;
 	}
 
-	public void setUkupanPdv(float ukupanPdv) {
-		this.ukupanPdv = ukupanPdv;
+	public void setUkupanPDV(float ukupanPdv) {
+		this.ukupanPDV = ukupanPdv;
 	}
 
 	public float getIznosZaPlacanje() {
@@ -67,5 +76,29 @@ public class OtpremnicaDTO {
 
 	public void setIznosZaPlacanje(float iznosZaPlacanje) {
 		this.iznosZaPlacanje = iznosZaPlacanje;
+	}
+
+	public int getPoslovniPartner() {
+		return poslovniPartner;
+	}
+
+	public void setPoslovniPartner(int poslovniPartner) {
+		this.poslovniPartner = poslovniPartner;
+	}
+
+	public int getPoslovnaGodina() {
+		return poslovnaGodina;
+	}
+
+	public void setPoslovnaGodina(int poslovnaGodina) {
+		this.poslovnaGodina = poslovnaGodina;
+	}
+
+	public int getNarudzbenica() {
+		return narudzbenica;
+	}
+
+	public void setNarudzbenica(int narudzbenica) {
+		this.narudzbenica = narudzbenica;
 	}
 }
