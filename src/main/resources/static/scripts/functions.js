@@ -13,6 +13,10 @@
 //		sync($(row));
 //	}
 //}
+function logout() {
+	localStorage.removeItem("token");
+	window.location.replace("/login.html");
+}
 
 function goFirst() {
 	// indeksi pocinju od 1
