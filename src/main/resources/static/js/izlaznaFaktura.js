@@ -1,3 +1,4 @@
+var token;
 function highlightRow(row) {
 	// ne reagujemo na klik na header tabele, samo obicne redove
 	// this sadrzi red na koji se kliknulo
@@ -70,6 +71,12 @@ $(document).on("click", ".remove", function(event){
 });
 
 $(document).ready(function() {
+	token = localStorage.getItem('token');
+
+    if (!token) {
+        window.location.replace("/login.html");
+    }
+}
 	$("#porezPickup").click(function() {
 		id = $(".highlighted").find(".id").html();
 		$("select").val(id);
@@ -94,9 +101,12 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/api/izlazne-fakture/"})
-		.then(
-				function(data) {
+		url : "http://localhost:8080/api/izlazne-fakture/",
+		type: "GET",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
+    	success: function(data) {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
@@ -111,10 +121,12 @@ $(document).ready(function() {
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 						+ data[i].id + "</td>"
 						$("#dataTable").append(newRow)
-						console.log(data);
 					}
-				});
-	*/
+		},
+    	error: function(err) {
+    		console.log(err);
+    	}
+	});
 	
 	$("#add").click(function(){
 		// pripremamo JSON koji cemo poslati
@@ -145,6 +157,9 @@ $(document).ready(function() {
 				// saljemo json i ocekujemo json nazad
 				contentType: "application/json",
 				datatype: 'json',
+				beforeSend: function (request) {
+		            request.setRequestHeader("X-Auth-Token", token);
+				},
 				success: function(data) {
 					var newRow = "<tr>"
 					+ "<td class=\"brojFakture\">"
@@ -226,6 +241,9 @@ $(document).ready(function() {
 			// saljemo json i ocekujemo json nazad
 			contentType: "application/json",
 			datatype: 'json',
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+			},
 			success: function(data) {
 				$(".highlighted").find(".brojFakture")[0].innerHTML = data.brojFakture;
 				$(".highlighted").find(".datumValute")[0].innerHTML = data.datumValute;
@@ -252,4 +270,3 @@ $(document).ready(function() {
 		event.preventDefault();
 		sync($(".highlighted"));
 	});
-});

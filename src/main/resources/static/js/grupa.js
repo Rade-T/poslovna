@@ -1,4 +1,4 @@
-
+var token;
 function highlightRow(row) {
 	// ne reagujemo na klik na header tabele, samo obicne redove
 	// this sadrzi red na koji se kliknulo
@@ -47,6 +47,11 @@ $(document).on("click", ".remove", function(event){
 });
 
 $(document).ready(function() {
+	token = localStorage.getItem('token');
+
+    if (!token) {
+        window.location.replace("/login.html");
+    }
 	$("#porezPickup").click(function() {
 		id = $(".highlighted").find(".id").html();
 		$("select").val(id);
@@ -71,9 +76,12 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/api/grupe/"})
-		.then(
-				function(data) {
+		url : "http://localhost:8080/api/grupe/",
+			type: "GET",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
+	    	success: function(data) {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
@@ -92,7 +100,11 @@ $(document).ready(function() {
 						+ data[i].id + "</td>"
 						$("#dataTable").append(newRow)
 					}
-				});
+			},
+	    	error: function(err) {
+	    		console.log(err);
+	    	}
+		});
 	
 	$.ajax({
 		url : "http://localhost:8080/api/preduzeca/"})
@@ -122,14 +134,42 @@ $(document).ready(function() {
 					}
 			});
 	});
+	$.ajax({
+		url : "http://localhost:8080/api/porez/"})
+		.then(
+				function(data) {
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].nazivPoreza + '">'
+						+ data[i].naziv + '</option>';
+						$("#preduzece").append(newOption);
+					}
+				});
+				
+	$('#inputModal').on('shown.bs.modal', function (e) {
+		$.ajax({
+			url: "http://localhost:8080/api/porez"})
+			.then(
+				function(data) {
+					console.log("Ucitavanje poreza");
+					console.log(data);
+					for (i = 0; i < data.length; i++) {
+						console.log(i);
+						var newOption = '<option value="' + data[i].nazivPoreza + '">'
+						+ data[i].naziv + '</option>';
+						console.log(data[i]);
+						$(e.currentTarget).find('select[name="porezSelect"]').append(newOption);
+					}
+			});
+	});
 	
 	$("#add").click(function(){
 		// pripremamo JSON koji cemo poslati
 			console.log("start");
 			formData = JSON.stringify({
 	            naziv : $("#inputForm [name='naziv']").val(),
-	            preduzece :$("#inputForm [name='preduzece']").val(),
-	            porez :$("#inputForm [name='porez']").val(),
+	            preduzece :$("#inputForm [name='preduzeceSelcet']").val(),
+	            porez :$("#inputForm [name='porezSelect']").val(),
 	        });
 			console.log(formData);
 			$.ajax({
@@ -139,6 +179,9 @@ $(document).ready(function() {
 				// saljemo json i ocekujemo json nazad
 				contentType: "application/json",
 				datatype: 'json',
+				beforeSend: function (request) {
+		            request.setRequestHeader("X-Auth-Token", token);
+				},
 				success: function(data) {
 					var newRow = "<tr>"
 						+ "<td class=\"naziv\">"
@@ -179,6 +222,9 @@ $(document).ready(function() {
 			// saljemo json i ocekujemo json nazad
 			contentType: "application/json",
 			datatype: 'json',
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+			},
 			success: function(data) {
 				$(".highlighted").find(".nazvi")[0].innerHTML = data.naziv;
 				$(".highlighted").find(".preduzece")[0].innerHTML = data.preduzece;

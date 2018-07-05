@@ -1,3 +1,4 @@
+var token;
 function highlightRow(row) {
 	// ne reagujemo na klik na header tabele, samo obicne redove
 	// this sadrzi red na koji se kliknulo

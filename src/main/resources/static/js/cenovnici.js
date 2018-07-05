@@ -30,6 +30,8 @@
 //	$('#inputModal').modal('toggle');
 //	console.log("end");
 //}
+var token;
+
 function highlightRow(row) {
 	// ne reagujemo na klik na header tabele, samo obicne redove
 	// this sadrzi red na koji se kliknulo
@@ -76,6 +78,11 @@ $(document).on("click", ".remove", function(event){
 });
 
 $(document).ready(function() {
+	token = localStorage.getItem('token');
+
+    if (!token) {
+        window.location.replace("/login.html");
+    }
 	$("#porezPickup").click(function() {
 		id = $(".highlighted").find(".id").html();
 		$("select").val(id);
@@ -100,9 +107,12 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/api/cenovnici/"})
-		.then(
-				function(data) {
+		url : "http://localhost:8080/api/cenovnici/",
+		type: "GET",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
+    	success: function(data) {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
@@ -118,7 +128,11 @@ $(document).ready(function() {
 						+ data[i].id + "</td>"
 						$("#dataTable").append(newRow)
 					}
-				});
+		},
+    	error: function(err) {
+    		console.log(err);
+    	}
+	});
 	
 	$.ajax({
 		url : "http://localhost:8080/api/preduzeca/"})
@@ -164,6 +178,9 @@ $(document).ready(function() {
 				// saljemo json i ocekujemo json nazad
 				contentType: "application/json",
 				datatype: 'json',
+				beforeSend: function (request) {
+		            request.setRequestHeader("X-Auth-Token", token);
+				},
 				success: function(data) {
 					var newRow = "<tr>"
 					+ "<td class=\"datumPrimene\">"
@@ -200,6 +217,9 @@ $(document).ready(function() {
 			// saljemo json i ocekujemo json nazad
 			contentType: "application/json",
 			datatype: 'json',
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+			},
 			success: function(data) {
 				$(".highlighted").find(".datumPrimene")[0].innerHTML = data.datumPrimene;
 				$(".highlighted").find(".preduzece")[0].innerHTML = data.preduzece;

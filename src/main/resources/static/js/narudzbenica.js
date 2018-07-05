@@ -1,3 +1,4 @@
+var token;
 function highlightRow(row) {
 	// ne reagujemo na klik na header tabele, samo obicne redove
 	// this sadrzi red na koji se kliknulo
@@ -47,6 +48,11 @@ $(document).on("click", ".remove", function(event){
 });
 
 $(document).ready(function() {
+	token = localStorage.getItem('token');
+
+    if (!token) {
+        window.location.replace("/login.html");
+    }
 	$("#narudzbenicaPickup").click(function() {
 		id = $(".highlighted").find(".id").html();
 		$("select").val(id);
@@ -71,9 +77,12 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/api/narudzbenice/"})
-		.then(
-				function(data) {
+		url : "http://localhost:8080/api/narudzbenice/",
+		type: "GET",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
+    	success: function(data) {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
@@ -94,9 +103,12 @@ $(document).ready(function() {
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 						+ data[i].id + "</td>"
 						$("#dataTable").append(newRow)
-						console.log(data);
 					}
-				});
+		},
+    	error: function(err) {
+    		console.log(err);
+    	}
+	});
 	
 	
 	$("#add").click(function(){
@@ -116,6 +128,9 @@ $(document).ready(function() {
 				// saljemo json i ocekujemo json nazad
 				contentType: "application/json",
 				datatype: 'json',
+				beforeSend: function (request) {
+		            request.setRequestHeader("X-Auth-Token", token);
+				},
 				success: function(data) {
 					var newRow = "<tr>"
 					+ "<td class=\"id\">"
@@ -159,6 +174,9 @@ $(document).ready(function() {
 			// saljemo json i ocekujemo json nazad
 			contentType: "application/json",
 			datatype: 'json',
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+			},
 			success: function(data) {
 				$(".highlighted").find(".kolicina")[0].innerHTML = data.kolicina;
 				$(".highlighted").find(".poslovniPartner")[0].innerHTML = data.poslovniPartner;
