@@ -5,7 +5,7 @@
 <script src="scripts/tether.min.js"></script>
 <script src="scripts/bootstrap.min.js"></script>
 <script src="scripts/functions.js"></script>
-<script src="js/cenovnici.js"></script>
+<script src="js/poslovnaGodina.js"></script>
 <link rel="stylesheet" type="text/css" href="stylesheets/design.css">
 <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
 <!-- <link rel="shortcut icon" type="image/png" href="images/favicon.png}"> -->
@@ -47,42 +47,28 @@
 		<div class="panel">
 			<p>
 			<form id="editForm">
-				<input type="hidden" name="poslovnaGodinaId" id="poslovnaGodinaId" />
+				<input type="hidden" name="id" id="id" />
 				<p>
-					<label for="godina">Godina</label> <input type="text"
+					<label for="godina">Godina</label> <input type="number"
 						name="godina" id="godina" />
 				</p>
 				
 				<p>
-					<label for="zakljucena">Zakljucena</label> <input type="text"
+					<label for="zakljucena">Zakljucena</label> <input type="checkbox"
 						name="zakljucena" id="zakljucena" />
 				</p>
 				<p>
 					<label for="preduzece">Preduzece</label>
 					<select name="preduzece" id="preduzece"></select>
-<!-- 					<button type="button" class="btn btn-info btn-sm" -->
-<!-- 						data-toggle="modal" data-target="#porezModal">...</button> -->
 				</p>
 			
-<!-- 				<p> -->
-<!-- 					<label id="procenatL" for="procenat">Procenat</label> <input -->
-<!-- 						type="number" name="${field.name}" id="procenat" /> -->
-<!-- 				<p> -->
-<!-- 					<input type="checkbox" name="povecanje" id="povecanje"/> -->
-<!-- 					Povecanje -->
-<!-- 				</p> -->
-<!-- 				<p> -->
-<!-- 					<input type="checkbox" name="smanjenje" id="smanjenje"/> -->
-<!-- 					Smanjenje -->
-<!-- 				</p> -->
-
 				<div id="formActions">
 					<input id="potvrda" type="button" value="Potvrda" style="margin-left: 6em" /> <a
 						id="rollback" href="#" style="margin-left: 1em">Rollback</a>
 				</div>
 			</form>
-<!-- 			</p> -->
 		</div>
+		
 		<div class="modal" id="inputModal" tabindex="-1" role="dialog">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -97,19 +83,17 @@
 						<div class="modal-body">
 							<input type="hidden" name="id" id="id" />
 							<p>
-					<label for="godina">Godina</label> <input type="text"
+					<label for="godina">Godina</label> <input type="number"
 						name="godina" id="godina" />
 				</p>
 				
 				<p>
-					<label for="zakljucena">Zakljucena</label> <input type="text"
+					<label for="zakljucena">Zakljucena</label> <input type="checkbox"
 						name="zakljucena" id="zakljucena" />
 				</p>
 				<p>
 					<label for="preduzece">Preduzece</label>
 					<select name="preduzece" id="preduzece"></select>
-<!-- 					<button type="button" class="btn btn-info btn-sm" -->
-<!-- 						data-toggle="modal" data-target="#porezModal">...</button> -->
 				</p>
 						</div>
 						<div class="modal-footer">
