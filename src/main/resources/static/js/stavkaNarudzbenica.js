@@ -62,6 +62,11 @@ $(document).ready(function() {
 		$('#stavkeNarudzbenicaModal').modal('toggle');
 	});
 	
+	$("#logoutLink").on("click", function(event) {
+		event.preventDefault();
+		logout();
+	});
+	
 	$("#first").click(function(){
 		goFirst();
 	 });
