@@ -61,6 +61,11 @@ $(document).ready(function() {
 		$('#porezModal').modal('toggle');
 	});
 	
+	$("#logoutLink").on("click", function(event) {
+		event.preventDefault();
+		logout();
+	});
+	
 	$("#first").click(function(){
 		goFirst();
 	 });
