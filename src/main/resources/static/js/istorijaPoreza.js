@@ -16,12 +16,16 @@ function highlightRow(row) {
 }
 
 function sync(item) {
-	datumPrimene = item.find(".datumPrimene").html()
+	datumPrimene = new Date(item.find(".datumPrimene").html())
+	console.log(datumPrimene);
 	id = item.find(".id").html()
 	preduzece = item.find(".preduzece").html()
-	$("#datumPrimene").val(datumPrimene);
-	$("#istorijaPorezaId").val(id);
-	$("#preduzece").val(preduzece);
+//	$("#datumPrimene").val(datumPrimene);
+	var datum = $("#datumPrimene");
+	datum.valueAsDate = datumPrimene;
+	console.log(datum);
+	$("#id").val(id);
+	$("#preduzeceSelect").val(preduzece);
 }
 
 $(document).on("click", "tr", function(event) {
@@ -37,6 +41,9 @@ $(document).on("click", ".remove", function(event){
 	$.ajax({
     	url: url,
     	type: "DELETE",
+    	beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
     	success: function(){
     		//ukloni i na strani 
 			tr_parent.remove()
@@ -102,40 +109,48 @@ $(document).ready(function() {
 	});
 	
 	$.ajax({
-		url : "http://localhost:8080/api/preduzece/"})
-		.then(
-				function(data) {
-					console.log("Uspeo")
-					for (i = 0; i < data.length; i++) {
-						var newOption = '<option value="' + data[i].PIB + '">'
-						+ data[i].naziv + '</option>';
-						$("#preduzece").append(newOption);
-					}
-				});
+		url : "http://localhost:8080/api/preduzeca/",
+		type: "GET",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
+    	success: function(data) {
+			console.log("Uspeo")
+			for (i = 0; i < data.length; i++) {
+				var newOption = '<option value="' + data[i].PIB + '">'
+				+ data[i].naziv + '</option>';
+				$("#preduzeceSelect").append(newOption);
+			}
+    	}
+	});
 				
 	$('#inputModal').on('shown.bs.modal', function (e) {
 		$.ajax({
-			url: "http://localhost:8080/api/preduzece"})
-			.then(
-				function(data) {
-					console.log("Ucitavanje grupe");
-					console.log(data);
-					for (i = 0; i < data.length; i++) {
-						console.log(i);
-						var newOption = '<option value="' + data[i].PIB + '">'
-						+ data[i].naziv + '</option>';
-						console.log(data[i]);
-						$(e.currentTarget).find('select[name="preduzeceSelect"]').append(newOption);
-					}
-			});
+			url: "http://localhost:8080/api/preduzeca",
+			type: "GET",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
+			success: function(data) {
+				console.log("Ucitavanje grupe");
+				console.log(data);
+				for (i = 0; i < data.length; i++) {
+					console.log(i);
+					var newOption = '<option value="' + data[i].PIB + '">'
+					+ data[i].naziv + '</option>';
+					console.log(data[i]);
+					$(e.currentTarget).find('select[name="preduzeceSelect"]').append(newOption);
+				}
+			}
+		});
 	});
-	*/
+	
 	$("#add").click(function(){
 		// pripremamo JSON koji cemo poslati
 			console.log("start");
 			formData = JSON.stringify({
 				datumPrimene : $("#inputForm [name='datumPrimene']").val(),
-	            preduzece :$("#inputForm [name='preduzece']").val(),
+	            preduzece :$("#inputForm [name='preduzeceSelect']").val(),
 	        });
 			console.log(formData);
 			$.ajax({
@@ -149,12 +164,13 @@ $(document).ready(function() {
 		            request.setRequestHeader("X-Auth-Token", token);
 				},
 				success: function(data) {
+					console.log(data);
 					var newRow = "<tr>"
 						+ "<td class=\"datumPrimene\">"
-						+ data[i].datumPrimene
+						+ data.datumPrimene
 						+ "</td>"
 						+ "<td class=\"preduzece\">"
-						+ data[i].preduzece
+						+ data.preduzece
 						+ "</td>"
 					+ "<td><a class=\"remove\" href='/api/istorije-poreza/" + data.id + "'>"
 					+ "<img src='images/remove.gif'/></a></td>"
@@ -173,9 +189,8 @@ $(document).ready(function() {
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
 			 id : $("#editForm [name='id']").val(),
-			 datumPrimene : $("#inputForm [name='datumPrimene']").val(),
-	         preduzece :$("#editForm [name='preduzece']").val(),
-	   
+			 datumPrimene : $("#editForm [name='datumPrimene']").val(),
+	         preduzece :$("#editForm [name='preduzeceSelect']").val()
         });
 		console.log(formData);
 		$.ajax({
@@ -202,3 +217,4 @@ $(document).ready(function() {
 		event.preventDefault();
 		sync($(".highlighted"));
 	});
+});

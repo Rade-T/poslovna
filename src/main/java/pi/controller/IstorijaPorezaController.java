@@ -41,13 +41,13 @@ public class IstorijaPorezaController {
 	}
 
 	@PostMapping
-	public @ResponseBody IstorijaPoreza create(@RequestBody IstorijaPorezaDTO dto) {
+	public @ResponseBody IstorijaPorezaDTO create(@RequestBody IstorijaPorezaDTO dto) {
 		IstorijaPoreza c = new IstorijaPoreza();
 
 		c.setDatumPrimene(dto.getDatumPrimene());
 		c.setPreduzece(preduzeceRepository.findById(dto.getPreduzece()).get());
 		
-		return istorijaPorezaRepository.save(c);
+		return new IstorijaPorezaDTO(istorijaPorezaRepository.save(c));
 
 	}
 
