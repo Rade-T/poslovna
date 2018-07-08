@@ -8,8 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="porez")
 public class Porez {
 	
 	@Id
@@ -17,10 +19,10 @@ public class Porez {
 	@Column(name="porez_id", unique=true, nullable=false)
 	public int id;
 	
-	@Column(nullable = false, length = 120)
+	@Column(name="naziv",nullable = false, length = 120)
 	public String nazivPoreza;
 	
-	@Column
+	@Column(name="vazeci")
 	public boolean vazeci;
 	
 	@OneToMany(mappedBy="porez")

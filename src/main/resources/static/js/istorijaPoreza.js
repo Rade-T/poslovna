@@ -185,6 +185,7 @@ $(document).ready(function() {
 					$("#dataTable").append(newRow)
 				  }
 				});
+			location.reload();
 			$('#inputModal').modal('toggle');
 			console.log("end");
 	 });

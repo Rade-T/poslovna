@@ -71,7 +71,7 @@ public class GrupaController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public @ResponseBody GrupaDTO delete(@PathVariable(value="id")int id, @RequestBody GrupaDTO dto){
+	public @ResponseBody GrupaDTO delete(@PathVariable(value="id")int id){
 		pi.model.Grupa g = grupaRepository.findById(id).get();
 		grupaRepository.delete(g);
 		return new GrupaDTO(g);

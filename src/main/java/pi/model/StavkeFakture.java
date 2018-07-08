@@ -5,41 +5,46 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="stavkeFakture")
 public class StavkeFakture {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true,nullable=false)
+	@Column(name="stavkeFakture_id",unique=true,nullable=false)
 	public int id;
 	
-	@Column(nullable = true)
+	@Column(name="kolicina", nullable = true)
 	public float kolicina;
 	
-	@Column(nullable = true)
+	@Column(name="cenaPoJediniciMere",nullable = true)
 	public float cenaPoJediniciMere;
 	
-	@Column(nullable = true)
+	@Column(name="rabat",nullable = true)
 	public float rabat;
 	
-	@Column(nullable = true, precision = 15, scale = 2)
+	@Column(name="osnovica",nullable = true, precision = 15, scale = 2)
 	public float osnovica;
 	
-	@Column(nullable = true)
+	@Column(name="pdvIznos",nullable = true)
 	public float pdvIznos; 
 	
-	@Column(nullable = true)
+	@Column(name="ukupanIznos",nullable = true)
 	public float ukupanIznos;
 	
-	@Column(nullable = true)
+	@Column(name="pdv",nullable = true)
 	public float pdv;
 	
 	@ManyToOne
+	@JoinColumn(name="izlaznaFaktura_id", referencedColumnName="izlaznaFaktura_id", nullable=false)
 	public IzlaznaFaktura izlaznaFaktura;
 	
 	@ManyToOne
+	@JoinColumn(name="robaUsluga_id", referencedColumnName="robaUsluga_id", nullable=false)
 	public RobaUsluga robaUsluga;
 
 	public float getKolicina() {

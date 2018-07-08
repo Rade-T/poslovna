@@ -8,14 +8,17 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
 @Entity
+@Table(name="istorijaPoreza")
 public class IstorijaPoreza {
 
 	@Id
@@ -23,11 +26,12 @@ public class IstorijaPoreza {
 	@Column(name="istorijaPoreza_id", unique=true, nullable=false)
 	public int id;
 	
-	@Column(unique=false)
+	@Column(name="datumPrimene",unique=false)
 	public Date datumPrimene;
 	
 	@JsonIgnore
 	@ManyToOne
+	@JoinColumn(name="preduzece_id",referencedColumnName="preduzece_id", nullable=false)
 	public Preduzece preduzece;
 	
 	@OneToMany(mappedBy="istorijaPoreza", fetch=FetchType.EAGER)

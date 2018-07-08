@@ -5,23 +5,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(name="racun")
 public class Racun {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
+	@Column(name="racun_id",unique = true, nullable = false)
 	public int Id;
 	
-	@Column(nullable = false, length = 30)
+	@Column(name="banka",nullable = false, length = 30)
 	public String banka;
 	
 	@JsonIgnore
 	@ManyToOne
+	@JoinColumn(name="preduzece_id", referencedColumnName="preduzece_id", nullable= false)
 	public Preduzece preduzece;
 	
 	public Racun() {

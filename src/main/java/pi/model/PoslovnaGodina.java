@@ -7,23 +7,26 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(name="poslovnaGodina")
 public class PoslovnaGodina {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
+	@Column(name="poslovnaGodina_id",unique = true, nullable = false)
 	public int id;
 	
-	@Column(unique = true, length = 4)
+	@Column(name="godina",unique = true, length = 4)
 	public int godina;
 	
-	@Column
+	@Column(name="zakljucena")
 	public boolean zakljucena;
 	
 	@OneToMany(mappedBy="poslovnaGodina")
@@ -31,6 +34,7 @@ public class PoslovnaGodina {
 	
 	@JsonIgnore
 	@ManyToOne
+	@JoinColumn(name="preduzece_id", referencedColumnName="preduzece_id", nullable=false)
 	public Preduzece preduzece;
 	
 	@OneToMany(mappedBy="poslovnaGodina")

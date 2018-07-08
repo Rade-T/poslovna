@@ -5,29 +5,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="stavkeOtpremnice")
 public class StavkeOtpremnice {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true,nullable=false)
+	@Column(name="stavkeOtpremnice_id",unique=true,nullable=false)
 	public int id;
 	
-	@Column(nullable = false)
+	@Column(name="kolicina",nullable = false)
 	public float kolicina;
 	
-	@Column(nullable = false)
+	@Column(name="cenaPoJediniciMere",nullable = false)
 	public float cenaPoJediniciMere;
 	
-	@Column(nullable = false)
+	@Column(name="ukupnaCena",nullable = false)
 	public float ukupnaCena;
 	
 	@ManyToOne
+	@JoinColumn(name="otpremnica_id", referencedColumnName="otpremnica_id", nullable=false)
 	public Otpremnica otpremnica;
 	
 	@ManyToOne
+	@JoinColumn(name="robaUsluga_id", referencedColumnName="robaUsluga_id", nullable=false)
 	public RobaUsluga robaUsluga;
 
 	public float getKolicina() {

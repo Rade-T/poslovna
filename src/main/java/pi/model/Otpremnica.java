@@ -6,41 +6,47 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="otpremnica")
 public class Otpremnica {
 	
 	@Id
-	@Column(nullable = false, unique = true)
+	@Column(name="otpremnica_id",nullable = false, unique = true)
 	public int brojOtpremnice;
 	
-	@Column
+	@Column(name="datumOtpremnice", nullable=false)
 	public Date datumOtpremnice;
 
-	@Column(nullable = false, precision = 15)
+	@Column(name="osnovica",nullable = false, precision = 15)
 	public float osnovica;
 	
-	@Column(nullable = false, precision = 15)
+	@Column(name="ukupanPdv", nullable = false, precision = 15)
 	public float ukupanPdv;
 	
-	@Column(nullable = false, precision = 15)
+	@Column(name="iznosZaPlacanje",nullable = false, precision = 15)
 	public float iznosZaPlacanje;
 	
 	@ManyToOne
+	@JoinColumn(name="poslovniPartner_id", referencedColumnName="poslovniPartner_id", nullable=false)
 	public PoslovniPartner poslovniPartner;
 	
 	@OneToMany(mappedBy="otpremnica")
 	public List<IzlaznaFaktura> izlaznaFaktura;
 	
 	@ManyToOne
+	@JoinColumn(name="poslovnaGodina_id", referencedColumnName="poslovnaGodina_id", nullable=false)
 	public PoslovnaGodina poslovnaGodina;
 	
 	@OneToMany(mappedBy="otpremnica")
 	public List<StavkeOtpremnice> stavkeOtpremnice;
 	
 	@ManyToOne
+	@JoinColumn(name="narudzbenica_id", referencedColumnName="narudzbenica_id", nullable= false)
 	public Narudzbenica narudzbenica;
 	
 	public Otpremnica() {

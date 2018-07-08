@@ -6,30 +6,32 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="preduzece")
 public class Preduzece {
 	
 	@Id
-	@Column(nullable = false)
+	@Column(name="preduzece_id", nullable = false)
 	public int PIB; 
 	
-	@Column(length = 30, nullable = false)
+	@Column(name="naziv",length = 30, nullable = false)
 	public String naziv;
 	
-	@Column(nullable = false, length = 50)
+	@Column(name="adresa",nullable = false, length = 50)
 	public String adresa;
 	
-	@Column(nullable = false)
+	@Column(name="maticniBroj",nullable = false)
 	public int maticniBroj;
 	
-	@Column(nullable = false)
+	@Column(name="sifraDelatnosti",nullable = false)
 	public int sifraDelatnosti;
 	
-	@Column(nullable = false)
+	@Column(name="telefon",nullable = false)
 	public int telefon;
 	
-	@Column(nullable = false, length = 50)
+	@Column(name="email", nullable = false, length = 50)
 	public String email;
 	
 	@OneToMany(mappedBy="preduzece")

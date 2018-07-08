@@ -7,30 +7,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="poslovniPartner")
 public class PoslovniPartner {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
+	@Column(name="poslovniPartner_id",unique = true, nullable = false)
 	public int id;
 
-	@Column(unique = false, nullable = false, length = 150)
+	@Column(name="nazivPartnera", unique = false, nullable = false, length = 150)
 	public String nazivPartnera;
 	
-	@Column(unique = false, nullable = false, length = 150)
+	@Column(name="adresa",unique = false, nullable = false, length = 150)
 	public String adresa;
 	
-	@Column(unique = false, nullable = false, length = 10)
+	@Column(name="vrstaPartnera",unique = false, nullable = false, length = 10)
 	public String vrstaPartnera; //Kupac, Dobavljac, Oboje
 	
 	@OneToMany(mappedBy="poslovniPartner")
 	public List<IzlaznaFaktura> izlaznaFaktura;
 	
 	@ManyToOne
+	@JoinColumn(name="preduzece_id", referencedColumnName="preduzece_id", nullable=false)
 	public Preduzece preduzece;
 	
 	@OneToMany(mappedBy="poslovniPartner")

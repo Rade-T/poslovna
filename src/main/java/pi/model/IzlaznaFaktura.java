@@ -8,45 +8,48 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="izlaznaFaktura")
 public class IzlaznaFaktura {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
+	@Column(name="izlaznaFaktura_id",unique = true, nullable = false)
 	public int brojFakture;
 
-	@Column(nullable = false)
+	@Column(name="datumFakture",nullable = false)
 	public Date datumFakture;
 	
-	@Column(nullable = true)
+	@Column(name="datumValute",nullable = true)
 	public Date datumValute;
 	
-	@Column(nullable = true)
+	@Column(name="datumObracuna",nullable = true)
 	public Date datumObracuna;
 	
-	@Column(nullable = true, precision = 15, scale = 2)
+	@Column(name="ukupnoRobe",nullable = true, precision = 15, scale = 2)
 	public float ukupnoRobe;
 	
-	@Column(nullable = true, precision = 15, scale = 2)
+	@Column(name="ukupanRabat",nullable = true, precision = 15, scale = 2)
 	public float ukupanRabat;
 	
-	@Column(nullable = true, precision = 15, scale = 2)
+	@Column(name="ukupanPorez",nullable = true, precision = 15, scale = 2)
 	public float ukupanPorez; //pdv iznos ++
 	
-	@Column(nullable = true, precision = 15, scale = 2)
+	@Column(name="iznosFakture",nullable = true, precision = 15, scale = 2)
 	public float iznosFakture;
 	
-	@Column(nullable = true, precision = 15, scale = 2)
+	@Column(name="znosFaktureOsnovica",nullable = true, precision = 15, scale = 2)
 	public float iznosFaktureOsnovica; //todo
 	
-	@Column(nullable = true, length = 40)
+	@Column(name="uplataNaRacun",nullable = true, length = 40)
 	public String uplataNaRacun;
 	
-	@Column(nullable = true, length = 20)
+	@Column(name="pozivNaBroj", nullable = true, length = 20)
 	public String pozivNaBroj;
 	
 	@OneToMany(mappedBy="izlaznaFaktura")
@@ -55,10 +58,11 @@ public class IzlaznaFaktura {
 	@OneToMany(mappedBy="izlaznaFaktura")
 	public List<ObracunatiPorez> obracunatiPorez;
 	
-	@Column(nullable = false) 
+	@Column(name="statusFakture", nullable = false) 
 	public String statusFakture;
 	
 	@ManyToOne
+	@JoinColumn(name="poslovniPartner_id", referencedColumnName="poslovniPartner_id", nullable=false)
 	public PoslovniPartner poslovniPartner;
 	
 	@ManyToOne

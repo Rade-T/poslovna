@@ -1,17 +1,23 @@
 package pi.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import static javax.persistence.CascadeType.ALL;
 
 @Entity
+@Table(name="cenovnici")
 public class Cenovnik {
 
 	@Id
@@ -19,13 +25,14 @@ public class Cenovnik {
 	@Column(name = "cenovnik_id", unique = true, nullable = false)
 	public int Id;
 
-	@Column(unique = false)
+	@Column(name="datumPrimene", unique = false)
 	public Date datumPrimene;
 
 	@ManyToOne
+	@JoinColumn(name="preduzece_id", referencedColumnName="preduzece_id", nullable=false)
 	public Preduzece preduzece;
 
-	@OneToMany(mappedBy = "cenovnik")
+	@OneToMany(cascade={ALL}, fetch=FetchType.LAZY, mappedBy="cenovnik")
 	public List<StavkeCenovnika> stavkeCenovnika;
 
 	public int getId() {

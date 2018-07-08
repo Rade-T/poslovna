@@ -40,6 +40,9 @@ $(document).on("click", ".remove", function(event){
 	tr_parent = $(this).closest("tr")
 	$.ajax({
     	url: url,
+    	beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
     	type: "DELETE",
     	success: function(){
     		//ukloni i na strani 
@@ -47,8 +50,13 @@ $(document).on("click", ".remove", function(event){
         }
 	});
 });
-/*
+
 $(document).ready(function() {
+	token = localStorage.getItem('token');
+
+    if (!token) {
+        window.location.replace("/login.html");
+    }
 	$("#porezPickup").click(function() {
 		id = $(".highlighted").find(".id").html();
 		$("select").val(id);
@@ -73,17 +81,23 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/Porez/"})
+		url : "http://localhost:8080/api/robe-usluge/",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	}})
 		.then(
 				function(data) {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
-						+ "<td class=\"nazivPoreza\">"
-						+ data[i].nazivPoreza
+						+ "<td class=\"naziv\">"
+						+ data[i].naziv
 						+ "</td>"
-						+ "<td class=\"vazeci\">"
-						+ data[i].vazeci
+						+ "<td class=\"jedinicaMere\">"
+						+ data[i].jedinicaMere
+						+ "</td>"
+						+ "<td class=\"jedinicaMere\">"
+						+ data[i].grupa
 						+ "</td>"
 						+ "<td><a class=\"remove\" href='/Porez/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
@@ -93,8 +107,32 @@ $(document).ready(function() {
 						console.log(data);
 					}
 				});
-	*/
 	
+	$.ajax({
+		type: "GET",
+		url: "http://localhost:8080/api/grupe/",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},})
+    	.then(
+				function(data) {
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].id + '">'
+						+ data[i].naziv + '</option>';
+						$("#grupa").append(newOption);
+					}
+				});
+	});
+
+$('#inputModal').on('shown.bs.modal', function (e) {
+	alert("Bravoo");
+	//OVDE MI JE PROBLEM, KAKO DA OVDE NE ULAZI!!!
+});
+
+
+
+	//OVDE SAM STIGAO 
 	$("#add").click(function(){
 		// pripremamo JSON koji cemo poslati
 			console.log("start");
@@ -108,6 +146,9 @@ $(document).ready(function() {
 			$.ajax({
 				url: "http://localhost:8080/api/robe-usluge",
 				type: "POST",
+				beforeSend: function (request) {
+		            request.setRequestHeader("X-Auth-Token", token);
+		    	},
 				data: formData,
 				// saljemo json i ocekujemo json nazad
 				contentType: "application/json",
@@ -148,6 +189,9 @@ $(document).ready(function() {
 		$.ajax({
 			url: "http://localhost:8080/api/robe-usluge/" + $("#editForm [name='robaUslugaId']").val(),
 			type: "PUT",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
 			data: formData,
 			// saljemo json i ocekujemo json nazad
 			contentType: "application/json",
@@ -161,7 +205,7 @@ $(document).ready(function() {
 				console.log("Nije updateovao!")
 			}
 			});
-	});
+
 	
 	$("#rollback").click(function(event){
 		event.preventDefault();

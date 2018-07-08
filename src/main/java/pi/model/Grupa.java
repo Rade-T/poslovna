@@ -7,10 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="grupa")
 public class Grupa {
 
 	@Id
@@ -18,16 +21,18 @@ public class Grupa {
 	@Column(name = "grupa_id", unique = true, nullable = false)
 	public int id;
 
-	@Column(nullable = false)
+	@Column(name="naziv",nullable = false)
 	public String naziv;
 
 	@ManyToOne
+	@JoinColumn(name="preduzece_id",referencedColumnName="preduzece_id", nullable=false)
 	public Preduzece preduzece;
 
 	@OneToMany(mappedBy = "grupa")
 	public List<RobaUsluga> robaUsluga;
 	
 	@ManyToOne
+	@JoinColumn(name="porez_id",referencedColumnName="porez_id", nullable=false)
 	public Porez porez;
 
 	public int getId() {

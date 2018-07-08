@@ -21,7 +21,7 @@ function sync(item) {
 	preduzece = item.find(".preduzece").html()
 	porez = item.find(".porez").html()
 	$("#naziv").val(naziv);
-	$("#grupaId").val(id);
+	$("#id").val(id);
 	$("#preduzece").val(preduzece);
 	$("#porez").val(porez);
 }
@@ -38,6 +38,9 @@ $(document).on("click", ".remove", function(event){
 	tr_parent = $(this).closest("tr")
 	$.ajax({
     	url: url,
+    	beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+		},
     	type: "DELETE",
     	success: function(){
     		//ukloni i na strani 
@@ -82,6 +85,7 @@ $(document).ready(function() {
 	            request.setRequestHeader("X-Auth-Token", token);
 	    	},
 	    	success: function(data) {
+	   
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
@@ -108,28 +112,27 @@ $(document).ready(function() {
 	
 	$.ajax({
 		url : "http://localhost:8080/api/preduzeca/",
-		type: "GET",
 		beforeSend: function (request) {
             request.setRequestHeader("X-Auth-Token", token);
-    	},
-    	success: function(data) {
+		}})
+		.then(
+				function(data) {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newOption = '<option value="' + data[i].PIB + '">'
 						+ data[i].naziv + '</option>';
 						$("#preduzece").append(newOption);
 					}
-    	}
-	});
+				});
 				
 	$('#inputModal').on('shown.bs.modal', function (e) {
 		$.ajax({
 			url: "http://localhost:8080/api/preduzeca",
-			type: "GET",
 			beforeSend: function (request) {
 	            request.setRequestHeader("X-Auth-Token", token);
-	    	},
-			success: function(data) {
+			}})
+			.then(
+				function(data) {
 					console.log("Ucitavanje grupe");
 					console.log(data);
 					for (i = 0; i < data.length; i++) {
@@ -139,56 +142,54 @@ $(document).ready(function() {
 						console.log(data[i]);
 						$(e.currentTarget).find('select[name="preduzeceSelect"]').append(newOption);
 					}
-			}
-		});
+			});
 	});
 	$.ajax({
 		url : "http://localhost:8080/api/porez/",
-		type: "GET",
 		beforeSend: function (request) {
             request.setRequestHeader("X-Auth-Token", token);
-    	},
-    	success: function(data) {
+		}})
+		.then(
+				function(data) {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
-						var newOption = '<option value="' + data[i].nazivPoreza + '">'
-						+ data[i].naziv + '</option>';
-						$("#preduzece").append(newOption);
+						var newOption = '<option value="' + data[i].id + '">'
+						+ data[i].nazivPoreza + '</option>';
+						$("#porez").append(newOption);
 					}
-    	}
-	});
-			
+				});
 				
 	$('#inputModal').on('shown.bs.modal', function (e) {
 		$.ajax({
 			url: "http://localhost:8080/api/porez",
-			type: "GET",
 			beforeSend: function (request) {
 	            request.setRequestHeader("X-Auth-Token", token);
-	    	},
-			success: function(data) {
+			}})
+			.then(
+				function(data) {
 					console.log("Ucitavanje poreza");
 					console.log(data);
 					for (i = 0; i < data.length; i++) {
 						console.log(i);
-						var newOption = '<option value="' + data[i].nazivPoreza + '">'
-						+ data[i].naziv + '</option>';
+						var newOption = '<option value="' + data[i].id + '">'
+						+ data[i].nazivPoreza + '</option>';
 						console.log(data[i]);
 						$(e.currentTarget).find('select[name="porezSelect"]').append(newOption);
 					}
-				}
 			});
-		});
+	});
 	
 	$("#add").click(function(){
 		// pripremamo JSON koji cemo poslati
 			console.log("start");
 			formData = JSON.stringify({
 	            naziv : $("#inputForm [name='naziv']").val(),
-	            preduzece :$("#inputForm [name='preduzeceSelcet']").val(),
-	            porez :$("#inputForm [name='porezSelect']").val(),
+	            preduzece :$("#inputForm [name='preduzeceSelect']").val(),
+	            porez : $("#inputForm [name='porezSelect']").val(),
 	        });
 			console.log(formData);
+			
+			
 			$.ajax({
 				url: "http://localhost:8080/api/grupe",
 				type: "POST",
@@ -212,12 +213,16 @@ $(document).ready(function() {
 						+ "</td>"
 					+ "<td><a class=\"remove\" href='/api/grupe/" + data.id + "'>"
 					+ "<img src='images/remove.gif'/></a></td>"
-					+ +"<td class=\"idCell\">"
+					+ +"<td class=\"id\">"
 					+ data.id + "</td>"
 					"</tr>"
 					$("#dataTable").append(newRow)
+					
+				  },error: function(e){
+					  
 				  }
 				});
+			location.reload();
 			$('#inputModal').modal('toggle');
 			console.log("end");
 	 });
@@ -227,10 +232,11 @@ $(document).ready(function() {
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
 			id : $("#editForm [name='id']").val(),
-			 naziv : $("#edittForm [name='naziv']").val(),
+			 naziv : $("#editForm [name='naziv']").val(),
 	         preduzece :$("#editForm [name='preduzece']").val(),
 	         porez :$("#editForm [name='porez']").val(),
         });
+		
 		console.log(formData);
 		$.ajax({
 			url: "http://localhost:8080/api/grupe/" + $("#editForm [name='id']").val(),
@@ -243,7 +249,7 @@ $(document).ready(function() {
 	            request.setRequestHeader("X-Auth-Token", token);
 			},
 			success: function(data) {
-				$(".highlighted").find(".nazvi")[0].innerHTML = data.naziv;
+				$(".highlighted").find(".naziv")[0].innerHTML = data.naziv;
 				$(".highlighted").find(".preduzece")[0].innerHTML = data.preduzece;
 				$(".highlighted").find(".porez")[0].innerHTML = data.porez;
 			  },

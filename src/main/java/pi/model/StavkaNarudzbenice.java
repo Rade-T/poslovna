@@ -5,29 +5,36 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.databind.ser.impl.FailingSerializer;
 
 @Entity
+@Table(name="stavkeNarudzbenice")
 public class StavkaNarudzbenice {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true,nullable=false)
+	@Column(name="stavkeNarudzbenice_id",unique=true,nullable=false)
 	public int id;
 	
-	@Column(nullable = false)
+	@Column(name="kolicina",nullable = false)
 	public float kolicina;
 	
-	@Column(nullable = false)
+	@Column(name="cena", nullable = false)
 	public float cenaPoJediniciMere;
 	
-	@Column(nullable = false)
+	@Column(name="ukupnaCena", nullable = false)
 	public float ukupnaCena;
 	
 	@ManyToOne
+	@JoinColumn(name="robaUsluga_id", referencedColumnName="robaUsluga_id", nullable=false)
 	public RobaUsluga robaUsluga;
 	
 	@ManyToOne
+	@JoinColumn(name="narudzbenica_id", referencedColumnName="narudzbenica_id", nullable=false)
 	public Narudzbenica narudzbenica;
 
 	public float getKolicina() {

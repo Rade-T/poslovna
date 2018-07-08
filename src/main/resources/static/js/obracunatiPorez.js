@@ -42,6 +42,9 @@ $(document).on("click", ".remove", function(event){
 	tr_parent = $(this).closest("tr")
 	$.ajax({
     	url: url,
+    	beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+		},
     	type: "DELETE",
     	success: function(){
     		//ukloni i na strani 
@@ -86,6 +89,9 @@ $(document).ready(function() {
 	console.log("Krece ajax");
 	$.ajax({
 		url : "http://localhost:8080/api/obracunati-porezi/",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+		},
 		type: "GET",
 		beforeSend: function (request) {
             request.setRequestHeader("X-Auth-Token", token);
@@ -122,7 +128,10 @@ $(document).ready(function() {
 	});
 	
 	$.ajax({
-		url : "http://localhost:8080/api/preduzeca/"})
+		url : "http://localhost:8080/api/preduzeca/",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+		}})
 		.then(
 				function(data) {
 					console.log("Uspeo")
@@ -135,7 +144,10 @@ $(document).ready(function() {
 	
 	$('#inputModal').on('shown.bs.modal', function (e) {
 		$.ajax({
-			url: "http://localhost:8080/api/preduzeca"})
+			url: "http://localhost:8080/api/preduzeca",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+			}})
 			.then(
 				function(data) {
 					console.log("Ucitavanje preduzeca");
@@ -163,6 +175,9 @@ $(document).ready(function() {
 			$.ajax({
 				url: "http://localhost:8080/api/obracunati-porezi",
 				type: "POST",
+				beforeSend: function (request) {
+		            request.setRequestHeader("X-Auth-Token", token);
+				},
 				data: formData,
 				// saljemo json i ocekujemo json nazad
 				contentType: "application/json",
@@ -214,6 +229,9 @@ $(document).ready(function() {
 		$.ajax({
 			url: "http://localhost:8080/api/obracunati-porezi/" + $("#editForm [name='id']").val(),
 			type: "PUT",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+			},
 			data: formData,
 			// saljemo json i ocekujemo json nazad
 			contentType: "application/json",

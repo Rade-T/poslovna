@@ -20,6 +20,7 @@ function sync(item) {
 	id = item.find(".id").html();
 	vazeci = item.find(".vazeci").html();
 	console.log("Checkbox je: " + vazeci);
+	
 	$("#id").val(id);
 	$("#nazivPoreza").val(nazivPoreza);
 	$("#vazeci").prop('checked', vazeci);
@@ -37,6 +38,9 @@ $(document).on("click", ".remove", function(event){
 	tr_parent = $(this).closest("tr")
 	$.ajax({
     	url: url,
+    	beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
     	type: "DELETE",
     	success: function(){
     		//ukloni i na strani 
@@ -53,7 +57,7 @@ $(document).ready(function() {
     }
 	$("#porezPickup").click(function() {
 		id = $(".highlighted").find(".id").html();
-		$("select").val(id);
+		$("#id").val(id);
 		$('#porezModal').modal('toggle');
 	});
 	
@@ -97,7 +101,7 @@ $(document).ready(function() {
 						+ "</td>"
 						+ "<td><a class=\"remove\" href='/api/porez/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
-						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\".id\">"
+						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 						+ data[i].id + "</td>"
 						$("#dataTable").append(newRow)
 						console.log(data);
@@ -154,9 +158,10 @@ $(document).ready(function() {
             nazivPoreza : $("#editForm [name='nazivPoreza']").val(),
             vazeci :$("#editForm [name='vazeci']").is(":checked"),
         });
+		alert($("#editForm [name='id']").val());
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/api/porez/" + $("#editForm [name='id']").val(),
+			url: "http://localhost:8080/api/porez/"+ $("#editForm [name='id']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad

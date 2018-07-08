@@ -69,6 +69,9 @@ $(document).on("click", ".remove", function(event){
 	tr_parent = $(this).closest("tr")
 	$.ajax({
     	url: url,
+    	beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
     	type: "DELETE",
     	success: function(){
     		//ukloni i na strani 
@@ -135,7 +138,11 @@ $(document).ready(function() {
 	});
 	
 	$.ajax({
-		url : "http://localhost:8080/api/preduzeca/"})
+		type: "GET",
+		url : "http://localhost:8080/api/preduzeca/",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},})
 		.then(
 				function(data) {
 					console.log("Uspeo")
@@ -147,10 +154,15 @@ $(document).ready(function() {
 				});
 	
 	$('#inputModal').on('shown.bs.modal', function (e) {
+		
 		$.ajax({
-			url: "http://localhost:8080/api/preduzeca"})
-			.then(
-				function(data) {
+			type: "GET",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
+			url: "/api/preduzeca",
+			dataType: "json",
+			success: function(data) {
 					console.log("Ucitavanje preduzeca");
 					console.log(data);
 					for (i = 0; i < data.length; i++) {
@@ -160,7 +172,12 @@ $(document).ready(function() {
 						console.log(data[i]);
 						$(e.currentTarget).find('select[name="preduzeceSelect"]').append(newOption);
 					}
-			});
+			},
+			error: function (e){
+				alert("OVde je greska");
+			}
+			
+		});
 	});
 	
 	$("#add").click(function(){
@@ -197,6 +214,7 @@ $(document).ready(function() {
 					$("#dataTable").append(newRow)
 				  }
 				});
+			location.reload();
 			$('#inputModal').modal('toggle');
 			console.log("end");
 	 });

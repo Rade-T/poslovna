@@ -5,9 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="poreskaStopa")
 public class PoreskaStopa {
 	
 	@Id
@@ -15,13 +18,15 @@ public class PoreskaStopa {
 	@Column(name="poreskaStopa_id", unique=true, nullable=false)
 	public int id;
 	
-	@Column
+	@Column(name="iznos")
 	public float iznosStope;
 	
 	@ManyToOne
+	@JoinColumn(name="istorijaPoreza_id", referencedColumnName="istorijaPoreza_id", nullable=false)
 	public IstorijaPoreza istorijaPoreza;
 	
 	@ManyToOne
+	@JoinColumn(name="porez_id", referencedColumnName="porez_id", nullable=false)
 	public Porez porez;
 	
 

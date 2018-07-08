@@ -7,21 +7,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="robaUsluga")
 public class RobaUsluga {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
+	@Column(name="robaUsluga_id",unique = true, nullable = false)
 	public int Id;
 	
-	@Column(nullable = false, length = 30)
+	@Column(name="naziv",nullable = false, length = 30)
 	public String naziv;
 	
-	@Column(nullable = false, length = 10)
+	@Column(name="jedinicaMere", nullable = false, length = 10)
 	public String jedinicaMere;
 	
 	@OneToMany(mappedBy="robaUsluga")
@@ -31,6 +34,7 @@ public class RobaUsluga {
 	public List<StavkeCenovnika> stavkeCenovnika;
 	
 	@ManyToOne
+	@JoinColumn(name="grupa_id",referencedColumnName="grupa_id", nullable=false)
 	public Grupa grupa;
 	
 	@OneToMany(mappedBy="robaUsluga")
