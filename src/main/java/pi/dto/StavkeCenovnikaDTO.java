@@ -9,6 +9,8 @@ public class StavkeCenovnikaDTO {
 	public float jedinicnaCena;
 
 	public int cenovnik;
+	
+	public int idRobaUsluge;
 
 	public StavkeCenovnikaDTO() {
 
@@ -19,6 +21,7 @@ public class StavkeCenovnikaDTO {
 		this.Id = dto.getId();
 		this.jedinicnaCena = dto.getJedinicnaCena();
 		this.cenovnik = dto.getCenovnik().getId();
+		this.idRobaUsluge = dto.getRobaUsluga().getId();
 	}
 
 	public int getId() {
@@ -45,4 +48,13 @@ public class StavkeCenovnikaDTO {
 		this.cenovnik = cenovnik;
 	}
 
+	public int getIdRobaUsluge() {
+		return idRobaUsluge;
+	}
+
+	public void setIdRobaUsluge(int idRobaUsluge) {
+		this.idRobaUsluge = idRobaUsluge;
+	}
+
+	
 }

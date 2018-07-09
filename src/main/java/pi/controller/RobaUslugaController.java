@@ -1,5 +1,6 @@
 package pi.controller;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import pi.dto.RobaUslugaDTO;
+import pi.repository.GrupaRepository;
 import pi.repository.RobaUslugaRepository;
 
 @RestController
@@ -23,6 +25,9 @@ public class RobaUslugaController {
 	
 	@Autowired
 	private RobaUslugaRepository robaUslugaRepository;
+	
+	@Autowired
+	private GrupaRepository gRepo;
 	
 	@GetMapping
 	public @ResponseBody List<RobaUslugaDTO> readAll(){
@@ -46,7 +51,7 @@ public class RobaUslugaController {
 		pi.model.RobaUsluga r = new pi.model.RobaUsluga();
 		r.setNaziv(dto.getNaziv());
 		r.setJedinicaMere(dto.getJedinicaMere());
-		r.setGrupa(dto.getGrupa());
+		r.setGrupa(gRepo.findById(dto.getGrupa()).get());
 		
 		return robaUslugaRepository.save(r);
 	}
@@ -56,8 +61,8 @@ public class RobaUslugaController {
 		pi.model.RobaUsluga r = robaUslugaRepository.findById(id).get();
 		r.setNaziv(dto.naziv);
 		r.setJedinicaMere(dto.getJedinicaMere());
-		r.setGrupa(dto.getGrupa());
-		
+		r.setGrupa(gRepo.findById(dto.getGrupa()).get());
+		robaUslugaRepository.save(r);
 		return new RobaUslugaDTO(r);
 	}
 	

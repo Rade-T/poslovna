@@ -4,11 +4,12 @@ import pi.model.Grupa;
 import pi.model.RobaUsluga;
 
 public class RobaUslugaDTO {
+	private int id;
 	public String naziv;
 	public String jedinicaMere;
 //	public List<StavkeFakture> stavkeFakture;
 //	public List<StavkeCenovnika> stavkeCenovnika;
-	public Grupa grupa;
+	public int idGrupa;
 //	public List<StavkeOtpremnice> stavkeOtpremnice;
 //	public List<StavkaNarudzbenice> stavkeNarudzbenice;
 	
@@ -18,9 +19,10 @@ public class RobaUslugaDTO {
 
 	public RobaUslugaDTO(RobaUsluga dto) {
 		super();
+		this.id = dto.getId();
 		this.naziv = dto.getNaziv();
 		this.jedinicaMere = dto.getJedinicaMere();
-		this.grupa = dto.getGrupa();
+		this.idGrupa = dto.getGrupa().getId();
 	}
 
 	public String getNaziv() {
@@ -39,12 +41,21 @@ public class RobaUslugaDTO {
 		this.jedinicaMere = jedinicaMere;
 	}
 
-	public Grupa getGrupa() {
-		return grupa;
+	public int getGrupa() {
+		return idGrupa;
 	}
 
-	public void setGrupa(Grupa grupa) {
-		this.grupa = grupa;
+	public void setGrupa(int grupa) {
+		this.idGrupa = grupa;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	
 }

@@ -19,9 +19,9 @@ function sync(item) {
 	jedinicnaCena = item.find(".jedinicnaCena").html();
 	id = item.find(".id").html();
 	cenovnik = item.find(".cenovnik").html();
-	robaUsluga = item.find(".robaUsluga").html();
+	robaUsluga = item.find(".idRobaUsluge").html();
 	
-	$("#robaUslugaId").val(id);
+	$("#stavkeCenovnikaId").val(id);
 	$("#jedinicnaCena").val(jedinicnaCena);
 	$("#cenovnik").val(cenovnik);
 	$("#robaUsluga").val(robaUsluga);
@@ -40,6 +40,9 @@ $(document).on("click", ".remove", function(event){
 	tr_parent = $(this).closest("tr")
 	$.ajax({
     	url: url,
+    	beforeSend: function(request) {
+            request.setRequestHeader("X-Auth-Token", token);
+        },
     	type: "DELETE",
     	success: function(){
     		//ukloni i na strani 
@@ -47,8 +50,13 @@ $(document).on("click", ".remove", function(event){
         }
 	});
 });
-/*
+
 $(document).ready(function() {
+	token = localStorage.getItem('token');
+
+    if (!token) {
+        window.location.replace("/login.html");
+    }
 	$("#porezPickup").click(function() {
 		id = $(".highlighted").find(".id").html();
 		$("select").val(id);
@@ -73,19 +81,26 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/Porez/"})
+		url : "http://localhost:8080/api/stavke-cenovnika",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	}})
 		.then(
 				function(data) {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
+						console.log(data[i].idRobaUsluge);
 						var newRow = "<tr>"
-						+ "<td class=\"nazivPoreza\">"
-						+ data[i].nazivPoreza
+						+ "<td class=\"jedinicnaCena\">"
+						+ data[i].jedinicnaCena
 						+ "</td>"
-						+ "<td class=\"vazeci\">"
-						+ data[i].vazeci
+						+ "<td class=\"cenovnik\">"
+						+ data[i].cenovnik
 						+ "</td>"
-						+ "<td><a class=\"remove\" href='/Porez/" + data[i].id + "'>"
+						+ "<td class=\"idRobaUsluge\">"
+						+ data[i].idRobaUsluge
+						+ "</td>"
+						+ "<td><a class=\"remove\" href='/api/stavke-cenovnika/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 						+ data[i].id + "</td>"
@@ -93,7 +108,86 @@ $(document).ready(function() {
 						console.log(data);
 					}
 				});
-	*/
+	//DODAVANJE CENOVNIKA U SELECT = editModal
+	$.ajax({
+		url : "http://localhost:8080/api/cenovnici/",
+		type: "GET",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
+    	success: function(data) {
+					console.log("Uspeo")
+					for(i = 0; i<data.length; i++){
+						var newOption = '<option value="' + data[i].id + '">' +
+                    	data[i].id + '</option>';
+						$("#cenovnik").append(newOption);
+						
+					}
+					
+		},
+    	error: function(err) {
+    		console.log(err);
+    	}
+	});
+	//DODAVANJE ROBE I USLUGA U SELECT = editModal
+	$.ajax({
+        url: "http://localhost:8080/api/robe-usluge/",
+        beforeSend: function(request) {
+            request.setRequestHeader("X-Auth-Token", token);
+        }
+    })
+    .then(
+        function(data) {
+            console.log("Uspeo")
+            for(i = 0; i<data.length; i++){
+				var newOption = '<option value="' + data[i].id + '">' +
+            	data[i].naziv + '</option>';
+				$("#robaUsluga").append(newOption);
+            }
+            
+        });
+
+	$('#inputModal').on('shown.bs.modal', function (e) {
+		console.log("inputModal");
+		//DODAVANJE CENOVNIKA U SELECT = inputModal
+		$.ajax({
+			url : "http://localhost:8080/api/cenovnici/",
+			type: "GET",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
+	    	success: function(data) {
+						console.log("Uspeo")
+						for(i = 0; i<data.length; i++){
+							var newOption = '<option value="' + data[i].id + '">' +
+	                    	data[i].id + '</option>';
+							$("#inputModal #cenovnik").append(newOption);
+							
+						}
+						
+			},
+	    	error: function(err) {
+	    		console.log(err);
+	    	}
+		});
+		//DODAVANJE ROBE I USLUGA U SELECT = inputModal
+		$.ajax({
+	        url: "http://localhost:8080/api/robe-usluge/",
+	        beforeSend: function(request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	        }
+	    })
+	    .then(
+	        function(data) {
+	            console.log("Uspeo")
+	            for(i = 0; i<data.length; i++){
+					var newOption = '<option value="' + data[i].id + '">' +
+	            	data[i].naziv + '</option>';
+					$("#inputModal #robaUsluga").append(newOption);
+	            }
+	            
+	        });
+	});
 	
 	$("#add").click(function(){
 		// pripremamo JSON koji cemo poslati
@@ -101,13 +195,16 @@ $(document).ready(function() {
 			formData = JSON.stringify({
 				jedinicnaCena : $("#inputForm [name='jedinicnaCena']").val(),
 				cenovnik : $("#inputForm [name='cenovnik']").val(),
-				robaUsluga : $("#inputForm [name='robaUsluga']").val(),
+				idRobaUsluge : $("#inputForm [name='robaUsluga']").val(),
 
 	        });
 			console.log(formData);
 			$.ajax({
 				url: "http://localhost:8080/api/stavke-cenovnika",
 				type: "POST",
+				beforeSend: function(request) {
+		            request.setRequestHeader("X-Auth-Token", token);
+		        },
 				data: formData,
 				// saljemo json i ocekujemo json nazad
 				contentType: "application/json",
@@ -120,8 +217,8 @@ $(document).ready(function() {
 					+ "<td class=\"cenovnik\">"
 					+ data.cenovnik
 					+ "</td>"
-					+ "<td class=\"robaUsluga\">"
-					+ data.robaUsluga
+					+ "<td class=\"idRobaUsluge\">"
+					+ data.idRobaUsluge
 					+ "</td>"
 					+ "<td><a class=\"remove\" href='/api/stavke-cenovnika/" + data.id + "'>"
 					+ "<img src='images/remove.gif'/></a></td>"
@@ -131,6 +228,7 @@ $(document).ready(function() {
 					$("#dataTable").append(newRow)
 				  }
 				});
+			location.reload();
 			$('#inputModal').modal('toggle');
 			console.log("end");
 	 });
@@ -141,13 +239,17 @@ $(document).ready(function() {
 		var formData = JSON.stringify({
 			jedinicnaCena : $("#editForm [name='jedinicnaCena']").val(),
 			cenovnik : $("#editForm [name='cenovnik']").val(),
-			robaUsluga : $("#editForm [name='robaUsluga']").val(),
+			idRobaUsluge : $("#editForm [name='robaUsluga']").val(),
           
         });
+		console.log($("#editForm [name='stavkeCenovnikaId']").val());
 		console.log(formData);
 		$.ajax({
 			url: "http://localhost:8080/api/stavke-cenovnika/" + $("#editForm [name='stavkeCenovnikaId']").val(),
 			type: "PUT",
+			beforeSend: function(request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	        },
 			data: formData,
 			// saljemo json i ocekujemo json nazad
 			contentType: "application/json",
@@ -155,7 +257,7 @@ $(document).ready(function() {
 			success: function(data) {
 				$(".highlighted").find(".jedinicnaCena")[0].innerHTML = data.jedinicnaCena;
 				$(".highlighted").find(".cenovnik")[0].innerHTML = data.cenovnik;
-				$(".highlighted").find(".robaUsluga")[0].innerHTML = data.robaUsluga;
+				$(".highlighted").find(".idRobaUsluge")[0].innerHTML = data.idRobaUsluge;
 			  },
 			error: function() {
 				console.log("Nije updateovao!")
@@ -167,4 +269,5 @@ $(document).ready(function() {
 		event.preventDefault();
 		sync($(".highlighted"));
 	});
-});
+	});
+

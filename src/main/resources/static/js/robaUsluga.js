@@ -21,7 +21,7 @@ function sync(item) {
     id = item.find(".id").html();
     jedinicaMere = item.find(".jedinicaMere").html();
     grupa = item.find(".grupa").html();
-
+    console.log(grupa);
     $("#robaUslugaId").val(id);
     $("#naziv").val(naziv);
     $("#jedinicaMere").val(jedinicaMere);
@@ -98,10 +98,10 @@ $(document).ready(function() {
                         "<td class=\"jedinicaMere\">" +
                         data[i].jedinicaMere +
                         "</td>" +
-                        "<td class=\"jedinicaMere\">" +
+                        "<td class=\"grupa\">" +
                         data[i].grupa +
                         "</td>" +
-                        "<td><a class=\"remove\" href='/Porez/" + data[i].id + "'>" +
+                        "<td><a class=\"remove\" href='/api/robe-usluge/" + data[i].id + "'>" +
                         "<img src='images/remove.gif'/></a></td>" +
                         "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">" +
                         data[i].id + "</td>"
@@ -128,8 +128,30 @@ $(document).ready(function() {
             });
 
     $('#inputModal').on('shown.bs.modal', function(e) {
-        console.log("Prikazan modal");
-        //OVDE MI JE PROBLEM, KAKO DA OVDE NE ULAZI!!!
+    	$.ajax({
+			type: "GET",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
+			url: "/api/grupe",
+			dataType: "json",
+			success: function(data) {
+					console.log("Ucitavanje robe i usluga");
+					console.log(data);
+					for (i = 0; i < data.length; i++) {
+						console.log(i);
+						var newOption = '<option value="' + data[i].id + '">'
+						+ data[i].naziv + '</option>';
+						console.log(data[i]);
+						$(e.currentTarget).find('select[name="selGrupa"]').append(newOption);
+					}
+			},
+			error: function (e){
+				alert("OVde je greska");
+			}
+			
+		});
+       
     });
 
     $("#add").click(function() {
@@ -138,10 +160,12 @@ $(document).ready(function() {
         formData = JSON.stringify({
             naziv: $("#inputForm [name='naziv']").val(),
             jedinicaMere: $("#inputForm [name='jedinicaMere']").val(),
-            grupa: $("#inputForm [name='grupa']").val(),
+            grupa: $("#inputForm [name='selGrupa']").val(),
 
         });
         console.log(formData);
+        alert(formData);
+        
         $.ajax({
             url: "http://localhost:8080/api/robe-usluge",
             type: "POST",
@@ -168,9 +192,11 @@ $(document).ready(function() {
                     +"<td class=\"idCell\">" +
                     data.id + "</td>"
                 "</tr>"
-                $("#dataTable").append(newRow)
+                $("#dataTable").append(newRow);
+                
             }
         });
+        location.reload();
         $('#inputModal').modal('toggle');
         console.log("end");
     });
@@ -185,6 +211,7 @@ $(document).ready(function() {
 
         });
         console.log(formData);
+        alert(formData);
         $.ajax({
             url: "http://localhost:8080/api/robe-usluge/" + $("#editForm [name='robaUslugaId']").val(),
             type: "PUT",
@@ -196,6 +223,7 @@ $(document).ready(function() {
             contentType: "application/json",
             datatype: 'json',
             success: function(data) {
+            	
                 $(".highlighted").find(".naziv")[0].innerHTML = data.naziv;
                 $(".highlighted").find(".jedinicaMere")[0].innerHTML = data.jedinicaMere;
                 $(".highlighted").find(".grupa")[0].innerHTML = data.grupa;

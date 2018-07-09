@@ -188,6 +188,7 @@ $(document).ready(function() {
 	            preduzece :$("#inputForm [name='preduzeceSelect']").val(),
 	        });
 			console.log(formData);
+			alert(formData);
 			$.ajax({
 				url: "http://localhost:8080/api/cenovnici",
 				type: "POST",
