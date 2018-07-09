@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import pi.dto.StavkeFaktureDTO;
 import pi.model.StavkeFakture;
@@ -19,6 +20,7 @@ import pi.repository.IzlaznaFaktoraRepository;
 import pi.repository.RobaUslugaRepository;
 import pi.repository.StavkeFaktureRepository;
 
+@RestController
 @RequestMapping(path = "/api/stavke-faktura")
 public class StavkeFakturaController {
 
@@ -43,7 +45,7 @@ public class StavkeFakturaController {
 	}
 
 	@PostMapping
-	public @ResponseBody StavkeFakture create(@RequestBody StavkeFaktureDTO dto) {
+	public @ResponseBody StavkeFaktureDTO create(@RequestBody StavkeFaktureDTO dto) {
 		StavkeFakture f = new StavkeFakture();
 
 		f.setKolicina(dto.getKolicina());
@@ -56,8 +58,7 @@ public class StavkeFakturaController {
 		f.setIzlaznaFaktura( IFRepo.findById(dto.getIzlaznaFaktura()).get() );
 		f.setRobaUsluga( RURepo.findById(dto.getRobaUsluga()).get() );
 
-		return stavkefakturaRepository.save(f);
-
+		return new StavkeFaktureDTO( stavkefakturaRepository.save(f) );
 	}
 
 	@GetMapping("/{id}")

@@ -181,6 +181,9 @@ $(document).ready(function() {
     	},
     	success: function(data) {
 			for (i = 0; i < data.length; i++) {
+				if (data[i].zakljucena) {
+					data.splice(i,1);
+				}
 				var newOption = '<option value="' + data[i].id + '">'
 				+ data[i].godina + '</option>';
 				$("#poslovnaGodina").append(newOption);
@@ -196,6 +199,9 @@ $(document).ready(function() {
     	},
     	success: function(data) {
 			for (i = 0; i < data.length; i++) {
+				if (data[i].vrstaPartnera != "kupac") {
+					data.splice(i,1);
+				}
 				var newOption = '<option value="' + data[i].id + '">'
 				+ data[i].nazivPartnera + '</option>';
 				$("#poslovniPartner").append(newOption);
@@ -219,6 +225,7 @@ $(document).ready(function() {
 	});
 	
 	$('#inputModal').on('shown.bs.modal', function (e) {
+		
 		$.ajax({
 			url: "http://localhost:8080/api/otpremnice/",
 			type: "GET",
@@ -245,6 +252,9 @@ $(document).ready(function() {
 			success: function(data) {
 				for (i = 0; i < data.length; i++) {
 					console.log(i);
+					if (data[i].vrstaPartnera != "kupac") {
+						data.splice(i,1);
+					}
 					var newOption = '<option value="' + data[i].id + '">'
 					+ data[i].nazivPartnera + '</option>';
 					console.log(data[i]);
@@ -262,6 +272,9 @@ $(document).ready(function() {
 			success: function(data) {
 				for (i = 0; i < data.length; i++) {
 					console.log(i);
+					if (data[i].zakljucena) {
+						data.splice(i,1);
+					}
 					var newOption = '<option value="' + data[i].id + '">'
 					+ data[i].godina + '</option>';
 					console.log(data[i]);

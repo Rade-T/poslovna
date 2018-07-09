@@ -103,9 +103,6 @@ $(document).ready(function() {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
-						+ "<td class=\"id\">"
-						+ data[i].id
-						+ "</td>"
 						+ "<td class=\"kolicina\">"
 						+ data[i].kolicina
 						+ "</td>"
@@ -141,25 +138,103 @@ $(document).ready(function() {
 						$("#dataTable").append(newRow)
 						console.log(data);
 					}
-				});
+		},
+    	error: function(err) {
+    		console.log(err);
+    	}
+	});
 	
+	$.ajax({
+		url : "http://localhost:8080/api/izlazne-fakture/",
+		type: "GET",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
+    	success: function(data) {
+    		console.log(data);
+			for (i = 0; i < data.length; i++) {
+				var newOption = '<option value="' + data[i].brojFakture + '">' + data[i].brojFakture + '</option>';
+				console.log(newOption);
+				$("#izlaznaFaktura").append(newOption);
+			}
+    	}
+	});
+	
+	$.ajax({
+		url : "http://localhost:8080/api/robe-usluge/",
+		type: "GET",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
+    	success: function(data) {
+			for (i = 0; i < data.length; i++) {
+				var newOption = '<option value="' + data[i].Id + '">'
+				+ data[i].naziv + '</option>';
+				$("#robaUsluga").append(newOption);
+			}
+    	}
+	});
+	
+	$('#inputModal').on('shown.bs.modal', function (e) {
+		$("#add").prop("disabled", true);
+		
+		$.ajax({
+			url: "http://localhost:8080/api/izlazne-fakture/",
+			type: "GET",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
+			success: function(data) {
+				for (i = 0; i < data.length; i++) {
+					console.log(i);
+					var newOption = '<option value="' + data[i].brojFakture + '">' + data[i].brojFakture + '</option>';
+					console.log(data[i]);
+					$(e.currentTarget).find('select[name="izlaznaFakturaSelect"]').append(newOption);
+				}
+			}
+		});
+	
+
+		$.ajax({
+			url: "http://localhost:8080/api/robe-usluge/",
+			type: "GET",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
+			success: function(data) {
+				for (i = 0; i < data.length; i++) {
+					console.log(i);
+					var newOption = '<option value="' + data[i].Id + '">'
+					+ data[i].naziv + '</option>';
+					console.log(data[i]);
+					$(e.currentTarget).find('select[name="robaUslugaSelect"]').append(newOption);
+				}
+			}
+		});
+	});
+	
+	$("#inputForm [name='kolicina']").on("keyup", function(event) {
+		var vrednost = $("#inputForm [name='kolicina']").val();
+		if (vrednost > 1) {
+			$("#add").prop("disabled", false);
+		}
+	});
 	
 	$("#add").click(function(){
 		// pripremamo JSON koji cemo poslati
 			console.log("start");
 			formData = JSON.stringify({
-	            id : $("#inputForm [name='id']").val(),
-	            kolicina :$("#inputForm [name='kolicina']").is(":checked"),
-	            cenaPoJediniciMere :$("#inputForm [name='cenaPoJediniciMere']").is(":checked"),
-	            rabat :$("#inputForm [name='rabat']").is(":checked"),
-	            osnovica :$("#inputForm [name='osnovica']").is(":checked"),
-	            pdvIznos :$("#inputForm [name='pdvIznos']").is(":checked"),
-	            ukupanIznos :$("#inputForm [name='ukupanIznos']").is(":checked"),
-	            pdv :$("#inputForm [name='pdv']").is(":checked"),
-	            pdvIznos :$("#inputForm [name='pdvIznos']").is(":checked"),
-	            izlaznaFaktura :$("#inputForm [name='izlaznaFaktura']").is(":checked")
-	            robaUsluga :$("#inputForm [name='robaUsluga']").is(":checked")
-	            kolicina :$("#inputForm [name='kolicina']").is(":checked")
+	            kolicina :$("#inputForm [name='kolicina']").val(),
+	            cenaPoJediniciMere :$("#inputForm [name='cena']").val(),
+	            rabat :$("#inputForm [name='rabat']").val(),
+	            osnovica :$("#inputForm [name='osnovica']").val(),
+	            PdvIznos :$("#inputForm [name='pdviznos']").val(),
+	            ukupanIznos :$("#inputForm [name='ukupanIznos']").val(),
+	            pdv :$("#inputForm [name='PDV']").val(),
+	            pdvIznos :$("#inputForm [name='pdvIznos']").val(),
+	            izlaznaFaktura :$("#inputForm [name='izlaznaFakturaSelect']").val(),
+	            robaUsluga :$("#inputForm [name='robaUslugaSelect']").val(),
+	            kolicina :$("#inputForm [name='kolicina']").val(),
 	            
 	        });
 			console.log(formData);
@@ -175,9 +250,6 @@ $(document).ready(function() {
 				},
 				success: function(data) {
 					var newRow = "<tr>"
-					+ "<td class=\"id\">"
-					+ data.id
-					+ "</td>"
 					+ "<td class=\"kolicna\">"
 					+ data.kolicina
 					+ "</td>"
@@ -221,7 +293,6 @@ $(document).ready(function() {
 		event.preventDefault();
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
-			id : $("#editForm [name='porezId']").val(),
             kolicina : $("#editForm [name='kolicina']").val(),
             cenaPoJediniciMere :$("#editForm [name='cenaPoJediniciMere']").is(":checked"),
             rabat :$("#editForm [name='rabat']").is(":checked"),
