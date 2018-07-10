@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import pi.dto.NarudzbenicaDTO;
 import pi.model.Narudzbenica;
 import pi.repository.NarudzbenicaRepository;
+import pi.repository.PoslovnaGodinaRepository;
+import pi.repository.PoslovniPartnerRepository;
 
 @RestController
 @RequestMapping(path="/api/narudzbenice")
@@ -25,6 +27,12 @@ public class NarudzbenicaController {
 	
 	@Autowired
 	private NarudzbenicaRepository narudzbenicaRepository;
+	
+	@Autowired
+	private PoslovnaGodinaRepository poslovnaGodinaRepo;
+	
+	@Autowired
+	private PoslovniPartnerRepository posloviPartnerRepo;
 	
 	@GetMapping
 	public @ResponseBody List<NarudzbenicaDTO> readAll(){
@@ -40,6 +48,8 @@ public class NarudzbenicaController {
 	public @ResponseBody Narudzbenica create (@RequestBody NarudzbenicaDTO dto) {
 		Narudzbenica n = new Narudzbenica();
 		n.setKolicina(dto.getKolicina());
+		n.setPoslovnaGodina(poslovnaGodinaRepo.findById(dto.getPoslovnaGodina()).get());
+		n.setPoslovniPartner(posloviPartnerRepo.findById(dto.getPoslovniPartner()).get());
 		return narudzbenicaRepository.save(n);
 	}
 	

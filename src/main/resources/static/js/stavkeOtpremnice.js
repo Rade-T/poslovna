@@ -19,15 +19,15 @@ function sync(item) {
 	id = item.find(".id").html();
 	cenaPoJediniciMere = item.find(".cenaPoJediniciMere").html();
 	ukupnaCena = item.find(".ukupnaCena").html();
-	otpremnica = item.find(".otpremnica").html();
+	otpremnica = item.find(".optremnica").html();
 	robaUsluga = item.find(".robaUsluga").html();
 	
 	$("#stavkeOtpremniceId").val(id);
+	$("#kolicina").val(kolicina);
 	$("#cenaPoJediniciMere").val(cenaPoJediniciMere);
-	$("#jedinicaMere").val(jedinicaMere);
 	$("#ukupnaCena").val(ukupnaCena);
-	$("#otpremnica").val(otpremnica);
 	$("#robaUsluga").val(robaUsluga);
+	$("#editForm #otpremnica").val(otpremnica);
 	
 }
 
@@ -43,6 +43,9 @@ $(document).on("click", ".remove", function(event){
 	tr_parent = $(this).closest("tr")
 	$.ajax({
     	url: url,
+    	beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
     	type: "DELETE",
     	success: function(){
     		//ukloni i na strani 
@@ -50,8 +53,13 @@ $(document).on("click", ".remove", function(event){
         }
 	});
 });
-/*
+
 $(document).ready(function() {
+	token = localStorage.getItem('token');
+
+    if (!token) {
+        window.location.replace("/login.html");
+    }
 	$("#porezPickup").click(function() {
 		id = $(".highlighted").find(".id").html();
 		$("select").val(id);
@@ -76,19 +84,32 @@ $(document).ready(function() {
 
 	console.log("Krece ajax");
 	$.ajax({
-		url : "http://localhost:8080/Porez/"})
+		type: "GET",
+		url : "http://localhost:8080/api/stavke-otpremnice/",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	}})
 		.then(
 				function(data) {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
-						+ "<td class=\"nazivPoreza\">"
-						+ data[i].nazivPoreza
+						+ "<td class=\"kolicina\">"
+						+ data[i].kolicina
 						+ "</td>"
-						+ "<td class=\"vazeci\">"
-						+ data[i].vazeci
+						+ "<td class=\"cenaPoJediniciMere\">"
+						+ data[i].cenaPoJediniciMere
 						+ "</td>"
-						+ "<td><a class=\"remove\" href='/Porez/" + data[i].id + "'>"
+						+ "<td class=\"ukupnaCena\">"
+						+ data[i].ukupnaCena
+						+ "</td>"
+						+ "<td class=\"optremnica\">"
+						+ data[i].optremnica
+						+ "</td>"
+						+ "<td class=\"robaUsluga\">"
+						+ data[i].robaUsluga
+						+ "</td>"
+						+ "<td><a class=\"remove\" href='/api/stavke-otpremnice/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
 						+ data[i].id + "</td>"
@@ -96,7 +117,71 @@ $(document).ready(function() {
 						console.log(data);
 					}
 				});
-	*/
+	$.ajax({
+		type: "GET",
+		url : "http://localhost:8080/api/otpremnice",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},})
+		.then(
+				function(data) {
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].brojOtpremnice + '">'
+						+ data[i].brojOtpremnice + '</option>';
+						$("#otpremnica").append(newOption);
+					}
+				});
+	
+	$.ajax({
+		type: "GET",
+		url : "http://localhost:8080/api/robe-usluge",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},})
+		.then(
+				function(data) {
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].id + '">'
+						+ data[i].naziv + '</option>';
+						$("#robaUsluga").append(newOption);
+					}
+	});
+	
+$('#inputModal').on('shown.bs.modal', function (e) {
+	$.ajax({
+		type: "GET",
+		url : "http://localhost:8080/api/otpremnice",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},})
+		.then(
+				function(data) {
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].brojOtpremnice + '">'
+						+ data[i].brojOtpremnice + '</option>';
+						$("#inputModal #otpremnica").append(newOption);
+					}
+				});
+	
+	$.ajax({
+		type: "GET",
+		url : "http://localhost:8080/api/robe-usluge",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},})
+		.then(
+				function(data) {
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].id + '">'
+						+ data[i].naziv + '</option>';
+						$("#inputModal #robaUsluga").append(newOption);
+					}
+	});
+	});
 	
 	$("#add").click(function(){
 		// pripremamo JSON koji cemo poslati
@@ -105,14 +190,17 @@ $(document).ready(function() {
 				kolicina : $("#inputForm [name='kolicina']").val(),
 				cenaPoJediniciMere : $("#inputForm [name='cenaPoJediniciMere']").val(),
 				ukupnaCena : $("#inputForm [name='ukupnaCena']").val(),
-				otpremnica : $("#inputForm [name='otpremnica']").val(),
+				optremnica : $("#inputForm [name='otpremnica']").val(),
 				robaUsluga : $("#inputForm [name='robaUsluga']").val(),
 
 	        });
 			console.log(formData);
 			$.ajax({
-				url: "http://localhost:8080/api/stavke-otpremnica",
+				url: "http://localhost:8080/api/stavke-otpremnice/",
 				type: "POST",
+				beforeSend: function (request) {
+		            request.setRequestHeader("X-Auth-Token", token);
+		    	},
 				data: formData,
 				// saljemo json i ocekujemo json nazad
 				contentType: "application/json",
@@ -142,6 +230,7 @@ $(document).ready(function() {
 					$("#dataTable").append(newRow)
 				  }
 				});
+			location.reload();
 			$('#inputModal').modal('toggle');
 			console.log("end");
 	 });
@@ -153,14 +242,17 @@ $(document).ready(function() {
 			kolicina : $("#editForm [name='kolicina']").val(),
 			cenaPoJediniciMere : $("#editForm [name='cenaPoJediniciMere']").val(),
 			ukupnaCena : $("#editForm [name='ukupnaCena']").val(),
-			otpremnica : $("#editForm [name='otpremnica']").val(),
+			optremnica : $("#editForm [name='otpremnica']").val(),
 			robaUsluga : $("#editForm [name='robaUsluga']").val(),
           
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/api/stavke-otpremnica/" + $("#editForm [name='stavkeOtpremniceId']").val(),
+			url: "http://localhost:8080/api/stavke-otpremnice/" + $("#editForm [name='stavkeOtpremniceId']").val(),
 			type: "PUT",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},
 			data: formData,
 			// saljemo json i ocekujemo json nazad
 			contentType: "application/json",

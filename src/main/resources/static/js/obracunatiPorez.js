@@ -21,7 +21,7 @@ function sync(item) {
 	iznos = item.find(".iznos").html()
 	porez = item.find(".porez").html()
 	izlaznaFaktura = item.find(".izlaznaFaktura").html()
-	$("#id").val(id);
+	$("#obracunatiPorezId").val(id);
 	$("#stopa").val(stopa);
 	$("#iznos").val(iznos);
 	$("#porez").val(porez);
@@ -100,9 +100,6 @@ $(document).ready(function() {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
-						+ "<td class=\"id\">"
-						+ data[i].id
-						+ "</td>"
 						+ "<td class=\"stopa\">"
 						+ data[i].stopa
 						+ "</td>"
@@ -128,7 +125,7 @@ $(document).ready(function() {
 	});
 	
 	$.ajax({
-		url : "http://localhost:8080/api/preduzeca/",
+		url : "http://localhost:8080/api/porez",
 		beforeSend: function (request) {
             request.setRequestHeader("X-Auth-Token", token);
 		}})
@@ -136,36 +133,63 @@ $(document).ready(function() {
 				function(data) {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
-						var newOption = '<option value="' + data[i].PIB + '">'
-						+ data[i].naziv + '</option>';
-						$("#preduzece").append(newOption);
+						var newOption = '<option value="' + data[i].id + '">'
+						+ data[i].nazivPoreza + '</option>';
+						$("#porez").append(newOption);
+					}
+				});
+	
+	$.ajax({
+		url : "http://localhost:8080/api/izlazne-fakture",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+		}})
+		.then(
+				function(data) {
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].brojFakture + '">'
+						+ data[i].brojFakture + '</option>';
+						$("#izlaznaFaktura").append(newOption);
 					}
 				});
 	
 	$('#inputModal').on('shown.bs.modal', function (e) {
 		$.ajax({
-			url: "http://localhost:8080/api/preduzeca",
+			url : "http://localhost:8080/api/porez",
 			beforeSend: function (request) {
 	            request.setRequestHeader("X-Auth-Token", token);
 			}})
 			.then(
-				function(data) {
-					console.log("Ucitavanje preduzeca");
-					console.log(data);
-					for (i = 0; i < data.length; i++) {
-						console.log(i);
-						var newOption = '<option value="' + data[i].PIB + '">'
-						+ data[i].naziv + '</option>';
-						console.log(data[i]);
-						$(e.currentTarget).find('select[name="preduzeceSelect"]').append(newOption);
-					}
-			});
+					function(data) {
+						console.log("Uspeo")
+						for (i = 0; i < data.length; i++) {
+							var newOption = '<option value="' + data[i].id + '">'
+							+ data[i].nazivPoreza + '</option>';
+							$("#inputModal #porez").append(newOption);
+						}
+					});
+		
+		$.ajax({
+			url : "http://localhost:8080/api/izlazne-fakture",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+			}})
+			.then(
+					function(data) {
+						console.log("Uspeo")
+						for (i = 0; i < data.length; i++) {
+							var newOption = '<option value="' + data[i].brojFakture + '">'
+							+ data[i].brojFakture + '</option>';
+							$("#inputModal #izlaznaFaktura").append(newOption);
+						}
+					});
+		
 	});	
 	$("#add").click(function(){
 		// pripremamo JSON koji cemo poslati
 			console.log("start");
 			formData = JSON.stringify({
-	            id : $("#inputForm [name='id']").val(),
 	            stopa : $("#inputForm [name='stopa']").val(),
 	            iznos : $("#inputForm [name='iznos']").val(),
 	            porez : $("#inputForm [name='porez']").val(),
@@ -210,6 +234,7 @@ $(document).ready(function() {
 					$("#dataTable").append(newRow)
 				  }
 				});
+			location.reload();
 			$('#inputModal').modal('toggle');
 			console.log("end");
 	 });
@@ -218,7 +243,6 @@ $(document).ready(function() {
 		event.preventDefault();
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
-			id : $("#editForm [name='id']").val(),
 	        stopa : $("#editForm [name='stopa']").val(),
 	        iznos : $("#editForm [name='iznos']").val(),
 	        porez : $("#editForm [name='porez']").val(),
@@ -227,7 +251,7 @@ $(document).ready(function() {
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/api/obracunati-porezi/" + $("#editForm [name='id']").val(),
+			url: "http://localhost:8080/api/obracunati-porezi/" + $("#editForm [name='obracunatiPorezId']").val(),
 			type: "PUT",
 			beforeSend: function (request) {
 	            request.setRequestHeader("X-Auth-Token", token);

@@ -3,6 +3,7 @@ package pi.dto;
 import pi.model.ObracunatiPorez;
 
 public class ObracunatiPorezDTO {
+	public int id;
 	public float stopa;
 	public float iznos;
 	public int porez;
@@ -14,6 +15,7 @@ public class ObracunatiPorezDTO {
 
 	public ObracunatiPorezDTO(ObracunatiPorez dto) {
 		super();
+		this.id = dto.getId();
 		this.stopa = dto.getStopa();
 		this.iznos = dto.getIznos();
 		this.porez = dto.getPorez().getId();
@@ -51,5 +53,14 @@ public class ObracunatiPorezDTO {
 	public void setIzlaznaFaktura(int izlaznaFaktura) {
 		this.izlaznaFaktura = izlaznaFaktura;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 
 }

@@ -152,6 +152,21 @@ $(document).ready(function() {
 						$("#preduzece").append(newOption);
 					}
 				});
+	$.ajax({
+		type: "GET",
+		url : "http://localhost:8080/api/preduzeca/",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},})
+		.then(
+				function(data) {
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].PIB + '">'
+						+ data[i].naziv + '</option>';
+						$("#preduzece").append(newOption);
+					}
+				});
 	
 	$('#inputModal').on('shown.bs.modal', function (e) {
 		

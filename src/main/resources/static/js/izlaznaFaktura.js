@@ -160,7 +160,6 @@ $(document).ready(function() {
 						+ "<td class=\"otpremnica\">"
 						+ data[i].otpremnica
 						+ "</td>"
-						
 						+ "<td><a class=\"remove\" href='/api/izlazne-fakture/" + data[i].brojFakture + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"brojFakture\">"
@@ -316,9 +315,6 @@ $(document).ready(function() {
 				},
 				success: function(data) {
 					var newRow = "<tr>"
-					+ "<td class=\"brojFakture\">"
-					+ data.brojFakture
-					+ "</td>"
 					+ "<td class=\"datumFakture\">"
 					+ data.datumFakture
 					+ "</td>"
@@ -368,6 +364,7 @@ $(document).ready(function() {
 					$("#dataTable").append(newRow)
 				  }
 				});
+			location.reload();
 			$('#inputModal').modal('toggle');
 			console.log("end");
 	 });

@@ -6,8 +6,9 @@ public class NarudzbenicaDTO {
 	public int id;
 	public float kolicina;
 	public int poslovnaGodina;
+	public int poslovniPartner;
 //	public List<Integer> otpremnica;
-//	public List<Integer> stavkeNarudzbenice;
+//	public List<Integer> ;
 
 	public NarudzbenicaDTO(){
 		
@@ -18,6 +19,7 @@ public class NarudzbenicaDTO {
 		this.id = dto.getId();
 		this.kolicina = dto.getKolicina();
 		this.poslovnaGodina = dto.getPoslovnaGodina().getId();
+		this.poslovniPartner = dto.getPoslovniPartner().getId();
 	}
 
 	public int getId() {
@@ -43,5 +45,15 @@ public class NarudzbenicaDTO {
 	public void setPoslovnaGodina(int poslovnaGodina) {
 		this.poslovnaGodina = poslovnaGodina;
 	}
+
+	public int getPoslovniPartner() {
+		return poslovniPartner;
+	}
+
+	public void setPoslovniPartner(int poslovniPartner) {
+		this.poslovniPartner = poslovniPartner;
+	}
+	
+	
 
 }

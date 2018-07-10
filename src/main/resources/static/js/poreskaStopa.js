@@ -20,7 +20,7 @@ function sync(item) {
 	iznosStope = item.find(".iznosStope").html();
 	istorijaPoreza = item.find(".istorijaPoreza").html();
 	porez = item.find(".porez").html();
-	$("#poreskaStopa_id").val(id);
+	$("#poreskaStopaId").val(id);
 	$("#iznosStope").val(iznosStope);
 	$("#istorijaPoreza").val(istorijaPoreza);
 	$("#porez").val(porez);
@@ -39,6 +39,9 @@ $(document).on("click", ".remove", function(event){
 	tr_parent = $(this).closest("tr")
 	$.ajax({
     	url: url,
+    	beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
     	type: "DELETE",
     	success: function(){
     		//ukloni i na strani 
@@ -91,9 +94,6 @@ $(document).ready(function() {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
-						+ "<td class=\"id\">"
-						+ data[i].id
-						+ "</td>"
 						+ "<td class=\"iznosStope\">"
 						+ data[i].iznosStope
 						+ "</td>"
@@ -116,15 +116,80 @@ $(document).ready(function() {
     	}
 	});
 	
+	$.ajax({
+		type: "GET",
+		url : "http://localhost:8080/api/istorije-poreza",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},})
+		.then(
+				function(data) {
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].id + '">'
+						+ data[i].datumPrimene+ '</option>';
+						$("#istorijaPoreza").append(newOption);
+					}
+				});
 	
+	$.ajax({
+		type: "GET",
+		url : "http://localhost:8080/api/porez",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},})
+		.then(
+				function(data) {
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].id + '">'
+						+ data[i].nazivPoreza+ '</option>';
+						$("#porez").append(newOption);
+					}
+				});
+	
+$('#inputModal').on('shown.bs.modal', function (e) {
+	$.ajax({
+		type: "GET",
+		url : "http://localhost:8080/api/istorije-poreza",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},})
+		.then(
+				function(data) {
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].id + '">'
+						+ data[i].datumPrimene+ '</option>';
+						$("#inputModal #istorijaPoreza").append(newOption);
+					}
+				});
+	
+	$.ajax({
+		type: "GET",
+		url : "http://localhost:8080/api/porez",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},})
+		.then(
+				function(data) {
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].id + '">'
+						+ data[i].nazivPoreza+ '</option>';
+						$("#inputModal #porez").append(newOption);
+					}
+				});
+	
+	});
 	$("#add").click(function(){
 		// pripremamo JSON koji cemo poslati
 			console.log("start");
 			formData = JSON.stringify({
-	            id : $("#inputForm [name='id']").val(),
-	            iznosStope :$("#inputForm [name='iznosStope']").is(":checked"),
-	            istorijaPoreza :$("#inputForm [name='istorijaPoreza']").is(":checked"),
-	            porez :$("#inputForm [name='porez']").is(":checked")
+	      
+	            iznosStope :$("#inputForm [name='iznosStope']").val(),
+	            istorijaPoreza :$("#inputForm [name='istorijaPoreza']").val(),
+	            porez :$("#inputForm [name='porez']").val()
 	        });
 			console.log(formData);
 			$.ajax({
@@ -159,6 +224,7 @@ $(document).ready(function() {
 					$("#dataTable").append(newRow)
 				  }
 				});
+			location.reload();
 			$('#inputModal').modal('toggle');
 			console.log("end");
 	 });
@@ -167,14 +233,13 @@ $(document).ready(function() {
 		event.preventDefault();
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
-			id : $("#editForm [name='id']").val(),
             iznosStope : $("#editForm [name='iznosStope']").val(),
-            istorijaPoreza :$("#editForm [name='istorijaPoreza']").is(":checked"),
-            porez :$("#editForm [name='porez']").is(":checked")
+            istorijaPoreza :$("#editForm [name='istorijaPoreza']").val(),
+            porez :$("#editForm [name='porez']").val()
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/api/poreske-stope/" + $("#editForm [name='id']").val(),
+			url: "http://localhost:8080/api/poreske-stope/" + $("#editForm [name='poreskaStopaId']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad

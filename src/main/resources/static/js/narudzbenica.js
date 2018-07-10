@@ -39,6 +39,9 @@ $(document).on("click", ".remove", function(event){
 	tr_parent = $(this).closest("tr")
 	$.ajax({
     	url: url,
+    	beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
     	type: "DELETE",
     	success: function(){
     		//ukloni i na strani 
@@ -91,9 +94,6 @@ $(document).ready(function() {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
-						+ "<td class=\"id\">"
-						+ data[i].id
-						+ "</td>"
 						+ "<td class=\"kolicina\">"
 						+ data[i].kolicina
 						+ "</td>"
@@ -102,7 +102,7 @@ $(document).ready(function() {
 						+ "</td>"
 						+ "<td class=\"poslovniPartner\">"
 						+ data[i].poslovniPartner
-						+ "</td>"
+						+"</td>"
 						+ "<td><a class=\"remove\" href='/api/narudzbenice/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
@@ -114,6 +114,78 @@ $(document).ready(function() {
     		console.log(err);
     	}
 	});
+	//POSTAVLJAMO SVE POSLOVNE PARTNERE U SELECT - editModal
+	$.ajax({
+		type: "GET",
+		url : "/api/poslovni-partneri",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},})
+		.then(
+				function(data) {
+					console.log(data);
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].id + '">'
+						+ data[i].nazivPartnera + '</option>';
+						$("#poslovniPartner").append(newOption);
+					}
+	});
+	//POSTAVLJAMO SVE POSLOVNE GODINE U SELECT - editModal
+	$.ajax({
+		type: "GET",
+		url : "/api/poslovne-godine",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},})
+		.then(
+				function(data) {
+					console.log(data);
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].id + '">'
+						+ data[i].godina + '</option>';
+						$("#poslovnaGodina").append(newOption);
+					}
+	});
+	
+$('#inputModal').on('shown.bs.modal', function (e) {
+
+	//POSTAVLJAMO SVE POSLOVNE PARTNERE U SELECT - inputModal
+	$.ajax({
+		type: "GET",
+		url : "/api/poslovni-partneri",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},})
+		.then(
+				function(data) {
+					console.log(data);
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].id + '">'
+						+ data[i].nazivPartnera + '</option>';
+						$("#poslovniPartnerSelect").append(newOption);
+					}
+	});
+	//POSTAVLJAMO SVE POSLOVNE GODINE U SELECT - inputModal
+	$.ajax({
+		type: "GET",
+		url : "/api/poslovne-godine",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},})
+		.then(
+				function(data) {
+					console.log(data);
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].id + '">'
+						+ data[i].godina + '</option>';
+						$("#poslovnaGodinaSelect").append(newOption);
+					}
+	});
+	});
 	
 	
 	$("#add").click(function(){
@@ -121,9 +193,9 @@ $(document).ready(function() {
 			console.log("start");
 			formData = JSON.stringify({
 	            id : $("#inputForm [name='id']").val(),
-	            kolicina :$("#inputForm [name='kolicina']").is(":checked"),
-	            poslovnaGodina :$("#inputForm [name='poslovnaGodina']").is(":checked"),
-	            poslovniPartner :$("#inputForm [name='poslovniPartner']").is(":checked")
+	            kolicina :$("#inputForm [name='kolicina']").val(),
+	            poslovnaGodina :$("#inputForm [name='poslovnaGodinaSelect']").val(),
+	            poslovniPartner :$("#inputForm [name='poslovniPartnerSelect']").val()
 	        });
 			console.log(formData);
 			$.ajax({
@@ -158,6 +230,7 @@ $(document).ready(function() {
 					$("#dataTable").append(newRow)
 				  }
 				});
+			location.reload();
 			$('#inputModal').modal('toggle');
 			console.log("end");
 	 });
@@ -166,14 +239,13 @@ $(document).ready(function() {
 		event.preventDefault();
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
-			id : $("#editForm [name='id']").val(),
             kolicina : $("#editForm [name='kolicina']").val(),
-            poslovnaGodina :$("#editForm [name='poslovnaGodina']").is(":checked"),
-            poslovniPartner :$("#editForm [name='poslovniPartner']").is(":checked")
+            poslovnaGodina :$("#editForm [name='poslovnaGodina']").val(),
+            poslovniPartner :$("#editForm [name='poslovniPartner']").val()
         });
 		console.log(formData);
 		$.ajax({
-			url: "http://localhost:8080/api/narudzbenice/" + $("#editForm [name='id']").val(),
+			url: "http://localhost:8080/api/narudzbenice/" + $("#editForm [name='narudzbenicaId']").val(),
 			type: "PUT",
 			data: formData,
 			// saljemo json i ocekujemo json nazad

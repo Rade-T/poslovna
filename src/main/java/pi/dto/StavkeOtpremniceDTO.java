@@ -3,6 +3,7 @@ package pi.dto;
 import pi.model.StavkeOtpremnice;
 
 public class StavkeOtpremniceDTO {
+	private int id;
 	public float kolicina;
 	public float cenaPoJediniciMere;
 	public float ukupnaCena;
@@ -15,6 +16,7 @@ public class StavkeOtpremniceDTO {
 
 	public StavkeOtpremniceDTO(StavkeOtpremnice dto) {
 		super();
+		this.id = dto.getId();
 		this.kolicina = dto.getKolicina();
 		this.cenaPoJediniciMere = dto.getCenaPoJediniciMere();
 		this.ukupnaCena = dto.getUkupnaCena();
@@ -61,5 +63,15 @@ public class StavkeOtpremniceDTO {
 	public void setRobaUsluga(int robaUsluga) {
 		this.robaUsluga = robaUsluga;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 
 }

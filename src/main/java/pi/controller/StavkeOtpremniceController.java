@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import pi.dto.StavkeOtpremniceDTO;
 import pi.model.StavkeOtpremnice;
 import pi.repository.OtpremnicaRepository;
 import pi.repository.RobaUslugaRepository;
 import pi.repository.StavkeOtpremniceRepository;
-
+@RestController
 @RequestMapping(path = "/api/stavke-otpremnice")
 public class StavkeOtpremniceController {
 
@@ -48,7 +49,8 @@ public class StavkeOtpremniceController {
 
 		o.setKolicina(dto.getKolicina());
 		o.setCenaPoJediniciMere(dto.getCenaPoJediniciMere());
-		o.setOtpremnica( ORepo.findById(dto.getOptremnica()).get() );
+		o.setUkupnaCena(dto.getUkupnaCena());
+		o.setOtpremnica( ORepo.findById(dto.getOptremnica()).get());
 		o.setRobaUsluga( RURepo.findById(dto.getRobaUsluga()).get() );
 
 		return stavkeotpremniceRepository.save(o);
@@ -69,6 +71,7 @@ public class StavkeOtpremniceController {
 
 		o.setKolicina(dto.getKolicina());
 		o.setCenaPoJediniciMere(dto.getCenaPoJediniciMere());
+		o.setUkupnaCena(dto.getUkupnaCena());
 		o.setOtpremnica( ORepo.findById(dto.getOptremnica()).get() );
 		o.setRobaUsluga( RURepo.findById(dto.getRobaUsluga()).get() );
 

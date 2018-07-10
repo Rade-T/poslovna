@@ -109,6 +109,7 @@ $(document).ready(function() {
     	error: function(err) {
     		console.log(err);
     	}
+		
 	});
 	
 	$.ajax({
@@ -181,6 +182,7 @@ $(document).ready(function() {
 					$("#dataTable").append(newRow)
 				  }
 				});
+			location.reload();
 			$('#inputModal').modal('toggle');
 			console.log("end");
 	 });

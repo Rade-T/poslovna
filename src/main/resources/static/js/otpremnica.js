@@ -293,6 +293,7 @@ $(document).ready(function() {
 					$("#dataTable").append(newRow)
 				  }
 				});
+			location.reload();
 			$('#inputModal').modal('toggle');
 			console.log("end");
 	 });
@@ -301,7 +302,7 @@ $(document).ready(function() {
 		event.preventDefault();
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
-            datumPrimene : $("#editForm [name='datumOtpremnice']").val(),
+			datumOtpremnice : $("#editForm [name='datumOtpremnice']").val(),
             brojOtpremnice : $("#editForm [name='brojOtpremnice']").val(),
 	        osnovica : $("#editForm [name='osnovica']").val(),
 	        ukupanPDV : $("#editForm [name='ukupanPDV']").val(),
