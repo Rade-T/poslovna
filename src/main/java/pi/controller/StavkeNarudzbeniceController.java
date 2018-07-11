@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import pi.dto.StavkaNarudzebniceDTO;
 import pi.model.StavkaNarudzbenice;
 import pi.repository.NarudzbenicaRepository;
 import pi.repository.RobaUslugaRepository;
 import pi.repository.StavkaNarudzbeniceRepository;
-
+@RestController
 @RequestMapping(path = "/api/stavke-narudzbenica")
 public class StavkeNarudzbeniceController {
 

@@ -43,6 +43,9 @@ $(document).on("click", ".remove", function(event){
 	$.ajax({
     	url: url,
     	type: "DELETE",
+    	beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
     	success: function(){
     		//ukloni i na strani 
 			tr_parent.remove()
@@ -94,9 +97,6 @@ $(document).ready(function() {
 					console.log("Uspeo")
 					for (i = 0; i < data.length; i++) {
 						var newRow = "<tr>"
-						+ "<td class=\"id\">"
-						+ data[i].id
-						+ "</td>"
 						+ "<td class=\"kolicina\">"
 						+ data[i].kolicina
 						+ "</td>"
@@ -125,17 +125,82 @@ $(document).ready(function() {
     	}
 	});
 	
+	$.ajax({
+		type: "GET",
+		url : "http://localhost:8080/api/robe-usluge",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},})
+		.then(
+				function(data) {
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].id + '">'
+						+ data[i].naziv + '</option>';
+						$("#robaUsluga").append(newOption);
+					}
+	});
+	
+	$.ajax({
+		type: "GET",
+		url : "http://localhost:8080/api/narudzbenice",
+		beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},})
+		.then(
+				function(data) {
+					console.log("Uspeo")
+					for (i = 0; i < data.length; i++) {
+						var newOption = '<option value="' + data[i].id + '">'
+						+ data[i].id + '</option>';
+						$("#narudzbenica").append(newOption);
+					}
+	});
+	
+	$('#inputModal').on('shown.bs.modal', function (e) {
+		$.ajax({
+			type: "GET",
+			url : "http://localhost:8080/api/robe-usluge",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},})
+			.then(
+					function(data) {
+						console.log("Uspeo")
+						for (i = 0; i < data.length; i++) {
+							var newOption = '<option value="' + data[i].id + '">'
+							+ data[i].naziv + '</option>';
+							$("#robaUslugaSelect").append(newOption);
+						}
+		});
+		
+		$.ajax({
+			type: "GET",
+			url : "http://localhost:8080/api/narudzbenice",
+			beforeSend: function (request) {
+	            request.setRequestHeader("X-Auth-Token", token);
+	    	},})
+			.then(
+					function(data) {
+						console.log("Uspeo")
+						for (i = 0; i < data.length; i++) {
+							var newOption = '<option value="' + data[i].id + '">'
+							+ data[i].id + '</option>';
+							$("#narudzbenicaSelect").append(newOption);
+						}
+		});
+	});
 	
 	$("#add").click(function(){
 		// pripremamo JSON koji cemo poslati
 			console.log("start");
 			formData = JSON.stringify({
-	            id : $("#inputForm [name='id']").val(),
-	            kolicina :$("#inputForm [name='kolicina']").is(":checked"),
-	            cenaPoJediniciMere :$("#inputForm [name='cenaPoJediniciMere']").is(":checked"),
-	            ukupnaCena :$("#inputForm [name='ukupnaCena']").is(":checked"),
-	            robaUsluga :$("#inputForm [name='robaUsluga']").is(":checked"),
-	            narudzbenica :$("#inputForm [name='narudzbenica']").is(":checked"),
+	        
+	            kolicina :$("#inputForm [name='kolicina']").val(),
+	            cenaPoJediniciMere :$("#inputForm [name='cenaPoJediniciMere']").val(),
+	            ukupnaCena :$("#inputForm [name='ukupnaCena']").val(),
+	            robaUsluga :$("#inputForm #robaUslugaSelect").val(),
+	            narudzbenica :$("#inputForm #narudzbenicaSelect").val()
 	            
 	        });
 			console.log(formData);
@@ -177,6 +242,7 @@ $(document).ready(function() {
 					$("#dataTable").append(newRow)
 				  }
 				});
+			location.reload();
 			$('#inputModal').modal('toggle');
 			console.log("end");
 	 });
@@ -185,12 +251,11 @@ $(document).ready(function() {
 		event.preventDefault();
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
-			id : $("#editForm [name='porezId']").val(),
             kolicina : $("#editForm [name='kolicina']").val(),
-            cenaPoJediniciMere :$("#editForm [name='cenaPoJediniciMere']").is(":checked"),
-            ukupnaCena :$("#editForm [name='ukupnaCena']").is(":checked"),
-            robaUsluga :$("#editForm [name='robaUsluga']").is(":checked"),
-            narudzbenica :$("#editForm [name='narudzbenica']").is(":checked")
+            cenaPoJediniciMere :$("#editForm [name='cenaPoJediniciMere']").val(),
+            ukupnaCena :$("#editForm [name='ukupnaCena']").val(),
+            robaUsluga :$("#editForm [name='robaUsluga']").val(),
+            narudzbenica :$("#editForm [name='narudzbenica']").val()
         });
 		console.log(formData);
 		$.ajax({

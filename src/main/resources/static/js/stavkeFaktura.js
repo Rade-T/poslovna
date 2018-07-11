@@ -28,13 +28,12 @@ function sync(item) {
 	robaUsluga = item.find(".robaUsluga").html();
 	$("#id").val(id);
 	$("#kolicina").val(kolicina);
-	$("#cenaPoJediniciMere").val(cenaPoJediniciMere);
+	$("#cenaPoJediniMere").val(cenaPoJediniciMere);
 	$("#rabat").val(rabat);
-	$("#robaUsluga").val(robaUsluga);
 	$("#osnovica").val(osnovica);
-	$("#pdvIznos").val(pdvIznos);
+	$("#PDViznos").val(pdvIznos);
 	$("#ukupanIznos").val(ukupanIznos);
-	$("#pdv").val(pdv);
+	$("#PDV").val(pdv);
 	$("#izlaznaFaktura").val(izlaznaFaktura);
 	$("#robaUsluga").val(robaUsluga);
 }
@@ -51,6 +50,9 @@ $(document).on("click", ".remove", function(event){
 	tr_parent = $(this).closest("tr")
 	$.ajax({
     	url: url,
+    	beforeSend: function (request) {
+            request.setRequestHeader("X-Auth-Token", token);
+    	},
     	type: "DELETE",
     	success: function(){
     		//ukloni i na strani 
@@ -130,7 +132,6 @@ $(document).ready(function() {
 						+ "<td class=\"robaUsluga\">"
 						+ data[i].robaUsluga
 						+ "</td>"
-						
 						+ "<td><a class=\"remove\" href='/api/stavke-faktura/" + data[i].id + "'>"
 						+ "<img src='images/remove.gif'/></a></td>"
 						+ "<td style=\"visibility: hidden; max-width: 0px;\" class=\"id\">"
@@ -204,7 +205,7 @@ $(document).ready(function() {
 			success: function(data) {
 				for (i = 0; i < data.length; i++) {
 					console.log(i);
-					var newOption = '<option value="' + data[i].Id + '">'
+					var newOption = '<option value="' + data[i].id + '">'
 					+ data[i].naziv + '</option>';
 					console.log(data[i]);
 					$(e.currentTarget).find('select[name="robaUslugaSelect"]').append(newOption);
@@ -228,10 +229,10 @@ $(document).ready(function() {
 	            cenaPoJediniciMere :$("#inputForm [name='cena']").val(),
 	            rabat :$("#inputForm [name='rabat']").val(),
 	            osnovica :$("#inputForm [name='osnovica']").val(),
-	            PdvIznos :$("#inputForm [name='pdviznos']").val(),
+	            pdvIznos :$("#inputForm [name='iznosPDV']").val(),
 	            ukupanIznos :$("#inputForm [name='ukupanIznos']").val(),
 	            pdv :$("#inputForm [name='PDV']").val(),
-	            pdvIznos :$("#inputForm [name='pdvIznos']").val(),
+	            
 	            izlaznaFaktura :$("#inputForm [name='izlaznaFakturaSelect']").val(),
 	            robaUsluga :$("#inputForm [name='robaUslugaSelect']").val(),
 	            kolicina :$("#inputForm [name='kolicina']").val(),
@@ -285,6 +286,7 @@ $(document).ready(function() {
 					$("#dataTable").append(newRow)
 				  }
 				});
+			location.reload();
 			$('#inputModal').modal('toggle');
 			console.log("end");
 	 });
@@ -294,14 +296,14 @@ $(document).ready(function() {
 		console.log("Kliknuta potvrda");
 		var formData = JSON.stringify({
             kolicina : $("#editForm [name='kolicina']").val(),
-            cenaPoJediniciMere :$("#editForm [name='cenaPoJediniciMere']").is(":checked"),
-            rabat :$("#editForm [name='rabat']").is(":checked"),
-            osnovica :$("#editForm [name='osnovica']").is(":checked"),
-            cenaPoJediniciMere :$("#editForm [name='cenaPoJediniciMere']").is(":checked"),
-            pdvIznos :$("#editForm [name='pdvIznos']").is(":checked"),
-            pdv :$("#editForm [name='pdv']").is(":checked"),
-            izlaznaFaktura :$("#editForm [name='izlaznaFaktura']").is(":checked"),
-            robaUsluga :$("#editForm [name='robaUsluga']").is(":checked")
+            cenaPoJediniciMere :$("#editForm [name='cenaPoJediniciMere']").val(),
+            rabat :$("#editForm [name='rabat']").val(),
+            osnovica :$("#editForm [name='osnovica']").val(),
+            cenaPoJediniciMere :$("#editForm [name='cenaPoJediniciMere']").val(),
+            pdvIznos :$("#editForm [name='pdvIznos']").val(),
+            pdv :$("#editForm [name='pdv']").val(),
+            izlaznaFaktura :$("#editForm [name='izlaznaFaktura']").val(),
+            robaUsluga :$("#editForm [name='robaUsluga']").val(),
         });
 		console.log(formData);
 		$.ajax({

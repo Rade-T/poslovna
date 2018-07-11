@@ -3,6 +3,7 @@ package pi.dto;
 import pi.model.StavkeFakture;
 
 public class StavkeFaktureDTO {
+	public int id;
 	public float kolicina;
 	public float cenaPoJediniciMere;
 	public float rabat;
@@ -19,6 +20,7 @@ public class StavkeFaktureDTO {
 
 	public StavkeFaktureDTO(StavkeFakture dto) {
 		super();
+		this.id = dto.getId();
 		this.kolicina = dto.getKolicina();
 		this.cenaPoJediniciMere = dto.getCenaPoJediniciMere();
 		this.rabat = dto.getRabat();
@@ -102,4 +104,13 @@ public class StavkeFaktureDTO {
 		this.robaUsluga = robaUsluga;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	
 }
